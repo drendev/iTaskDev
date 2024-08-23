@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 
-const ibm = IBM_Plex_Sans({ subsets: ["latin"], weight: "300",  });
+
+const ibm = IBM_Plex_Sans({ subsets: ["latin"], weight: "300" });
 
 export const metadata: Metadata ={
   title: "iTaskDev",
