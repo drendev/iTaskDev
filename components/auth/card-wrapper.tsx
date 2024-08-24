@@ -3,7 +3,6 @@
 import {
     Card,
     CardContent,
-    CardFooter,
     CardHeader
 } from "@/components/ui/card";
 import { Header } from "@/components/auth/header";
