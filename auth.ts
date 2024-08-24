@@ -5,6 +5,10 @@ import { PrismaAdapter} from "@auth/prisma-adapter";
 import { db } from "@/lib/db"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+    pages: {
+        signIn: "/auth/login",
+        error: "/auth/error"
+    },
     callbacks: {
         async session({ token, session }) {
             if (token.sub && session.user) {
