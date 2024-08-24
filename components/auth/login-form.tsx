@@ -14,15 +14,19 @@ import { Loader2 } from "lucide-react"
 export const LoginForm = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [loading1, setLoading1] = useState<boolean>(false);
+    const [disabled, setDisabled] = useState<boolean>(false);
+
     const searchParams = useSearchParams();
     const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email already in use with different provider" : "";
 
     const onClick = (provider: "google" | "github") => {
         if (provider == "github") {
             setLoading(true);
+            setDisabled(true)
         }
         if (provider == "google") {
             setLoading1(true);
+            setDisabled(true)
         }
         signIn(provider, {
             callbackUrl: DEFAULT_LOGIN_REDIRECT
@@ -40,7 +44,7 @@ export const LoginForm = () => {
                 className="w-full text-md font-semibold"
                 size="lg"
                 onClick={() => onClick("github")}
-                disabled={loading}
+                disabled={disabled}
                 >
                     {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FaGithub className="mr-2"/> Sign In with Github </>}
                 </Button>
@@ -52,6 +56,7 @@ export const LoginForm = () => {
                     variant="outline"
                     size="lg"
                     onClick={() => onClick("google")}
+                    disabled={disabled}
                 >
                     {loading1 ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FcGoogle className="mr-2"/> Sign In with Google </>}
 
