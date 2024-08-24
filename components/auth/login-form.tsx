@@ -5,11 +5,12 @@ import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import {DEFAULT_LOGIN_REDIRECT} from "@/route";
+import { DEFAULT_LOGIN_REDIRECT } from "@/route";
 import { useSearchParams } from "next/navigation"
 import { FormError } from "@/components/form-error";
 import { useState } from "react";
 import { Loader2 } from "lucide-react"
+import {Suspense} from "react";
 
 export const LoginForm = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -39,7 +40,9 @@ export const LoginForm = () => {
         showSocial
         >
             <div className="text-center items-center w-full gap-x-2">
+                <Suspense>
                 <FormError message={urlError } />
+                </Suspense>
                 <Button
                 className="w-full text-md font-semibold"
                 size="lg"
