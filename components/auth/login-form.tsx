@@ -35,36 +35,36 @@ export const LoginForm = () => {
     }
 
     return(
-        <CardWrapper
-        headerLabel="Login to iTaskDev"
-        showSocial
-        >
-            <div className="text-center items-center w-full gap-x-2">
-                <Suspense>
+        <Suspense>
+            <CardWrapper
+            headerLabel="Login to iTaskDev"
+            showSocial
+            >
+                <div className="text-center items-center w-full gap-x-2">
                     <FormError message={urlError } />
-                </Suspense>
-                <Button
-                className="w-full text-md font-semibold"
-                size="lg"
-                onClick={() => onClick("github")}
-                disabled={disabled}
-                >
-                    {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FaGithub className="mr-2"/> Sign In with Github </>}
-                </Button>
-                <p className="text-sm text-muted-foreground">
-                    or
-                </p>
-                <Button
+                    <Button
                     className="w-full text-md font-semibold"
-                    variant="outline"
                     size="lg"
-                    onClick={() => onClick("google")}
+                    onClick={() => onClick("github")}
                     disabled={disabled}
-                >
-                    {loading1 ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FcGoogle className="mr-2"/> Sign In with Google </>}
+                    >
+                        {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FaGithub className="mr-2"/> Sign In with Github </>}
+                    </Button>
+                    <p className="text-sm text-muted-foreground">
+                        or
+                    </p>
+                    <Button
+                        className="w-full text-md font-semibold"
+                        variant="outline"
+                        size="lg"
+                        onClick={() => onClick("google")}
+                        disabled={disabled}
+                    >
+                        {loading1 ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FcGoogle className="mr-2"/> Sign In with Google </>}
 
-                </Button>
-            </div>
-        </CardWrapper>
+                    </Button>
+                </div>
+            </CardWrapper>
+        </Suspense>
     )
 }
