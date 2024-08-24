@@ -41,7 +41,7 @@ export const LoginForm = () => {
         >
             <div className="text-center items-center w-full gap-x-2">
                 <Suspense>
-                <FormError message={urlError } />
+                    <FormError message={urlError } />
                 </Suspense>
                 <Button
                 className="w-full text-md font-semibold"
