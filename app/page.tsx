@@ -1,4 +1,6 @@
 import Link from "next/link";
+import {Button} from "@/components/ui/button";
+import {LoginButton} from "@/components/auth/login-button";
 
 export default function Home() {
   return (
@@ -8,13 +10,15 @@ export default function Home() {
             <h1 className="text-2xl font-semibold text-slate-800">
                 iTaskDev
             </h1>
-            <p className="text-lg">
+            <p className="text-md">
                Under Development
             </p>
             <div>
-                <Link href={"/auth/login"} className="text-slate-900 hover:text-slate-600 font-bold">
-                    Sign In
-                </Link>
+                <LoginButton>
+                    <Button variant="secondary" size="lg">
+                        Sign in
+                    </Button>
+                </LoginButton>
             </div>
         </div>
       </main>
