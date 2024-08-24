@@ -6,6 +6,7 @@ export const publicRoutes = [
 // An array of routes for authentication
 export const authRoutes = [
     "/auth/login",
+    "/auth/error",
 ];
 
 // the prefix for authentication routes

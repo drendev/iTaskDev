@@ -11,11 +11,9 @@ interface CardWrapperProps {
     children: React.ReactNode;
     headerLabel: string;
     showSocial?: boolean;
-    backButtonHref?: string;
-    backButtonLabel?: string;
 }
 
-export const CardWrapper = ({children, headerLabel, showSocial }: CardWrapperProps) => {
+export const CardWrapper = ({children, headerLabel}: CardWrapperProps) => {
     return(
         <Card className="w-[400px] shadow-md">
             <CardHeader>
@@ -24,6 +22,7 @@ export const CardWrapper = ({children, headerLabel, showSocial }: CardWrapperPro
             <CardContent>
                 {children}
             </CardContent>
+
         </Card>
     )
 }
