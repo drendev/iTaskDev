@@ -6,19 +6,19 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/route";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation"
 import { FormError } from "@/components/form-error";
 import { useState } from "react";
 import { Loader2 } from "lucide-react"
-
+import {Suspense} from "react";
 
 export const LoginForm = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [loading1, setLoading1] = useState<boolean>(false);
     const [disabled, setDisabled] = useState<boolean>(false);
 
-    const searchParams = usePathname()
-    const urlError = searchParams === "OAuthAccountNotLinked" ? "Email already in use with different provider" : "";
+    const searchParams = useSearchParams();
+    const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email already in use with different provider" : "";
 
     const onClick = (provider: "google" | "github") => {
         if (provider == "github") {
@@ -40,7 +40,9 @@ export const LoginForm = () => {
         showSocial
         >
             <div className="text-center items-center w-full gap-x-2">
-                <FormError message={urlError } />
+                <Suspense>
+                    <FormError message={urlError } />
+                </Suspense>
                 <Button
                 className="w-full text-md font-semibold"
                 size="lg"
