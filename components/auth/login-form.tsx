@@ -14,7 +14,7 @@ export const LoginForm = () => {
                 className="w-full text-md font-semibold"
                 size="lg"
                 >
-                    <FaGithub className="mr-2"/> Sign in with Github
+                    <FaGithub className="mr-2"/> Sign In with Github
                 </Button>
                 <p className="text-sm text-muted-foreground">
                     or
@@ -24,7 +24,7 @@ export const LoginForm = () => {
                     variant="outline"
                     size="lg"
                 >
-                    <FcGoogle className="mr-2"/> Sign in with Google
+                    <FcGoogle className="mr-2"/> Sign In with Google
                 </Button>
             </div>
         </CardWrapper>
