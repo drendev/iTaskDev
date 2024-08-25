@@ -10,7 +10,6 @@ import { useSearchParams } from "next/navigation"
 import { FormError } from "@/components/form-error";
 import { useState } from "react";
 import { Loader2 } from "lucide-react"
-import {Suspense} from "react";
 
 export const LoginForm = () => {
     const [loading, setLoading] = useState<boolean>(false);
