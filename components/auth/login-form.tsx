@@ -36,7 +36,7 @@ export const LoginForm = () => {
 
     return(
         <CardWrapper
-        headerLabel="Login to iTaskDev"
+        headerLabel="Connect & Collaborate"
         showSocial
         >
             <div className="text-center items-center w-full gap-x-2">
@@ -49,7 +49,7 @@ export const LoginForm = () => {
                 >
                     {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FaGithub className="mr-2"/> Sign In with Github </>}
                 </Button>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground my-2">
                     or
                 </p>
                 <Button
@@ -60,7 +60,6 @@ export const LoginForm = () => {
                     disabled={disabled}
                 >
                     {loading1 ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FcGoogle className="mr-2"/> Sign In with Google </>}
-
                 </Button>
             </div>
         </CardWrapper>
