@@ -17,7 +17,8 @@ export const LoginForm = () => {
     const [disabled, setDisabled] = useState<boolean>(false);
 
     const searchParams = useSearchParams();
-    const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email already in use with different provider" : "";
+    const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email already in use with different provider" :
+        searchParams.get("error") === "OAuthCallbackError" ? "Authentication Cancelled" : "";
 
     const onClick = (provider: "google" | "github") => {
         if (provider == "github") {
