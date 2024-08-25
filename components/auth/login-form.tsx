@@ -35,36 +35,34 @@ export const LoginForm = () => {
     }
 
     return(
-        <Suspense>
-            <CardWrapper
-            headerLabel="Login to iTaskDev"
-            showSocial
-            >
-                <div className="text-center items-center w-full gap-x-2">
-                    <FormError message={urlError } />
-                    <Button
+        <CardWrapper
+        headerLabel="Login to iTaskDev"
+        showSocial
+        >
+            <div className="text-center items-center w-full gap-x-2">
+                <FormError message={urlError } />
+                <Button
+                className="w-full text-md font-semibold"
+                size="lg"
+                onClick={() => onClick("github")}
+                disabled={disabled}
+                >
+                    {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FaGithub className="mr-2"/> Sign In with Github </>}
+                </Button>
+                <p className="text-sm text-muted-foreground">
+                    or
+                </p>
+                <Button
                     className="w-full text-md font-semibold"
+                    variant="outline"
                     size="lg"
-                    onClick={() => onClick("github")}
+                    onClick={() => onClick("google")}
                     disabled={disabled}
-                    >
-                        {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FaGithub className="mr-2"/> Sign In with Github </>}
-                    </Button>
-                    <p className="text-sm text-muted-foreground">
-                        or
-                    </p>
-                    <Button
-                        className="w-full text-md font-semibold"
-                        variant="outline"
-                        size="lg"
-                        onClick={() => onClick("google")}
-                        disabled={disabled}
-                    >
-                        {loading1 ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FcGoogle className="mr-2"/> Sign In with Google </>}
+                >
+                    {loading1 ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> :  <> <FcGoogle className="mr-2"/> Sign In with Google </>}
 
-                    </Button>
-                </div>
-            </CardWrapper>
-        </Suspense>
+                </Button>
+            </div>
+        </CardWrapper>
     )
 }
