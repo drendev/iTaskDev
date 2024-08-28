@@ -13,7 +13,6 @@ const SettingsPage = () => {
 
     return (
         <div>
-            {JSON.stringify(session)}
             <button type="submit" onClick={onClick}>
                 Sign Out
             </button>
