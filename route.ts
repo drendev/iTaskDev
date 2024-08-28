@@ -7,10 +7,11 @@ export const publicRoutes = [
 export const authRoutes = [
     "/auth/login",
     "/auth/error",
+    "/",
 ];
 
 // the prefix for authentication routes
 export const apiAuthPrefix = "/api/auth";
 
 // Redirect page after login
-export const DEFAULT_LOGIN_REDIRECT = "/settings";
+export const DEFAULT_LOGIN_REDIRECT = "/hello";
