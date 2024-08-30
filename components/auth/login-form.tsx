@@ -48,9 +48,6 @@ export const LoginForm = () => {
 
   return (
     <>
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" />
-    </head>
       <div className="flex flex-row">
         <div className="basis-1/2">
           <div className="flex justify-center mt-14">
