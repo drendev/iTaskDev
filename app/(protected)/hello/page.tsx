@@ -2,8 +2,6 @@
 
 import { logout } from "@/actions/logout";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import {Navbar} from "@/app/(protected)/_components/navbar";
-import { Hero } from "@/components/landing/hero";
 
 const SettingsPage = () => {
   const session = useCurrentUser();
