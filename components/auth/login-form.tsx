@@ -13,6 +13,7 @@ import { Loader2 } from "lucide-react";
 import test1 from "@/assets/test1.png";
 import test2 from "@/assets/test2.png";
 import test3 from "@/assets/test3.png";
+import Logo from "@/assets/logoMain.png";
 import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -52,50 +53,54 @@ export const LoginForm = () => {
 
   return (
     <>
-      <div className="flex flex-row">
-        <div className="basis-1/2">
-          <div className="flex justify-center mt-14">
-            <CardWrapper headerLabel="Connect & Collaborate" showSocial>
-              <div className="text-center items-center w-full gap-x-2">
-                <FormError message={urlError} />
-                <Button
-                  className="w-full text-md font-semibold"
-                  size="lg"
-                  onClick={() => onClick("github")}
-                  disabled={disabled}
-                >
-                  {loading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      {" "}
-                      <FaGithub className="mr-2" /> Sign In with Github{" "}
-                    </>
-                  )}
-                </Button>
-                <p className="text-sm text-muted-foreground my-2">or</p>
-                <Button
-                  className="w-full text-md font-semibold"
-                  variant="outline"
-                  size="lg"
-                  onClick={() => onClick("google")}
-                  disabled={disabled}
-                >
-                  {loading1 ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      {" "}
-                      <FcGoogle className="mr-2" /> Sign In with Google{" "}
-                    </>
-                  )}
-                </Button>
+      <section className="bg-gray-50 min-h-screen flex items-center justify-center shadow-xl shadow-black">
+        <div className="basis-1/2 bg-slate-200 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
+          <div className="px-8 md:px-16">
+            <div className="text-center items-center w-full gap-x-2">
+              <div className="m-auto justify-center items-center relative left-[90px] mb-3">
+                <Image src={Logo} alt="Logo" height={40} width={40} />
               </div>
-            </CardWrapper>
+              <h1 className="text-2xl font-bold mb-8">
+                Sign in to your Account
+              </h1>
+              <p className="mb-2">Connect and Collaborate</p>
+              <FormError message={urlError} />
+              <Button
+                className="w-full text-md font-semibold"
+                size="lg"
+                onClick={() => onClick("github")}
+                disabled={disabled}
+              >
+                {loading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    {" "}
+                    <FaGithub className="mr-2" /> Sign In with Github{" "}
+                  </>
+                )}
+              </Button>
+              <p className="text-sm text-muted-foreground my-2">or</p>
+              <Button
+                className="w-full text-md font-semibold"
+                variant="outline"
+                size="lg"
+                onClick={() => onClick("google")}
+                disabled={disabled}
+              >
+                {loading1 ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    {" "}
+                    <FcGoogle className="mr-2" /> Sign In with Google{" "}
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
-        </div>
-        <div className="basis-1/2 content-center relative">
-          <div className="flex justify-center mt-14">
+
+          {/* <div className="md:block basis-1/2 w-1/2">
             <Carousel
               className="w-full max-w-xs"
               plugins={[
@@ -135,9 +140,9 @@ export const LoginForm = () => {
                 </CarouselItem>
               </CarouselContent>
             </Carousel>
-          </div>
+          </div> */}
         </div>
-      </div>
+      </section>
     </>
   );
 };
