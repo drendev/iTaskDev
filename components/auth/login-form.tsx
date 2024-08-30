@@ -10,10 +10,12 @@ import { useSearchParams } from "next/navigation";
 import { FormError } from "@/components/form-error";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import test1 from "@/assets/test1.png";
-import test2 from "@/assets/test2.png";
-import test3 from "@/assets/test3.png";
-import Logo from "@/assets/logoMain.png";
+import illust1 from "@/assets/illust1.png";
+import illust2 from "@/assets/illust2.png";
+import illust3 from "@/assets/illust3.png";
+import illust4 from "@/assets/illust4.png";
+import illust5 from "@/assets/illust5.png";
+import Logo from "@/public/logo.png";
 import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -53,17 +55,16 @@ export const LoginForm = () => {
 
   return (
     <>
-      <section className="bg-gray-50 min-h-screen flex items-center justify-center shadow-xl shadow-black">
-        <div className="basis-1/2 bg-slate-200 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
-          <div className="px-8 md:px-16">
-            <div className="text-center items-center w-full gap-x-2">
-              <div className="m-auto justify-center items-center relative left-[90px] mb-3">
-                <Image src={Logo} alt="Logo" height={40} width={40} />
-              </div>
-              <h1 className="text-2xl font-bold mb-8">
-                Sign in to your Account
-              </h1>
-              <p className="mb-2">Connect and Collaborate</p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+          {/* Left Side */}
+          <div className="mt-20">
+            <div className="text-center items-center w-full gap-x-2 px-32 py-10">
+              <Image src={Logo} alt="Logo" width={40} height={40} className="relative ml-[90px] bottom-10"/>
+              <h1 className="mb-3 text-4xl font-bold">Sign In</h1>
+              <p className="font-light text-gray-600 mb-8">
+                Please enter your details
+              </p>
               <FormError message={urlError} />
               <Button
                 className="w-full text-md font-semibold"
@@ -99,10 +100,10 @@ export const LoginForm = () => {
               </Button>
             </div>
           </div>
-
-          {/* <div className="md:block basis-1/2 w-1/2">
+          {/* Second page */}
+          <div className="relative">
             <Carousel
-              className="w-full max-w-xs"
+              className="w-full max-w-xs m-20"
               plugins={[
                 Autoplay({
                   delay: 2000,
@@ -113,36 +114,34 @@ export const LoginForm = () => {
               <CarouselContent>
                 <CarouselItem>
                   <div className="p-1">
-                    <Card>
-                      <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <Image src={test1} alt="Saas Logo" />
-                      </CardContent>
-                    </Card>
+                        <Image src={illust1} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                    <Card>
-                      <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <Image src={test2} alt="Saas Logo" />
-                      </CardContent>
-                    </Card>
+                        <Image src={illust2} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                    <Card>
-                      <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <Image src={test3} alt="Saas Logo" />
-                      </CardContent>
-                    </Card>
+                        <Image src={illust3} alt="Saas Logo" />
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="p-1">
+                        <Image src={illust4} alt="Saas Logo" />
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="p-1">
+                        <Image src={illust5} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
               </CarouselContent>
             </Carousel>
-          </div> */}
+          </div>
         </div>
-      </section>
+      </div>
     </>
   );
 };
