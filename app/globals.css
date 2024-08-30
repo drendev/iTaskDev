@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-:root {
-  height: 100%;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -71,19 +65,5 @@ body,
   }
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-@layer components {
-  .btn{
-      @apply px-4 py-2 rounded-lg font-medium inline-flex items-center justify-center tracking-tight
-  }
-
-  .btn{
-      @apply bg-black text-white 
-  }
-
-  .btn-text{
-      @apply text-black bg-transparent
   }
 }
