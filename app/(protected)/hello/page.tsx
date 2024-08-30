@@ -14,8 +14,6 @@ const SettingsPage = () => {
 
   return (
     <>
-      <Navbar />
-      <Hero />
       <div>
         <button type="submit" onClick={onClick}>
           Sign Out
