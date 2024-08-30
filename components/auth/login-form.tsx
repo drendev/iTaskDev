@@ -10,6 +10,10 @@ import { useSearchParams } from "next/navigation";
 import { FormError } from "@/components/form-error";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import test1 from "@/assets/test1.png";
+import test2 from "@/assets/test2.png";
+import test3 from "@/assets/test3.png";
+import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -48,9 +52,6 @@ export const LoginForm = () => {
 
   return (
     <>
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" />
-    </head>
       <div className="flex flex-row">
         <div className="basis-1/2">
           <div className="flex justify-center mt-14">
@@ -105,19 +106,33 @@ export const LoginForm = () => {
               ]}
             >
               <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <CarouselItem key={index}>
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex aspect-square items-center justify-center p-6">
-                          <span className="text-4xl font-semibold">
-                            {index + 1}
-                          </span>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
+                <CarouselItem>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-square items-center justify-center p-6">
+                        <Image src={test1} alt="Saas Logo" />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-square items-center justify-center p-6">
+                        <Image src={test2} alt="Saas Logo" />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-square items-center justify-center p-6">
+                        <Image src={test3} alt="Saas Logo" />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
               </CarouselContent>
             </Carousel>
           </div>
