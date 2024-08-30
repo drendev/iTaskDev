@@ -1,4 +1,4 @@
-import {Navbar} from "@/app/(protected)/_components/navbar";
+import {Navbar} from "@/app/(protected)/_components/navbar/navbar";
 
 interface ProtectedLayoutProps {
     children: React.ReactNode;
@@ -6,7 +6,7 @@ interface ProtectedLayoutProps {
 
 const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
     return(
-            <div className="antialiased bg-[#EAEEFE]">
+            <div className="">
                 <Navbar />
                 {children}
             </div>
