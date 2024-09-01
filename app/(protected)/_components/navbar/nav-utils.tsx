@@ -10,7 +10,6 @@ import {Button} from "@/components/ui/button";
 
 export const NavUtils = () => {
     const session = useCurrentUser();
-    const userPicture = session?.image || "";
 
     return (
         <div className="flex justify-end items-center">
@@ -28,7 +27,7 @@ export const NavUtils = () => {
             </Button>
 
             <div className="rounded-full hover:bg-slate-100 p-1 cursor-pointer">
-                <Image src={userPicture} alt="logo" width={32} height={32} className="rounded-full"/>
+
             </div>
         </div>
     )

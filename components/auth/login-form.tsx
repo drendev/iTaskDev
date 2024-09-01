@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,7 @@ import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
 
-import { Card, CardContent } from "@/components/ui/card";
+
 import {
   Carousel,
   CarouselContent,
@@ -113,7 +112,7 @@ export const LoginForm = () => {
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                  <Image src="/illust2.png" height={100} width={100} alt="Saas Logo" />
+                  <Image src={"/illust2.png"} height={100} width={100} alt={"Saas Logo"} />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
