@@ -15,11 +15,8 @@ import illust2 from "@/assets/illust2.png";
 import illust3 from "@/assets/illust3.png";
 import illust4 from "@/assets/illust4.png";
 import illust5 from "@/assets/illust5.png";
-import Logo from "@/public/logo.png";
 import Image from "next/image";
-import { TypeAnimation } from "react-type-animation";
 
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -56,13 +53,16 @@ export const LoginForm = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 text-poppins">
-        <div className="relative flex flex-col bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           {/* Left Side */}
-          <div className="mt-16 mb-16">
-            <div className="text-center items-center w-full gap-x-2 px-32">
-              <h1 className="mb-3 text-4xl font-extrabold text-left">Plan and Code.</h1>
-              <h1 className="mb-10 text-4xl text-gray-600 text-left">Sign In to iTaskDev.</h1>
+          <div className="mt-20">
+            <div className="text-center items-center w-full gap-x-2 px-32 py-10">
+              <Image src={"/logo.png"} alt={"Logo"} width={40} height={40} className="relative ml-[90px] bottom-10"/>
+              <h1 className="mb-3 text-4xl font-bold">Sign In</h1>
+              <p className="font-light text-gray-600 mb-8">
+                Please enter your details
+              </p>
               <FormError message={urlError} />
               <Button
                 className="w-full text-md font-semibold"
@@ -99,15 +99,12 @@ export const LoginForm = () => {
             </div>
           </div>
           {/* Second page */}
-          <div className="relative text-center">
+          <div className="relative">
             <Carousel
-              className="w-full max-w-xs mt-16 mr-10"
-              opts={{
-                watchDrag: false,
-              }}
+              className="w-full max-w-xs m-20"
               plugins={[
                 Autoplay({
-                  delay: 5000,
+                  delay: 2000,
                   stopOnInteraction: false,
                 }),
               ]}
@@ -115,52 +112,31 @@ export const LoginForm = () => {
               <CarouselContent>
                 <CarouselItem>
                   <div className="p-1">
-                    <Image src={illust1} alt="Saas Logo" />
+                        <Image src={illust1} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                    <Image src={illust2} alt="Saas Logo" />
+                        <Image src={illust2} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                    <Image src={illust3} alt="Saas Logo" />
+                        <Image src={illust3} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                    <Image src={illust4} alt="Saas Logo" />
+                        <Image src={illust4} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                    <Image src={illust5} alt="Saas Logo" />
+                        <Image src={illust5} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
               </CarouselContent>
             </Carousel>
-            <div className="h-40 w-80 m-auto">
-            <TypeAnimation
-              sequence={[
-                // Same substring at the start will only be typed out once, initially
-                "User-Friendly workspace for developers",
-                1000, // wait 1s before replacing "Mice" with "Hamsters"
-                "Find the best software development cycle for your project",
-                500,
-                "Track your progress",
-                3000,
-                "Collaborate with your team",
-                4000,
-                "Automatic task allocation feature",
-                1500
-              ]}
-              wrapper="div"
-              speed={60}
-              repeat={Infinity}
-              className="text-2xl"
-            />
-            </div>
           </div>
         </div>
       </div>
