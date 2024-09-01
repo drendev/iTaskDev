@@ -50,7 +50,7 @@ export const LoginForm = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 text-poppins">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="relative flex flex-col bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
       <div className="mt-16 mb-16">
             <div className="text-center items-center w-full gap-x-2 px-32">
@@ -92,7 +92,7 @@ export const LoginForm = () => {
             </div>
           </div>
           {/* Second page */}
-          <div className="relative text-center">
+          <div className="relative text-center hidden md:block">
           <Carousel
           className="w-full max-w-xs mt-16 mr-10"
               opts={{
@@ -108,32 +108,32 @@ export const LoginForm = () => {
               <CarouselContent>
                 <CarouselItem>
                   <div className="p-1">
-                  <Image src="/illust1.png" height={100} width={100} alt="Saas Logo" />
+                  <Image src="/illust1.png" height={200} width={200} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                  <Image src="/illust2.png" height={100} width={100} alt="Saas Logo" />
+                  <Image src="/illust2.png" height={200} width={200} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                  <Image src="/illust3.png" height={100} width={100} alt="Saas Logo" />
+                  <Image src="/illust3.png" height={200} width={200} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                  <Image src="/illust4.png" height={100} width={100} alt="Saas Logo" />
+                  <Image src="/illust4.png" height={200} width={200} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-1">
-                  <Image src="/illust5.png" height={100} width={100} alt="Saas Logo" />
+                  <Image src="/illust5.png" height={200} width={200} alt="Saas Logo" />
                   </div>
                 </CarouselItem>
               </CarouselContent>
             </Carousel>
-            <div className="h-40 w-80 m-auto">
+            <div className="h-40 w-80 m-auto mr-20">
             <TypeAnimation
               sequence={[
                 // Same substring at the start will only be typed out once, initially

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export const Header = () => {
   return (
-    <header className="sticky top-0 backdrop-blur-sm z-20">
+    <header className="absolute top-0 backdrop-blur-sm z-20">
       <div className="py-5">
         <div className="container">
           <div className="flex items-center justify-between">
