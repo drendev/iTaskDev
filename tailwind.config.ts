@@ -18,8 +18,8 @@ const config = {
       },
     },
     extend: {
-      fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
+      backgroundImage: {
+        'my_bg_image' : "url('/public/bg.png')",
       },
       colors: {
         border: "hsl(var(--border))",

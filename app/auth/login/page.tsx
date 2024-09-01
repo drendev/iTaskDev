@@ -6,7 +6,6 @@ const LoginPage = () => {
     return(
         <div>
             <Suspense>
-                <Header />
                 <LoginForm />
             </Suspense>
         </div>
