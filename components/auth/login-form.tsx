@@ -19,7 +19,7 @@ import illust2 from "@/public/illust2.png";
 import illust3 from "@/public/illust3.png";
 import illust4 from "@/public/illust4.png";
 import illust5 from "@/public/illust5.png";
-import bg from "@/public/bg.png"
+import bg from "@/public/bg.png";
 
 import {
   Carousel,
@@ -58,73 +58,64 @@ export const LoginForm = () => {
 
   return (
     <>
-      <div>
-        <header className="hidden md:block z-20">
-          <div className="py-5">
-            <div className="container">
-              <div className="flex items-center justify-between">
-                <div>
-                <Image src={Logo} alt="Saas Logo" height={40} width={40}/>
-                
-                </div>
-                <nav className="hidden md:flex gap-6 text-black/60 items-center">
-                  <a href="#">Terms</a>
-                  <a href="#">About</a>
-                  <a href="#">Docs</a>
-                </nav>
-              </div>
-            </div>
+      <div className="flex flex-wrap items-center justify-center min-h-screen bg-gray-100">
+        <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+          {/* Left Side */}
+          <div className="flex flex-col justify-center p-8 md:p-14">
+            <Image src={"/Logo.png"} alt="Saas Logo" height={40} width={40} />
+            <h1 className="mt-5 mb-3 text-2xl font-extrabold text-left">
+              Plan and Code.
+            </h1>
+            <h1 className="mb-5 text-xl text-gray-600 text-left">
+              Sign In to iTaskDev.
+            </h1>
+            <FormError message={urlError} />
+            <Button
+              className="w-full text-md font-semibold"
+              size="lg"
+              onClick={() => onClick("github")}
+              disabled={disabled}
+            >
+              {loading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <>
+                  {" "}
+                  <FaGithub className="mr-2" /> Sign In with Github{" "}
+                </>
+              )}
+            </Button>
+            <p className="text-sm text-muted-foreground my-2 text-center">or</p>
+            <Button
+              className="w-full text-md font-semibold"
+              variant="outline"
+              size="lg"
+              onClick={() => onClick("google")}
+              disabled={disabled}
+            >
+              {loading1 ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <>
+                  {" "}
+                  <FcGoogle className="mr-2" /> Sign In with Google{" "}
+                </>
+              )}
+            </Button>
+            <p className="text-xs mt-2 text-justify">
+              By signing In, you agree to the{" "}
+              <a className="border-b border-gray-500" href="#">
+                Terms of Service and Privacy Policy
+              </a>
+              , including Cookie Use.
+            </p>
           </div>
-        </header>
-        <div className="flex absolute items-center justify-center min-h-screen bg-gray-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="relative flex flex-col border-r-4 border-b-4 border-black bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
-            <div className="mt-20">
-              <div className="text-center items-center w-full gap-x-2 px-32">
-                <h1 className="mt-5 mb-3 text-2xl font-extrabold text-left">
-                  Plan and Code.
-                </h1>
-                <h1 className="mb-5 text-xl text-gray-600 text-left">
-                  Sign In to iTaskDev.
-                </h1>
-                <FormError message={urlError} />
-                <Button
-                  className="w-full text-md font-semibold"
-                  size="lg"
-                  onClick={() => onClick("github")}
-                  disabled={disabled}
-                >
-                  {loading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      {" "}
-                      <FaGithub className="mr-2" /> Sign In with Github{" "}
-                    </>
-                  )}
-                </Button>
-                <p className="text-sm text-muted-foreground my-2">or</p>
-                <Button
-                  className="w-full text-md font-semibold"
-                  variant="outline"
-                  size="lg"
-                  onClick={() => onClick("google")}
-                  disabled={disabled}
-                >
-                  {loading1 ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      {" "}
-                      <FcGoogle className="mr-2" /> Sign In with Google{" "}
-                    </>
-                  )}
-                </Button>
-              </div>
-            </div>
-            {/* Second page */}
-            <div className="text-center hidden md:flex items-center flex-col justify-center m-auto pr-8">
+
+          {/* Right Side */}
+          <div className="relative hidden md:flex w-96">
+            <div className="m-auto">
               <Carousel
-                className="w-full max-w-xs mt-20 mr-10 ml-14"
+                className="w-full max-w-xs"
                 opts={{
                   watchDrag: false,
                 }}
@@ -139,7 +130,17 @@ export const LoginForm = () => {
                   <CarouselItem>
                     <div className="p-1">
                       <Image
-                        src={illust1}
+                        src={"/illust1.png"}
+                        height={400}
+                        width={400}
+                        alt="Saas Logo"
+                      />
+                    </div>
+                  </CarouselItem>
+                  <CarouselItem>
+                    <div className="p-1">
+                      <Image
+                        src={"/illust2.png"}
                         height={300}
                         width={300}
                         alt="Saas Logo"
@@ -149,7 +150,7 @@ export const LoginForm = () => {
                   <CarouselItem>
                     <div className="p-1">
                       <Image
-                        src={illust2}
+                        src={"/illust3.png"}
                         height={300}
                         width={300}
                         alt="Saas Logo"
@@ -159,7 +160,7 @@ export const LoginForm = () => {
                   <CarouselItem>
                     <div className="p-1">
                       <Image
-                        src={illust3}
+                        src={"/illust4.png"}
                         height={300}
                         width={300}
                         alt="Saas Logo"
@@ -169,17 +170,7 @@ export const LoginForm = () => {
                   <CarouselItem>
                     <div className="p-1">
                       <Image
-                        src={illust4}
-                        height={300}
-                        width={300}
-                        alt="Saas Logo"
-                      />
-                    </div>
-                  </CarouselItem>
-                  <CarouselItem>
-                    <div className="p-1">
-                      <Image
-                        src={illust5}
+                        src={"/illust5.png"}
                         height={300}
                         width={300}
                         alt="Saas Logo"
@@ -188,28 +179,31 @@ export const LoginForm = () => {
                   </CarouselItem>
                 </CarouselContent>
               </Carousel>
-              <div className="h-40 w-80 mt-5">
-                <TypeAnimation
-                  sequence={[
-                    "User-Friendly workspace for developers",
-                    1000,
-                    "Find the best software development cycle for your project",
-                    500,
-                    "Track your progress",
-                    3000,
-                    "Collaborate with your team",
-                    4000,
-                    "Automatic task allocation feature",
-                    1500,
-                  ]}
-                  wrapper="div"
-                  speed={60}
-                  repeat={Infinity}
-                  className="text-lg"
-                />
-              </div>
+              <TypeAnimation
+                sequence={[
+                  "User-Friendly workspace for developers",
+                  1800,
+                  "SDLC Recommendation for your project",
+                  1900,
+                  "Track your progress",
+                  3200,
+                  "Collaborate with your team",
+                  2700,
+                  "Automatic task allocation feature",
+                  2000,
+                ]}
+                wrapper="div"
+                speed={60}
+                repeat={Infinity}
+                className="text-sm mt-5 font-bold italic text-center"
+              />
             </div>
           </div>
+        </div>
+        <div className="flex gap-1 md:gap-10 text-center absolute bottom-10 text-gray-400 text-xs">
+          <a href="#">About</a> <a href="#">Help</a> <a href="#">Center</a>{" "}
+          <a href="#">Terms of Service</a> <a href="#">Privacy</a>{" "}
+          <a href="#">Policy</a> <a href="#">Docs</a>
         </div>
       </div>
     </>
