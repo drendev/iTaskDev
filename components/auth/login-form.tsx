@@ -114,7 +114,7 @@ export const LoginForm = () => {
                   }}
                   plugins={[
                     Autoplay({
-                      delay: 5000,
+                      delay: 3000,
                       stopOnInteraction: false,
                     }),
                   ]}
@@ -192,8 +192,8 @@ export const LoginForm = () => {
           </div>
           <div className="flex gap-3 md:gap-10 text-center absolute bottom-[-50px] md:bottom-[-30px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400 text-xs">
             <a href="#">About</a> <a href="#">Help</a> <a href="#">Center</a>{" "}
-            <a href="#">Terms</a> <a href="#">Privacy</a>{" "}
-            <a href="#">Policy</a> <a href="#">Docs</a>
+            <a href="#">Terms</a> <a href="#">Privacy</a> <a href="#">Policy</a>{" "}
+            <a href="#">Docs</a>
           </div>
         </div>
       </div>
