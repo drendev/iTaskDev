@@ -176,7 +176,7 @@ const HeroSection = () => {
                 <div className="px-4 ">
                   <div className="flex items-center">
                     <div>{tab.icon}</div>
-                    <div className="text-2xl font-medium">{tab.name}</div>
+                    <div className="md:text-sm lg:text-lg font-medium">{tab.name}</div>
                     {/* Render the feature tag only for the ai tab */}
                     {tab.name === "AI" && (
                       <div className="text-xs font-medium text-purple-600 bg-purple-100 px-2 py-1 rounded-full ml-2">
@@ -196,6 +196,7 @@ const HeroSection = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4 }}
+                        className="md:text-xs lg:text-sm"
                       >
                         {tab.description}
                       </motion.div>
