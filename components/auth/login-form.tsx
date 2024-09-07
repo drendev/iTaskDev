@@ -52,7 +52,7 @@ export const LoginForm = () => {
           <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
             {/* Left Side */}
             <div className="flex flex-col justify-center p-8 md:p-14">
-              <Image src={"/Logo.png"} alt="Saas Logo" height={40} width={40} />
+              <Image src={"/logo.png"} alt="Saas Logo" height={40} width={40} />
               <h1 className="mt-5 mb-3 text-2xl text-left">Plan and Code.</h1>
               <h1 className="mb-5 text-xl text-gray-600 text-left">
                 Sign In to iTaskDev.
