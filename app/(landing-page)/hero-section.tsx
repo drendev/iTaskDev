@@ -95,10 +95,10 @@ const HeroSection = () => {
         </p>
 
         <div className="flex gap-4 pt-6 items-center justify-center">
-          <Link href={"/"}>
+          <Link href={"/auth/login"}>
             <Button className="py-1">
               <div className="flex items-center justify-center">
-                <div className="text-lg">Sign in to iTaskDev now.</div>
+                <div className="text-lg">Get Started</div>
                 <div>
                   <PiArrowRight className="ml-2" />
                 </div>
@@ -134,7 +134,7 @@ const HeroSection = () => {
                 >
                   <div className="flex flex-col items-center md:justify-center mx-auto">
                     <div className="hidden md:flex text-4xl">{tab.icon}</div>
-                    <div className="font-medium text-sm xl:text-lg mt-1">
+                    <div className="font-medium text-xs xl:text-lg mt-1">
                       {tab.name}
                     </div>
                   </div>
