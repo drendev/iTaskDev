@@ -10,15 +10,11 @@ import { useMediaQuery } from "react-responsive";
 
 import {
   PiHeadsetLight,
-  PiFileThin,
   PiCode,
   PiSparkleLight,
-  PiTargetLight,
-  PiCalendarDotsLight,
   PiArrowRight,
   PiCalendar,
 } from "react-icons/pi";
-import { ArrowRight } from "lucide-react";
 
 const tabs = [
   {
@@ -158,7 +154,7 @@ const HeroSection = () => {
             </div>
           </div>
         ) : (
-          <div className="flex xl:space-x-4 items-center justify-between hover:cursor-pointer gap-4 w-4/5 xl:w-3/4 2xl:w-[55%]">
+          <div className="flex xl:space-x- items-center justify-between hover:cursor-pointer gap-4 w-4/5 xl:w-3/4 2xl:w-[55%]">
             {tabs.map((tab) => (
               <motion.div
                 key={tab.name}
@@ -173,7 +169,7 @@ const HeroSection = () => {
               `}
                 onMouseEnter={() => setActiveTab(tab)}
               >
-                <div className="px-4 ">
+                <div className="px-4">
                   <div className="flex items-center">
                     <div>{tab.icon}</div>
                     <div className="md:text-sm lg:text-lg font-medium">
