@@ -176,7 +176,9 @@ const HeroSection = () => {
                 <div className="px-4 ">
                   <div className="flex items-center">
                     <div>{tab.icon}</div>
-                    <div className="md:text-sm lg:text-lg font-medium">{tab.name}</div>
+                    <div className="md:text-sm lg:text-lg font-medium">
+                      {tab.name}
+                    </div>
                     {/* Render the feature tag only for the ai tab */}
                     {tab.name === "AI" && (
                       <div className="text-xs font-medium text-purple-600 bg-purple-100 px-2 py-1 rounded-full ml-2">
@@ -224,7 +226,7 @@ const HeroSection = () => {
                 alt="Hero"
                 width={500}
                 height={500}
-                className="w-full border p-20 xl:p-40 rounded-xl shadow-md bg-[#f6f5f4]"
+                className="w-full border p-20 md:p-8 xl:p-40 rounded-xl shadow-md bg-[#f6f5f4]"
               />
             </div>
           )}
