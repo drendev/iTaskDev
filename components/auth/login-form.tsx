@@ -17,7 +17,6 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { url } from "inspector";
 
 export const LoginForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -54,15 +53,13 @@ export const LoginForm = () => {
             {/* Left Side */}
             <div className="flex flex-col justify-center p-8 md:p-14">
               <Image src={"/Logo.png"} alt="Saas Logo" height={40} width={40} />
-              <h1 className="mt-5 mb-3 text-2xl font-extrabold text-left">
-                Plan and Code.
-              </h1>
+              <h1 className="mt-5 mb-3 text-2xl text-left">Plan and Code.</h1>
               <h1 className="mb-5 text-xl text-gray-600 text-left">
                 Sign In to iTaskDev.
               </h1>
               <FormError message={urlError} />
               <Button
-                className="w-full text-md font-semibold"
+                className="w-full text-md"
                 size="lg"
                 onClick={() => onClick("github")}
                 disabled={disabled}
@@ -80,7 +77,7 @@ export const LoginForm = () => {
                 or
               </p>
               <Button
-                className="w-full text-md font-semibold"
+                className="w-full text-md"
                 variant="outline"
                 size="lg"
                 onClick={() => onClick("google")}
@@ -128,7 +125,7 @@ export const LoginForm = () => {
                           width={400}
                           alt="Saas Logo"
                         />
-                        <p className="text-sm mt-5 font-bold italic text-center">
+                        <p className="text-sm mt-5 font-semibold italic text-center">
                           User-Friendly workspace for developers
                         </p>
                       </div>
@@ -141,7 +138,7 @@ export const LoginForm = () => {
                           width={300}
                           alt="Saas Logo"
                         />
-                        <p className="text-sm mt-5 font-bold italic text-center">
+                        <p className="text-sm mt-5 font-semibold italic text-center">
                           SDLC Recommendation for your project
                         </p>
                       </div>
@@ -154,7 +151,7 @@ export const LoginForm = () => {
                           width={300}
                           alt="Saas Logo"
                         />
-                        <p className="text-sm mt-5 font-bold italic text-center">
+                        <p className="text-sm mt-5 font-semibold italic text-center">
                           Track your progress
                         </p>
                       </div>
@@ -167,7 +164,7 @@ export const LoginForm = () => {
                           width={300}
                           alt="Saas Logo"
                         />
-                        <p className="text-sm mt-5 font-bold italic text-center">
+                        <p className="text-sm mt-5 font-semibold italic text-center">
                           Collaborate with your team
                         </p>
                       </div>
@@ -180,7 +177,7 @@ export const LoginForm = () => {
                           width={300}
                           alt="Saas Logo"
                         />
-                        <p className="text-sm mt-5 font-bold italic text-center">
+                        <p className="text-sm mt-5 font-semibold italic text-center">
                           Automatic task allocation feature
                         </p>
                       </div>

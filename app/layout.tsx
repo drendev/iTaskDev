@@ -6,7 +6,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 
 
-const ibm = Poppins({ subsets: ["latin"], weight: "300" });
+const ibm = Poppins({ subsets: ["latin"], weight: "500"});
 
 export const metadata: Metadata ={
   title: "iTaskDev",
