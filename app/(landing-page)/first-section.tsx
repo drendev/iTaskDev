@@ -135,8 +135,8 @@ const FirstSection = () => {
   return (
     <>
       {isSmallScreen
-        ? sections.map((section) => (
-            <div className="flex flex-col px-8">
+        ? sections.map((section, index) => (
+            <div key={index} className="flex flex-col px-8">
               <div className="flex mt-20 mb-5">{section.tag}</div>
               {section.header}
               <div className="mt-3 text-gray-400 text-lg">
@@ -186,8 +186,8 @@ const FirstSection = () => {
               </div>
             </div>
           ))
-        : sections.map((section) => (
-            <div className="items-center flex flex-col mt-5">
+        : sections.map((section, index) => (
+            <div key={index} className="items-center flex flex-col mt-5">
               <div
                 className="flex xl:space-x- items-center justify-between gap-4 py-10 px-8 lg:w-[80%]
         2xl:w-[55%]"
