@@ -26,7 +26,7 @@ import {
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Scrum",
-    href: "/docs/primitives/alert-dialog",
+    href: "/sdlc/scrum",
     description:
       "An agile method using short sprints for iterative software development",
   },
@@ -68,6 +68,11 @@ const components: { title: string; href: string; description: string }[] = [
     href: "/docs/primitives/tooltip",
     description: "Rapid development with iterative prototyping",
   },
+  {
+    title: "Kanban",
+    href: "/docs/primitives/tooltip",
+    description: "Rapid development with iterative prototyping",
+  },
 ];
 
 export function Menu() {
@@ -81,7 +86,7 @@ export function Menu() {
               <ul className="grid p-2 md:wd-[400px] lg:w-[250px] hover:cursor-pointer">
                 <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <PiCode className="text-2xl mr-2 text-blue-600" />
-                  <Link href="#projects">
+                  <Link href="/#projects">
                     <a>Projects</a>
                     <p className="text-gray-400 text-sm font-light">
                       {" "}
@@ -91,7 +96,7 @@ export function Menu() {
                 </div>
                 <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <PiHeadsetLight className="text-2xl mr-2 text-red-600" />
-                  <Link href="#communication">
+                  <Link href="/#communication">
                     <a>Communication</a>
                     <p className="text-gray-400 text-sm font-light">
                       {" "}
@@ -101,7 +106,7 @@ export function Menu() {
                 </div>
                 <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <PiCalendarDotsLight className="text-2xl mr-2 text-indigo-600" />
-                  <Link href="#calendar">
+                  <Link href="/#calendar">
                     <a>Calendar</a>
                     <p className="text-gray-400 text-sm font-light">
                       {" "}
@@ -111,7 +116,7 @@ export function Menu() {
                 </div>
                 <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <PiSparkleLight className="text-2xl mr-2 text-purple-600" />
-                  <Link href="#ai">
+                  <Link href="/#ai">
                     <a>AI</a>
                     <p className="text-gray-400 text-sm font-light">
                       {" "}
@@ -126,7 +131,7 @@ export function Menu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>SDLC Templates</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px]">
               {components.map((component) => (
                 <ListItem
                   key={component.title}

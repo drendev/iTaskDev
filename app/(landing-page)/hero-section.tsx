@@ -92,13 +92,13 @@ const HeroSection = () => {
   return (
     <>
       <div className="md:items-center flex flex-col">
-        <div className="font-medium 2xl:w-1/3 xl:w-1/2 md:w-2/3 lg:px-0 px-8 text-5xl xl:text-6xl flex justify-center xl:pt-14 text-center py-6">
+        <div className="font-medium 2xl:w-1/3 xl:w-1/2 md:w-2/3 lg:px-0 px-8 text-4xl xl:text-5xl flex justify-center text-center my-5">
           Plan, Code, Develop.
           <br />
           With AI at your side.
         </div>
 
-        <p className="text-2xl pt-4 text-center w-2/3 mx-auto">
+        <p className="text-lg text-center w-2/3 mx-auto">
           iTaskDev is the best workspace for your software development journey
         </p>
 
@@ -115,7 +115,7 @@ const HeroSection = () => {
           </Link>
         </div>
 
-        <div className="pt-10 xl:pt-20 items-center justify-center">
+        <div className="pt-10 items-center justify-center">
           <Image
             src={"/transhumans/experiments.png"}
             alt="Hero"

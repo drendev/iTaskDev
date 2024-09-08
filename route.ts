@@ -1,14 +1,8 @@
 // An array of routes that are public, these routes don't need authentications
-export const publicRoutes = [
-    "/"
-];
+export const publicRoutes = ["/sdlc/scrum"];
 
 // An array of routes for authentication
-export const authRoutes = [
-    "/auth/login",
-    "/auth/error",
-    "/",
-];
+export const authRoutes = ["/auth/login", "/auth/error", "/"];
 
 // the prefix for authentication routes
 export const apiAuthPrefix = "/api/auth";
