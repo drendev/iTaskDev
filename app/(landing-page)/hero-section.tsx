@@ -25,9 +25,12 @@ const tabs = [
     feature: "Powered by NLP",
     description: "Automate your projet management.",
     more: (
-      <div className="text-purple-600 flex items-center">
+      <Link
+        href="#ai"
+        className="text-purple-600 fixed top-14 flex items-center hover:underline"
+      >
         Learn more <PiArrowRight className="text-sm ml-1" />
-      </div>
+      </Link>
     ),
     image: "/transhumans/astro.png",
   },
@@ -38,22 +41,28 @@ const tabs = [
     name: "Projects",
     description: "Manage your workspace.",
     more: (
-      <div className="text-blue-600 flex items-center">
+      <Link
+        href="#projects"
+        className="text-blue-600 fixed top-14 flex items-center hover:underline"
+      >
         Learn more <PiArrowRight className="text-sm ml-1" />
-      </div>
+      </Link>
     ),
     image: "/transhumans/bueno.png",
   },
   {
     icon: (
-      <PiHeadsetLight className="text-3xl mr-2 text-red-600 bg-red-100 rounded-full" />
+      <PiHeadsetLight className="text-3xl mr-2 text-red-600 bg-red-100 rounded-full " />
     ),
     name: "Comms",
     description: "Collaborate more effectively.",
     more: (
-      <div className="text-red-600 flex items-center">
+      <Link
+        href="#communcation"
+        className="text-red-600 fixed top-14 flex items-center hover:underline"
+      >
         Learn more <PiArrowRight className="text-sm ml-1" />
-      </div>
+      </Link>
     ),
     image: "/transhumans/chaotic-good.png",
   },
@@ -64,9 +73,12 @@ const tabs = [
     name: "Calendar",
     description: "Set-up your schedules and timeline",
     more: (
-      <div className="text-indigo-600 flex items-center">
+      <Link
+        href="#calendar"
+        className="text-indigo-600 fixed top-14 flex items-center hover:underline"
+      >
         Learn more <PiArrowRight className="text-sm ml-1" />
-      </div>
+      </Link>
     ),
     image: "/transhumans/coffee.png",
   },

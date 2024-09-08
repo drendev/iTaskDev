@@ -4,8 +4,6 @@ import Image from "next/image";
 
 import {
   PiLaptopLight,
-  PiListChecks,
-  PiNotebook,
   PiCode,
   PiHeadset,
   PiCalendarDotsLight,
@@ -42,6 +40,7 @@ const sections = [
     fig3imglg: <PiLaptopLight className="w-20 h-20 mr-5" />,
     fig3title: "Building blocks",
     fig3desc: "100+ content types to communicate any idea.",
+    id: "projects",
   },
   {
     tag: (
@@ -70,6 +69,7 @@ const sections = [
     fig3imglg: <PiLaptopLight className="w-20 h-20 mr-5" />,
     fig3title: "Building blocks",
     fig3desc: "100+ content types to communicate any idea.",
+    id: "communication",
   },
   {
     tag: (
@@ -98,6 +98,7 @@ const sections = [
     fig3imglg: <PiLaptopLight className="w-20 h-20 mr-5" />,
     fig3title: "Building blocks",
     fig3desc: "100+ content types to communicate any idea.",
+    id: "calendar",
   },
   {
     tag: (
@@ -126,6 +127,7 @@ const sections = [
     fig3imglg: <PiLaptopLight className="w-20 h-20 mr-5" />,
     fig3title: "Building blocks",
     fig3desc: "100+ content types to communicate any idea.",
+    id: "ai",
   },
 ];
 
@@ -136,7 +138,7 @@ const FirstSection = () => {
     <>
       {isSmallScreen
         ? sections.map((section, index) => (
-            <div key={index} className="flex flex-col px-8">
+            <div key={index} id={section.id} className="flex flex-col px-8">
               <div className="flex mt-20 mb-5">{section.tag}</div>
               {section.header}
               <div className="mt-3 text-gray-400 text-lg">
@@ -187,7 +189,11 @@ const FirstSection = () => {
             </div>
           ))
         : sections.map((section, index) => (
-            <div key={index} className="items-center flex flex-col mt-5">
+            <div
+              key={index}
+              id={section.id}
+              className="items-center flex flex-col mt-5"
+            >
               <div
                 className="flex xl:space-x- items-center justify-between gap-4 py-10 px-8 lg:w-[80%]
         2xl:w-[55%]"

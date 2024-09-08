@@ -81,43 +81,43 @@ export function Menu() {
               <ul className="grid p-2 md:wd-[400px] lg:w-[250px] hover:cursor-pointer">
                 <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <PiCode className="text-2xl mr-2 text-blue-600" />
-                  <div>
+                  <Link href="#projects">
                     <a>Projects</a>
                     <p className="text-gray-400 text-sm font-light">
                       {" "}
                       For every team or size
                     </p>
-                  </div>
+                  </Link>
                 </div>
                 <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <PiHeadsetLight className="text-2xl mr-2 text-red-600" />
-                  <div>
+                  <Link href="#communication">
                     <a>Communication</a>
                     <p className="text-gray-400 text-sm font-light">
                       {" "}
                       Collaborate effectively
                     </p>
-                  </div>
+                  </Link>
                 </div>
                 <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <PiCalendarDotsLight className="text-2xl mr-2 text-indigo-600" />
-                  <div>
+                  <Link href="#calendar">
                     <a>Calendar</a>
                     <p className="text-gray-400 text-sm font-light">
                       {" "}
                       Set-up your timeline
                     </p>
-                  </div>
+                  </Link>
                 </div>
                 <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <PiSparkleLight className="text-2xl mr-2 text-purple-600" />
-                  <div>
+                  <Link href="#ai">
                     <a>AI</a>
                     <p className="text-gray-400 text-sm font-light">
                       {" "}
                       Powered by NLP
                     </p>
-                  </div>
+                  </Link>
                 </div>
               </ul>
             </div>
