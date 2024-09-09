@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-
+import { Modals } from "@/components/providers/modal-provider";
 
 const ibm = Poppins({ subsets: ["latin"], weight: "500"});
 
@@ -23,7 +23,10 @@ export default async function RootLayout({
   return (
       <SessionProvider session={session}>
         <html lang="en">
-          <body className={ibm.className}>{children}</body>
+          <body className={ibm.className}>
+            <Modals />
+            {children}
+            </body>
         </html>
       </SessionProvider>
   );
