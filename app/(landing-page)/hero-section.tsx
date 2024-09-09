@@ -68,14 +68,14 @@ const tabs = [
   },
   {
     icon: (
-      <PiCalendar className="text-3xl mr-2 text-indigo-600 bg-red-100 rounded-full" />
+      <PiCalendar className="text-3xl mr-2 text-green-600 bg-green-100 rounded-full" />
     ),
     name: "Calendar",
     description: "Set-up your schedules and timeline",
     more: (
       <Link
         href="#calendar"
-        className="text-indigo-600 fixed top-14 flex items-center hover:underline"
+        className="text-green-600 fixed top-14 flex items-center hover:underline"
       >
         Learn more <PiArrowRight className="text-sm ml-1" />
       </Link>
@@ -89,25 +89,24 @@ const HeroSection = () => {
 
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
 
+
   return (
     <>
       <div className="md:items-center flex flex-col">
-        <div className="font-medium 2xl:w-1/3 xl:w-1/2 md:w-2/3 lg:px-0 px-8 text-4xl xl:text-5xl flex justify-center text-center my-5">
+        <div className="font-medium text-left px-8 text-4xl mt-10 md:text-center md:mt-10 md:w-2/3 lg:px-0 lg:mt-10 lg:text-6xl xl:text-5xl xl:w-1/2 2xl:w-1/3 2xl:mt-20 flex justify-center my-5">
           Plan, Code, Develop.
-          <br />
-          With AI at your side.
         </div>
 
-        <p className="text-lg text-center w-2/3 mx-auto">
+        <p className="text-lg text-left w-[90%] ml-8 md:text-center md:mx-auto">
           iTaskDev is the best workspace for your software development journey
         </p>
 
-        <div className="flex gap-4 pt-6 items-center justify-center">
+        <div className="flex gap-4 pt-6 ml-8 md:items-center md:justify-center">
           <Link href={"/auth/login"}>
-            <Button className="py-1">
-              <div className="flex items-center justify-center">
+            <Button className="flex py-1">
+              <div className="flex">
                 <div className="text-lg">Get Started</div>
-                <div>
+                <div className="items-center justify-center m-auto">
                   <PiArrowRight className="ml-2" />
                 </div>
               </div>
@@ -117,7 +116,7 @@ const HeroSection = () => {
 
         <div className="pt-10 items-center justify-center">
           <Image
-            src={"/transhumans/experiments.png"}
+            src={"/samples/phone.gif"}
             alt="Hero"
             width={1000}
             height={1000}
