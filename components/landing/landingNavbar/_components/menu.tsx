@@ -105,7 +105,7 @@ export function Menu() {
                   </Link>
                 </div>
                 <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
-                  <PiCalendarDotsLight className="text-2xl mr-2 text-indigo-600" />
+                  <PiCalendarDotsLight className="text-2xl mr-2 text-green-600" />
                   <Link href="/#calendar">
                     <a>Calendar</a>
                     <p className="text-gray-400 text-sm font-light">
