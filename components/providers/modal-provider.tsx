@@ -16,5 +16,5 @@ export const Modals = () => {
         <>
             <CreateProjectModal />
         </>
-    )
+    );
 }
