@@ -7,7 +7,7 @@ import {
     publicRoutes
 } from "@/route"
 
-const {auth } = NextAuth(authConfig);
+const { auth } = NextAuth(authConfig);
 
 
 export default auth((req) => {
@@ -37,5 +37,5 @@ export default auth((req) => {
 })
 
 export const config = {
-    matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+    matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
   }

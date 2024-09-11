@@ -30,8 +30,9 @@ export async function POST(req: Request) {
             
         })
         
-        return Response.json(workspace);
+        return NextResponse.json(workspace);
     } catch (error) {
         console.log("[WORKSPACE_POST]", error);
+        return new NextResponse("Internal Error", { status: 500 });
     }
 }
