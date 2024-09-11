@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
 import { db } from "@/lib/db";
 
-export async function POST(req: Request): Promise<NextResponse | null> {
+export async function POST(req: Request) {
     try {
         const { name, userId } = await req.json();
 
@@ -30,7 +30,7 @@ export async function POST(req: Request): Promise<NextResponse | null> {
             
         })
         
-        return NextResponse.json(workspace);
+        return NextResponse.json({workspace});
     } catch (error) {
         console.log("[WORKSPACE_POST]", error);
         return new NextResponse("Internal Error", { status: 500 });
