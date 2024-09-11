@@ -29,6 +29,10 @@ export async function POST(req: Request) {
             },
             
         })
+
+        if(!workspace) {
+            return;
+        }
         
         return NextResponse.json(workspace);
     } catch (error) {
