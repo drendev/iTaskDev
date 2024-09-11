@@ -29,12 +29,8 @@ export async function POST(req: Request) {
             },
             
         })
-
-        if(!workspace) {
-            return;
-        }
         
-        return NextResponse.json(workspace);
+        return NextResponse.json("Workspace created", { status: 201 });
     } catch (error) {
         console.log("[WORKSPACE_POST]", error);
         return new NextResponse("Internal Error", { status: 500 });
