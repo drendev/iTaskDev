@@ -30,7 +30,7 @@ export async function POST(req: Request) {
             
         })
         
-        return NextResponse.json({workspace});
+        return new NextResponse(JSON.stringify(workspace), { status: 201 });
     } catch (error) {
         console.log("[WORKSPACE_POST]", error);
         return new NextResponse("Internal Error", { status: 500 });
