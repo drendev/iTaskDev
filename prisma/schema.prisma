@@ -65,7 +65,7 @@ model Workspace {
 
   members Member[]
 
-  @@map("workspaces")
+  @@map("projects")
   @@index([userId])
 }
 
