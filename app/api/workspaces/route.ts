@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
 import { db } from "@/lib/db";
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<NextResponse | null> {
     try {
         const { name, userId } = await req.json();
 
