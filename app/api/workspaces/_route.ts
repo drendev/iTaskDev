@@ -2,7 +2,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
-
 import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
@@ -10,6 +9,10 @@ export async function POST(req: Request) {
         const { name, userId } = await req.json();
 
         if (!userId) {
+            return null;
+        }
+
+        if(!name) {
             return null;
         }
 
@@ -25,8 +28,7 @@ export async function POST(req: Request) {
                 }
             },
             
-        });
-        console.log(workspace)
+        })
         
         return NextResponse.json(workspace);
     } catch (error) {
