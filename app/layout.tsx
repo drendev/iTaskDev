@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Modals } from "@/components/providers/modal-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const ibm = Poppins({ subsets: ["latin"], weight: "500"});
 
@@ -24,6 +25,7 @@ export default async function RootLayout({
       <SessionProvider session={session}>
         <html lang="en">
           <body className={ibm.className}>
+            <Toaster />
             <Modals />
             {children}
             </body>

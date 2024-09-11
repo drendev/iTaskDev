@@ -12,8 +12,8 @@ export async function POST(req: Request) {
             return new NextResponse("User is required", { status: 400 });
         }
 
-        if(!name) {
-            return new NextResponse("Name is required", { status: 400 });
+        if(!name || name.length < 10 || name.length > 80) {
+            return new NextResponse("Project Name Error", { status: 400 });
         }
 
         const workspace = await db.workspace.create({
