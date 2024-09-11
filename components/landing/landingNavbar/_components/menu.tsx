@@ -26,51 +26,51 @@ import {
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Scrum",
-    href: "/sdlc/scrum",
+    href: "/sdlc",
     description:
       "An agile method using short sprints for iterative software development",
   },
   {
     title: "Waterfall",
-    href: "/docs/primitives/hover-card",
+    href: "/sdlc/waterfall",
     description: "Linear, sequential development approach",
   },
   {
     title: "Spiral",
-    href: "/docs/primitives/progress",
+    href: "/sdlc/spiral",
     description: "Combines iterative development with risk assessment.",
   },
   {
     title: "V-shape",
-    href: "/docs/primitives/scroll-area",
+    href: "/sdlc/vshape",
     description: "Linear model with development and testing phases in parallel",
   },
   {
     title: "Lean",
-    href: "/docs/primitives/tabs",
+    href: "/sdlc/lean",
     description:
       "Maximizes value by minimizing waste in the development process",
   },
   {
     title: "DevOps",
-    href: "/docs/primitives/tooltip",
+    href: "/sdlc/devops",
     description:
       "Development and operations for continuous delivery and collaboration",
   },
   {
     title: "Iterative",
-    href: "/docs/primitives/tooltip",
+    href: "/sdlc/iterative",
     description:
       "develops software through repeated cycles, refining with each iteration",
   },
   {
     title: "RAD",
-    href: "/docs/primitives/tooltip",
+    href: "/sdlc/rad",
     description: "Rapid development with iterative prototyping",
   },
   {
     title: "Kanban",
-    href: "/docs/primitives/tooltip",
+    href: "/sdlc/kanban",
     description: "Rapid development with iterative prototyping",
   },
 ];

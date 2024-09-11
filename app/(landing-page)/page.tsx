@@ -7,6 +7,7 @@ import LandingNavbar from "@/components/landing/landingNavbar/landingNavbar";
 const LandingPage = () => {
   return (
     <div className="overflow-visible">
+      <LandingNavbar />
       <HeroSection />
       <FirstSection />
       <LastAction />
