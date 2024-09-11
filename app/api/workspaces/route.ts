@@ -1,3 +1,4 @@
+
 import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
@@ -15,7 +16,7 @@ export async function POST(req: Request) {
             return null;
         }
 
-        const workspace1 = await db.workspace.create({
+        const workspace = await db.workspace.create({
             data: {
                 userId: userId,
                 name,
@@ -29,8 +30,9 @@ export async function POST(req: Request) {
             
         })
         
-        return NextResponse.json(workspace1);
+        return NextResponse.json(workspace);
     } catch (error) {
         console.log("[WORKSPACE_POST]", error);
+        return new NextResponse("Internal Error", { status: 500 });
     }
 }
