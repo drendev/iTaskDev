@@ -1,7 +1,7 @@
 "use client";
 
-import {NavLogo} from "@/app/(protected)/_components/navbar/nav-logo";
-import {NavUtils} from "@/app/(protected)/_components/navbar/nav-utils";
+import {NavLogo} from "@/app/(main)/_components/navbar/nav-logo";
+import {NavUtils} from "@/app/(main)/_components/navbar/nav-utils";
 import { Search } from "@/components/ui/search";
 
 export const Navbar = () => {
