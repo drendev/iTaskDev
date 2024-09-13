@@ -7,13 +7,13 @@ import { Search } from "@/components/ui/search";
 export const Navbar = () => {
     return(
         <nav className="flex flex-row px-6 py-4 w-full">
-            <div className="basis-1/4">
+            <div className="basis-1/5">
                 <NavLogo />
             </div>
             <div className="basis-1/2">
                 <Search className="w-[600px]"/>
             </div>
-            <div className="basis-1/4">
+            <div className="basis-1/2">
                 <NavUtils />
             </div>
         </nav>

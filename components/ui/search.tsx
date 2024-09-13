@@ -21,6 +21,7 @@ export interface InputProps
             {...props}
             type="search"
             ref={ref}
+            placeholder="Search for projects, features, or settings"
             className="w-full bg-gray-100 p-2 placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-within:bg-white"
           />
         </div>
