@@ -2,6 +2,7 @@
 
 import {NavLogo} from "@/app/(protected)/_components/navbar/nav-logo";
 import {NavUtils} from "@/app/(protected)/_components/navbar/nav-utils";
+import { Search } from "@/components/ui/search";
 
 export const Navbar = () => {
     return(
@@ -10,7 +11,7 @@ export const Navbar = () => {
                 <NavLogo />
             </div>
             <div className="basis-1/2">
-                Search Bar
+                <Search className="w-[600px]"/>
             </div>
             <div className="basis-1/4">
                 <NavUtils />
