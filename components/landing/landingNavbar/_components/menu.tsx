@@ -131,7 +131,7 @@ export function Menu() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>SDLC Templates</NavigationMenuTrigger>
+          <NavigationMenuTrigger>SDLC Library</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px]">
               {components.map((component, index) => (

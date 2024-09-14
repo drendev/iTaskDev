@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import ImageSkeleton from "../imageskeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface SDLCProps {
   changeSlide: (activeSlide: string) => void;
@@ -15,6 +16,7 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
   const [loaded1, setLoaded1] = useState<boolean>(false);
   const [loaded2, setLoaded2] = useState<boolean>(false);
   const [loaded3, setLoaded3] = useState<boolean>(false);
+  const [sdlcLoaded, setSdlcLoaded] = useState<boolean>(false);
 
   // Change Image
   const [active, setActive] = React.useState<number>(0);
@@ -76,12 +78,18 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
             >
               Waterfall
             </motion.div>
+            {!sdlcLoaded && (
+              <Skeleton className="w-96 mt-10 h-32 md:h-60 xl:h-60 rounded-xl" />
+            )}
             <Image
               src="/sdlc/waterfall.png"
               alt="waterfall"
               width={1000}
               height={1000}
-              className="w-96 mt-10"
+              className={`w-96 mt-10 object-cover ${
+                loaded1 ? "block" : "opacity-0 absolute"
+              }`}
+              onLoad={() => setSdlcLoaded(true)}
             />
             <div className="mt-10">
               The Waterfall Model was the first Process Model to be introduced.
@@ -271,7 +279,6 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
             </div>
           </div>
         </div>
-        <button onClick={() => console.log(loaded1)}>actuve</button>
       </div>
     </>
   );
