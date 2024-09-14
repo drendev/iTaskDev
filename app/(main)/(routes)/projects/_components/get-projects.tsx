@@ -1,6 +1,6 @@
 import { NavigationAction } from "@/components/project-navigation/add-project";
 import { ProjectList } from "@/components/project-navigation/project-list";
-import {currentUser} from "@/lib/auth";
+import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 

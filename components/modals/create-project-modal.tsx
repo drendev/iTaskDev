@@ -50,9 +50,9 @@ export const CreateProjectModal = () => {
             if (response) {
                 setLoading(false);
                 router.push(`/projects/${response.data.id}`);
-                onClose();
                 setName("");
                 toast.error("Workspace Created");
+                onClose();
             } 
         } catch (error) {
             setLoading(false);
