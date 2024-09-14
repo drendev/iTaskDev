@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
+import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface SDLCProps {
   changeSlide: (activeSlide: string) => void;
@@ -10,6 +12,14 @@ interface SDLCProps {
 
 const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
+  const [loaded1, setLoaded1] = useState<boolean>(false);
+  const [loaded2, setLoaded2] = useState<boolean>(false);
+  const [loaded3, setLoaded3] = useState<boolean>(false);
+  const [sdlcLoaded, setSdlcLoaded] = useState<boolean>(false);
+
+  // Change Image
+  const [active, setActive] = React.useState<number>(0);
+
   const handleLinkClick = (activeSlide: string) => {
     changeSlide(activeSlide);
   };
@@ -20,7 +30,10 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
       key={0}
       width={500}
       height={500}
-      className="w-full border rounded-xl shadow-md"
+      className={`object-cover w-full border rounded-xl shadow-md ${
+        loaded1 ? "block" : "opacity-0 absolute"
+      }`}
+      onLoad={() => setLoaded1(true)}
     />,
     <Image
       src="/samples/demo2.jpg"
@@ -28,7 +41,10 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
       key={1}
       width={500}
       height={500}
-      className="w-full border rounded-xl shadow-md"
+      className={`object-cover w-full border rounded-xl shadow-md ${
+        loaded2 ? "block" : "opacity-0 absolute"
+      }`}
+      onLoad={() => setLoaded2(true)}
     />,
     <Image
       src="/samples/demo3.jpg"
@@ -36,12 +52,12 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
       key={2}
       width={500}
       height={500}
-      className="w-full border rounded-xl shadow-md"
+      className={`object-cover w-full border rounded-xl shadow-md ${
+        loaded3 ? "block" : "opacity-0 absolute"
+      }`}
+      onLoad={() => setLoaded3(true)}
     />,
   ];
-
-  // Change Image
-  const [active, setActive] = React.useState<number>(0);
 
   const changeActive = (activeNumber: number): void => {
     setActive(activeNumber);
@@ -64,12 +80,18 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
             >
               RAD
             </motion.div>
+            {!sdlcLoaded && (
+              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-52 md:h-72 xl:h-72 rounded-xl" />
+            )}
             <Image
               src="/sdlc/rad.png"
               alt="rad"
               width={1000}
               height={1000}
-              className="w-[500px] mt-10"
+              className={`w-[600px] mt-10 object-cover ${
+                loaded1 ? "block" : "opacity-0 absolute"
+              }`}
+              onLoad={() => setSdlcLoaded(true)}
             />
             <div className="mt-10">
               The Waterfall Model was the first Process Model to be introduced.
@@ -93,6 +115,9 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
 2xl:w-[55%]"
             >
               <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
+                {!loaded1 && (
+                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
+                )}
                 {demoImages[0]}
               </div>
             </div>
@@ -109,6 +134,9 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
 2xl:w-[55%]"
             >
               <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
+                {!loaded2 && (
+                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
+                )}
                 {demoImages[1]}
               </div>
             </div>
@@ -125,6 +153,9 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
 2xl:w-[55%]"
             >
               <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
+                {!loaded3 && (
+                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
+                )}
                 {demoImages[2]}
               </div>
             </div>
@@ -143,9 +174,21 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
             className="md:flex py-10 px-8 md:w-[90%] md:px-0 lg:w-3/4
 2xl:w-[55%]"
           >
-            <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-              {demoImages[active]}
-            </div>
+            {active === 0 && (
+              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
+                {demoImages[0]}
+              </div>
+            )}
+            {active === 1 && (
+              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
+                {demoImages[1]}
+              </div>
+            )}
+            {active === 2 && (
+              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
+                {demoImages[2]}
+              </div>
+            )}
           </div>
         )}
 
@@ -162,7 +205,7 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
               className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
         
         
-        ${active === 0 ? "border-blue-500 " : "border-gray-300"}`}
+        ${active === 0 ? "border-teal-500 " : "border-gray-300"}`}
             >
               <p className="text-sm">Building blocks</p>
               <div className="text-xs text-gray-400 mt-2">
@@ -181,7 +224,7 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
               className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
         
         
-        ${active === 1 ? "border-blue-500 " : "border-gray-300"}`}
+        ${active === 1 ? "border-teal-500 " : "border-gray-300"}`}
             >
               <p className="text-sm">Building blocks</p>
               <div className="text-xs text-gray-400 mt-2">
@@ -200,7 +243,7 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
               className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
         
         
-        ${active === 2 ? "border-blue-500 " : "border-gray-300"}`}
+        ${active === 2 ? "border-teal-500 " : "border-gray-300"}`}
             >
               <p className="text-sm">Building blocks</p>
               <div className="text-xs text-gray-400 mt-2">
@@ -209,7 +252,6 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
             </motion.div>
           </div>
         )}
-
         <div
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"

@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
-import ImageSkeleton from "../imageskeleton";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface SDLCProps {
@@ -82,7 +81,7 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
               Waterfall
             </motion.div>
             {!sdlcLoaded && (
-              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-32 md:h-60 xl:h-60 rounded-xl" />
+              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-52 md:h-72 xl:h-72 rounded-xl" />
             )}
             <Image
               src="/sdlc/waterfall.png"
@@ -116,7 +115,9 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
 2xl:w-[55%]"
             >
               <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded1 && <ImageSkeleton />}
+                {!loaded1 && (
+                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
+                )}
                 {demoImages[0]}
               </div>
             </div>
@@ -133,7 +134,9 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
 2xl:w-[55%]"
             >
               <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded2 && <ImageSkeleton />}
+                {!loaded2 && (
+                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
+                )}
                 {demoImages[1]}
               </div>
             </div>
@@ -150,7 +153,9 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
 2xl:w-[55%]"
             >
               <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded3 && <ImageSkeleton />}
+                {!loaded3 && (
+                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
+                )}
                 {demoImages[2]}
               </div>
             </div>
@@ -171,19 +176,16 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
           >
             {active === 0 && (
               <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded1 && <ImageSkeleton />}
                 {demoImages[0]}
               </div>
             )}
             {active === 1 && (
               <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded2 && <ImageSkeleton />}
                 {demoImages[1]}
               </div>
             )}
             {active === 2 && (
               <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded3 && <ImageSkeleton />}
                 {demoImages[2]}
               </div>
             )}
@@ -271,6 +273,7 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </div>
+
             <div className="flex justify-between my-10 w-full">
               <div></div>
               <Button

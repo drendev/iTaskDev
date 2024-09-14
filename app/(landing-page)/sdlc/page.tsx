@@ -12,18 +12,21 @@ import DevOps from "@/components/landing/sdlc/devops";
 import Iterative from "@/components/landing/sdlc/iterative";
 import RAD from "@/components/landing/sdlc/rad";
 import { motion } from "framer-motion";
+import { Lekton } from "next/font/google";
 
 const SDLC = () => {
   const searchParams = useSearchParams();
-  const myValue = searchParams.get('page');
+  let myValue = searchParams.get("page");
 
-  const [slide, setSlide] = useState<any>(myValue !== undefined ? myValue : "waterfall");
+  const [slide, setSlide] = useState<any>(
+    myValue !== undefined ? myValue : "waterfall"
+  );
 
   useEffect(() => {
     if (myValue) {
       setSlide(myValue);
     }
-  }, [myValue]); 
+  }, [myValue]);
 
   const changeSlide = (activeSlide: string): void => {
     window.scrollTo(0, 0);
@@ -214,8 +217,6 @@ const SDLC = () => {
       {slide === "devops" && <DevOps changeSlide={changeSlide} />}
       {slide === "iterative" && <Iterative changeSlide={changeSlide} />}
       {slide === "rad" && <RAD changeSlide={changeSlide} />}
-
-
     </>
   );
 };
