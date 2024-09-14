@@ -49,10 +49,10 @@ export const CreateProjectModal = () => {
             const response = await axios.post("/api/workspaces", { name, userId: user?.id });
             if (response) {
                 setLoading(false);
-                router.push(`/workspace/${response.data.id}`);
-                onClose();
+                router.push(`/projects/${response.data.id}`);
                 setName("");
                 toast.error("Workspace Created");
+                onClose();
             } 
         } catch (error) {
             setLoading(false);
