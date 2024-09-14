@@ -82,7 +82,7 @@ const Waterfall: React.FC<SDLCProps> = ({ changeSlide }) => {
               Waterfall
             </motion.div>
             {!sdlcLoaded && (
-              <Skeleton className="w-96 mt-10 h-32 md:h-60 xl:h-60 rounded-xl" />
+              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-32 md:h-60 xl:h-60 rounded-xl" />
             )}
             <Image
               src="/sdlc/waterfall.png"
