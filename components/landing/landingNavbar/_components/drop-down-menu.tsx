@@ -10,22 +10,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 import {
-  BarChart,
   Code,
   DollarSign,
   Headphones,
-  PaintBucket,
-  Settings,
-  UserPlus,
 } from "lucide-react";
 
 import {
-  PiHeadsetLight,
-  PiFileThin,
   PiCode,
-  PiSparkleLight,
-  PiTargetLight,
-  PiCalendarDotsLight,
 } from "react-icons/pi";
 
 

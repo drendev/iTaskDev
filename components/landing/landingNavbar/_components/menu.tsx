@@ -3,6 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -11,71 +13,71 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 import {
   PiHeadsetLight,
-  PiFileThin,
   PiCode,
   PiSparkleLight,
-  PiTargetLight,
   PiCalendarDotsLight,
 } from "react-icons/pi";
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Scrum",
-    href: "/sdlc",
-    description:
-      "An agile method using short sprints for iterative software development",
-  },
+const components: { title: string; pass: string; color: string }[] = [
   {
     title: "Waterfall",
-    href: "/sdlc/waterfall",
-    description: "Linear, sequential development approach",
+    pass: "waterfall",
+    color: "border-l-4 border-blue-500 rounded-none hover:cursor-pointer",
   },
   {
-    title: "Spiral",
-    href: "/sdlc/spiral",
-    description: "Combines iterative development with risk assessment.",
-  },
-  {
-    title: "V-shape",
-    href: "/sdlc/vshape",
-    description: "Linear model with development and testing phases in parallel",
-  },
-  {
-    title: "Lean",
-    href: "/sdlc/lean",
-    description:
-      "Maximizes value by minimizing waste in the development process",
-  },
-  {
-    title: "DevOps",
-    href: "/sdlc/devops",
-    description:
-      "Development and operations for continuous delivery and collaboration",
-  },
-  {
-    title: "Iterative",
-    href: "/sdlc/iterative",
-    description:
-      "develops software through repeated cycles, refining with each iteration",
-  },
-  {
-    title: "RAD",
-    href: "/sdlc/rad",
-    description: "Rapid development with iterative prototyping",
+    title: "Scrum",
+    pass: "scrum",
+    color: "border-l-4 border-amber-500 rounded-none hover:cursor-pointer",
   },
   {
     title: "Kanban",
-    href: "/sdlc/kanban",
-    description: "Rapid development with iterative prototyping",
+    pass: "kanban",
+    color: "border-l-4 border-cyan-500 rounded-none hover:cursor-pointer",
+  },
+  {
+    title: "Spiral",
+    pass: "spiral",
+    color: "border-l-4 border-rose-500 rounded-none hover:cursor-pointer",
+  },
+  {
+    title: "V-Shape",
+    pass: "vshape",
+    color: "border-l-4 border-pink-500 rounded-none hover:cursor-pointer",
+  },
+  {
+    title: "Lean",
+    pass: "lean",
+    color: "border-l-4 border-red-500 rounded-none hover:cursor-pointer",
+  },
+  {
+    title: "DevOps",
+    pass: "devops",
+    color: "border-l-4 border-violet-500 rounded-none hover:cursor-pointer",
+  },
+  {
+    title: "Iterative",
+    pass: "iterative",
+    color: "border-l-4 border-lime-500 rounded-none hover:cursor-pointer",
+  },
+  {
+    title: "RAD",
+    pass: "rad",
+    color: "border-l-4 border-teal-500 rounded-none hover:cursor-pointer",
   },
 ];
 
 export function Menu() {
+  const router = useRouter();
+
+  const handleRedirect = (page: string): void => {
+    // Construct the URL with query parameters as part of the string
+    router.push(`/sdlc?page=${page}`);
+  };
+
   return (
     <NavigationMenu className="hidden lg:flex">
       <NavigationMenuList>
@@ -132,14 +134,13 @@ export function Menu() {
           <NavigationMenuTrigger>SDLC Templates</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px]">
-              {components.map((component) => (
+              {components.map((component, index) => (
                 <ListItem
-                  key={component.title}
+                  key={index}
                   title={component.title}
-                  href={component.href}
-                >
-                  {component.description}
-                </ListItem>
+                  onClick={() => handleRedirect(component.pass)}
+                  className={component.color}
+                />
               ))}
             </ul>
           </NavigationMenuContent>

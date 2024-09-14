@@ -1,293 +1,221 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import {
-  motion,
-  AnimatePresence,
-  MotionConfig,
-  useAnimationControls,
-  useInView,
-} from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { useScroll, useSpring, useTransform } from "framer-motion";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import Waterfall from "@/components/landing/sdlc/waterfall";
+import Scrum from "@/components/landing/sdlc/scrum";
+import Kanban from "@/components/landing/sdlc/kanban";
+import Spiral from "@/components/landing/sdlc/spiral";
+import VShape from "@/components/landing/sdlc/vshape";
+import Lean from "@/components/landing/sdlc/lean";
+import DevOps from "@/components/landing/sdlc/devops";
+import Iterative from "@/components/landing/sdlc/iterative";
+import RAD from "@/components/landing/sdlc/rad";
+import { motion } from "framer-motion";
 
 const SDLC = () => {
-  const controls = useAnimationControls();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const searchParams = useSearchParams();
+  const myValue = searchParams.get('page');
+
+  const [slide, setSlide] = useState<any>(myValue !== undefined ? myValue : "waterfall");
 
   useEffect(() => {
-    console.log("Is in View => ", isInView);
-  }, [isInView]);
+    if (myValue) {
+      setSlide(myValue);
+    }
+  }, [myValue]); 
 
-  const handleClick = () => {
-    controls.start("flip");
+  const changeSlide = (activeSlide: string): void => {
+    window.scrollTo(0, 0);
+    setSlide(activeSlide);
   };
-
-  const { scrollYProgress } = useScroll();
-
-  const scaleX = useSpring(scrollYProgress);
-
-  const background = useTransform(scrollYProgress,[0, 0.25, 1],["rgb(86, 1, 245)", "rgb(1, 245, 13)", "rgb(1, 245, 13)"])
 
   return (
     <>
-      <div>
-        <motion.div
-          style={{
-            scaleX,
-            background,
-            transformOrigin: "left",
-            position: "sticky",
-            top: 0,
-            width: "100%",
-            height: "20px",
+      <div className="hidden lg:flex space-x-5 justify-center items-center mt-5 z-20">
+        <motion.button
+          whileHover={{
+            scale: 1.2,
           }}
-        />
-
-        <div
-          style={{
-            maxWidth: "700px",
-            margin: "auto",
-            padding: "1.2rem",
+          whileTap={{
+            scale: 0.9,
           }}
+          onClick={() => changeSlide("waterfall")}
+          className={`p-3  
+            ${
+              slide === "waterfall"
+                ? " bg-blue-500 rounded-md text-white"
+                : " bg-white text-black"
+            }
+            `}
         >
-          <p>
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Blandit
-            maecenas tortor fames senectus ex; quisque senectus feugiat. Posuere
-            feugiat facilisis lacus rhoncus elementum. Accumsan euismod pretium
-            eu blandit taciti. Feugiat vehicula facilisis vivamus, maximus
-            cubilia sit. Nostra non commodo pharetra accumsan mattis. Class
-            augue imperdiet facilisi nunc integer. Purus dapibus netus ornare
-            accumsan velit consequat. Laoreet etiam cubilia est; primis quis
-            blandit faucibus ridiculus. Duis quam nascetur quis hac lectus
-            cubilia. Odio cubilia proin duis etiam fusce. Pretium quam neque
-            lacus nunc varius ligula varius? Posuere porttitor neque aenean
-            feugiat consequat, suscipit praesent? Dolor curae potenti facilisis
-            amet dignissim odio quisque? Maximus venenatis congue tempus potenti
-            cras parturient nulla litora. Habitant nam iaculis efficitur
-            malesuada mauris tincidunt scelerisque rhoncus. Viverra in mi elit
-            cubilia rhoncus magna varius sit vestibulum. Tristique litora in
-            ligula urna tellus adipiscing; feugiat eget tristique. Class
-            malesuada ornare tellus hac fames sit bibendum. Convallis eros metus
-            suscipit semper; sed conubia enim himenaeos suspendisse. Viverra
-            erat vivamus imperdiet consectetur torquent malesuada curabitur
-            sapien. Quisque morbi per eu semper nascetur; sodales semper
-            vulputate. Sed at congue posuere interdum vitae purus. Pharetra
-            potenti hac integer penatibus orci malesuada. Habitant molestie
-            pretium interdum; feugiat purus sagittis. Gravida platea curae
-            auctor, himenaeos vulputate at luctus. Aenean nec id nascetur;
-            habitasse sagittis varius quis duis maecenas. Class vivamus eros
-            adipiscing auctor ornare facilisi accumsan himenaeos. Fames molestie
-            elementum proin dolor; dapibus bibendum ultricies ligula. Magna
-            varius lacus sit rutrum pellentesque netus sed sed. Penatibus donec
-            ex volutpat semper finibus augue. Auctor luctus cursus sagittis
-            velit iaculis, maecenas feugiat. Sit curabitur ultrices viverra mi
-            maximus. Lacinia maecenas mattis suscipit vivamus dis tortor
-            porttitor maecenas. Pellentesque torquent suspendisse morbi
-            ullamcorper adipiscing dictum. Tellus egestas pharetra netus urna in
-            eros inceptos interdum rutrum. Molestie tempus proin quis gravida
-            diam vestibulum pharetra nec. Per cubilia praesent nullam lorem
-            dolor mi a vehicula. Tempus leo lectus; torquent iaculis duis elit
-            erat fusce.
-          </p>
-          <p>
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Blandit
-            maecenas tortor fames senectus ex; quisque senectus feugiat. Posuere
-            feugiat facilisis lacus rhoncus elementum. Accumsan euismod pretium
-            eu blandit taciti. Feugiat vehicula facilisis vivamus, maximus
-            cubilia sit. Nostra non commodo pharetra accumsan mattis. Class
-            augue imperdiet facilisi nunc integer. Purus dapibus netus ornare
-            accumsan velit consequat. Laoreet etiam cubilia est; primis quis
-            blandit faucibus ridiculus. Duis quam nascetur quis hac lectus
-            cubilia. Odio cubilia proin duis etiam fusce. Pretium quam neque
-            lacus nunc varius ligula varius? Posuere porttitor neque aenean
-            feugiat consequat, suscipit praesent? Dolor curae potenti facilisis
-            amet dignissim odio quisque? Maximus venenatis congue tempus potenti
-            cras parturient nulla litora. Habitant nam iaculis efficitur
-            malesuada mauris tincidunt scelerisque rhoncus. Viverra in mi elit
-            cubilia rhoncus magna varius sit vestibulum. Tristique litora in
-            ligula urna tellus adipiscing; feugiat eget tristique. Class
-            malesuada ornare tellus hac fames sit bibendum. Convallis eros metus
-            suscipit semper; sed conubia enim himenaeos suspendisse. Viverra
-            erat vivamus imperdiet consectetur torquent malesuada curabitur
-            sapien. Quisque morbi per eu semper nascetur; sodales semper
-            vulputate. Sed at congue posuere interdum vitae purus. Pharetra
-            potenti hac integer penatibus orci malesuada. Habitant molestie
-            pretium interdum; feugiat purus sagittis. Gravida platea curae
-            auctor, himenaeos vulputate at luctus. Aenean nec id nascetur;
-            habitasse sagittis varius quis duis maecenas. Class vivamus eros
-            adipiscing auctor ornare facilisi accumsan himenaeos. Fames molestie
-            elementum proin dolor; dapibus bibendum ultricies ligula. Magna
-            varius lacus sit rutrum pellentesque netus sed sed. Penatibus donec
-            ex volutpat semper finibus augue. Auctor luctus cursus sagittis
-            velit iaculis, maecenas feugiat. Sit curabitur ultrices viverra mi
-            maximus. Lacinia maecenas mattis suscipit vivamus dis tortor
-            porttitor maecenas. Pellentesque torquent suspendisse morbi
-            ullamcorper adipiscing dictum. Tellus egestas pharetra netus urna in
-            eros inceptos interdum rutrum. Molestie tempus proin quis gravida
-            diam vestibulum pharetra nec. Per cubilia praesent nullam lorem
-            dolor mi a vehicula. Tempus leo lectus; torquent iaculis duis elit
-            erat fusce.
-          </p>
-          <p>
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Blandit
-            maecenas tortor fames senectus ex; quisque senectus feugiat. Posuere
-            feugiat facilisis lacus rhoncus elementum. Accumsan euismod pretium
-            eu blandit taciti. Feugiat vehicula facilisis vivamus, maximus
-            cubilia sit. Nostra non commodo pharetra accumsan mattis. Class
-            augue imperdiet facilisi nunc integer. Purus dapibus netus ornare
-            accumsan velit consequat. Laoreet etiam cubilia est; primis quis
-            blandit faucibus ridiculus. Duis quam nascetur quis hac lectus
-            cubilia. Odio cubilia proin duis etiam fusce. Pretium quam neque
-            lacus nunc varius ligula varius? Posuere porttitor neque aenean
-            feugiat consequat, suscipit praesent? Dolor curae potenti facilisis
-            amet dignissim odio quisque? Maximus venenatis congue tempus potenti
-            cras parturient nulla litora. Habitant nam iaculis efficitur
-            malesuada mauris tincidunt scelerisque rhoncus. Viverra in mi elit
-            cubilia rhoncus magna varius sit vestibulum. Tristique litora in
-            ligula urna tellus adipiscing; feugiat eget tristique. Class
-            malesuada ornare tellus hac fames sit bibendum. Convallis eros metus
-            suscipit semper; sed conubia enim himenaeos suspendisse. Viverra
-            erat vivamus imperdiet consectetur torquent malesuada curabitur
-            sapien. Quisque morbi per eu semper nascetur; sodales semper
-            vulputate. Sed at congue posuere interdum vitae purus. Pharetra
-            potenti hac integer penatibus orci malesuada. Habitant molestie
-            pretium interdum; feugiat purus sagittis. Gravida platea curae
-            auctor, himenaeos vulputate at luctus. Aenean nec id nascetur;
-            habitasse sagittis varius quis duis maecenas. Class vivamus eros
-            adipiscing auctor ornare facilisi accumsan himenaeos. Fames molestie
-            elementum proin dolor; dapibus bibendum ultricies ligula. Magna
-            varius lacus sit rutrum pellentesque netus sed sed. Penatibus donec
-            ex volutpat semper finibus augue. Auctor luctus cursus sagittis
-            velit iaculis, maecenas feugiat. Sit curabitur ultrices viverra mi
-            maximus. Lacinia maecenas mattis suscipit vivamus dis tortor
-            porttitor maecenas. Pellentesque torquent suspendisse morbi
-            ullamcorper adipiscing dictum. Tellus egestas pharetra netus urna in
-            eros inceptos interdum rutrum. Molestie tempus proin quis gravida
-            diam vestibulum pharetra nec. Per cubilia praesent nullam lorem
-            dolor mi a vehicula. Tempus leo lectus; torquent iaculis duis elit
-            erat fusce.
-          </p>
-          <p>
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Blandit
-            maecenas tortor fames senectus ex; quisque senectus feugiat. Posuere
-            feugiat facilisis lacus rhoncus elementum. Accumsan euismod pretium
-            eu blandit taciti. Feugiat vehicula facilisis vivamus, maximus
-            cubilia sit. Nostra non commodo pharetra accumsan mattis. Class
-            augue imperdiet facilisi nunc integer. Purus dapibus netus ornare
-            accumsan velit consequat. Laoreet etiam cubilia est; primis quis
-            blandit faucibus ridiculus. Duis quam nascetur quis hac lectus
-            cubilia. Odio cubilia proin duis etiam fusce. Pretium quam neque
-            lacus nunc varius ligula varius? Posuere porttitor neque aenean
-            feugiat consequat, suscipit praesent? Dolor curae potenti facilisis
-            amet dignissim odio quisque? Maximus venenatis congue tempus potenti
-            cras parturient nulla litora. Habitant nam iaculis efficitur
-            malesuada mauris tincidunt scelerisque rhoncus. Viverra in mi elit
-            cubilia rhoncus magna varius sit vestibulum. Tristique litora in
-            ligula urna tellus adipiscing; feugiat eget tristique. Class
-            malesuada ornare tellus hac fames sit bibendum. Convallis eros metus
-            suscipit semper; sed conubia enim himenaeos suspendisse. Viverra
-            erat vivamus imperdiet consectetur torquent malesuada curabitur
-            sapien. Quisque morbi per eu semper nascetur; sodales semper
-            vulputate. Sed at congue posuere interdum vitae purus. Pharetra
-            potenti hac integer penatibus orci malesuada. Habitant molestie
-            pretium interdum; feugiat purus sagittis. Gravida platea curae
-            auctor, himenaeos vulputate at luctus. Aenean nec id nascetur;
-            habitasse sagittis varius quis duis maecenas. Class vivamus eros
-            adipiscing auctor ornare facilisi accumsan himenaeos. Fames molestie
-            elementum proin dolor; dapibus bibendum ultricies ligula. Magna
-            varius lacus sit rutrum pellentesque netus sed sed. Penatibus donec
-            ex volutpat semper finibus augue. Auctor luctus cursus sagittis
-            velit iaculis, maecenas feugiat. Sit curabitur ultrices viverra mi
-            maximus. Lacinia maecenas mattis suscipit vivamus dis tortor
-            porttitor maecenas. Pellentesque torquent suspendisse morbi
-            ullamcorper adipiscing dictum. Tellus egestas pharetra netus urna in
-            eros inceptos interdum rutrum. Molestie tempus proin quis gravida
-            diam vestibulum pharetra nec. Per cubilia praesent nullam lorem
-            dolor mi a vehicula. Tempus leo lectus; torquent iaculis duis elit
-            erat fusce.
-          </p>
-          <p>
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Blandit
-            maecenas tortor fames senectus ex; quisque senectus feugiat. Posuere
-            feugiat facilisis lacus rhoncus elementum. Accumsan euismod pretium
-            eu blandit taciti. Feugiat vehicula facilisis vivamus, maximus
-            cubilia sit. Nostra non commodo pharetra accumsan mattis. Class
-            augue imperdiet facilisi nunc integer. Purus dapibus netus ornare
-            accumsan velit consequat. Laoreet etiam cubilia est; primis quis
-            blandit faucibus ridiculus. Duis quam nascetur quis hac lectus
-            cubilia. Odio cubilia proin duis etiam fusce. Pretium quam neque
-            lacus nunc varius ligula varius? Posuere porttitor neque aenean
-            feugiat consequat, suscipit praesent? Dolor curae potenti facilisis
-            amet dignissim odio quisque? Maximus venenatis congue tempus potenti
-            cras parturient nulla litora. Habitant nam iaculis efficitur
-            malesuada mauris tincidunt scelerisque rhoncus. Viverra in mi elit
-            cubilia rhoncus magna varius sit vestibulum. Tristique litora in
-            ligula urna tellus adipiscing; feugiat eget tristique. Class
-            malesuada ornare tellus hac fames sit bibendum. Convallis eros metus
-            suscipit semper; sed conubia enim himenaeos suspendisse. Viverra
-            erat vivamus imperdiet consectetur torquent malesuada curabitur
-            sapien. Quisque morbi per eu semper nascetur; sodales semper
-            vulputate. Sed at congue posuere interdum vitae purus. Pharetra
-            potenti hac integer penatibus orci malesuada. Habitant molestie
-            pretium interdum; feugiat purus sagittis. Gravida platea curae
-            auctor, himenaeos vulputate at luctus. Aenean nec id nascetur;
-            habitasse sagittis varius quis duis maecenas. Class vivamus eros
-            adipiscing auctor ornare facilisi accumsan himenaeos. Fames molestie
-            elementum proin dolor; dapibus bibendum ultricies ligula. Magna
-            varius lacus sit rutrum pellentesque netus sed sed. Penatibus donec
-            ex volutpat semper finibus augue. Auctor luctus cursus sagittis
-            velit iaculis, maecenas feugiat. Sit curabitur ultrices viverra mi
-            maximus. Lacinia maecenas mattis suscipit vivamus dis tortor
-            porttitor maecenas. Pellentesque torquent suspendisse morbi
-            ullamcorper adipiscing dictum. Tellus egestas pharetra netus urna in
-            eros inceptos interdum rutrum. Molestie tempus proin quis gravida
-            diam vestibulum pharetra nec. Per cubilia praesent nullam lorem
-            dolor mi a vehicula. Tempus leo lectus; torquent iaculis duis elit
-            erat fusce.
-          </p>
-          <p>
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Blandit
-            maecenas tortor fames senectus ex; quisque senectus feugiat. Posuere
-            feugiat facilisis lacus rhoncus elementum. Accumsan euismod pretium
-            eu blandit taciti. Feugiat vehicula facilisis vivamus, maximus
-            cubilia sit. Nostra non commodo pharetra accumsan mattis. Class
-            augue imperdiet facilisi nunc integer. Purus dapibus netus ornare
-            accumsan velit consequat. Laoreet etiam cubilia est; primis quis
-            blandit faucibus ridiculus. Duis quam nascetur quis hac lectus
-            cubilia. Odio cubilia proin duis etiam fusce. Pretium quam neque
-            lacus nunc varius ligula varius? Posuere porttitor neque aenean
-            feugiat consequat, suscipit praesent? Dolor curae potenti facilisis
-            amet dignissim odio quisque? Maximus venenatis congue tempus potenti
-            cras parturient nulla litora. Habitant nam iaculis efficitur
-            malesuada mauris tincidunt scelerisque rhoncus. Viverra in mi elit
-            cubilia rhoncus magna varius sit vestibulum. Tristique litora in
-            ligula urna tellus adipiscing; feugiat eget tristique. Class
-            malesuada ornare tellus hac fames sit bibendum. Convallis eros metus
-            suscipit semper; sed conubia enim himenaeos suspendisse. Viverra
-            erat vivamus imperdiet consectetur torquent malesuada curabitur
-            sapien. Quisque morbi per eu semper nascetur; sodales semper
-            vulputate. Sed at congue posuere interdum vitae purus. Pharetra
-            potenti hac integer penatibus orci malesuada. Habitant molestie
-            pretium interdum; feugiat purus sagittis. Gravida platea curae
-            auctor, himenaeos vulputate at luctus. Aenean nec id nascetur;
-            habitasse sagittis varius quis duis maecenas. Class vivamus eros
-            adipiscing auctor ornare facilisi accumsan himenaeos. Fames molestie
-            elementum proin dolor; dapibus bibendum ultricies ligula. Magna
-            varius lacus sit rutrum pellentesque netus sed sed. Penatibus donec
-            ex volutpat semper finibus augue. Auctor luctus cursus sagittis
-            velit iaculis, maecenas feugiat. Sit curabitur ultrices viverra mi
-            maximus. Lacinia maecenas mattis suscipit vivamus dis tortor
-            porttitor maecenas. Pellentesque torquent suspendisse morbi
-            ullamcorper adipiscing dictum. Tellus egestas pharetra netus urna in
-            eros inceptos interdum rutrum. Molestie tempus proin quis gravida
-            diam vestibulum pharetra nec. Per cubilia praesent nullam lorem
-            dolor mi a vehicula. Tempus leo lectus; torquent iaculis duis elit
-            erat fusce.
-          </p>
-        </div>
+          Waterfall
+        </motion.button>
+
+        <motion.button
+          whileHover={{
+            scale: 1.2,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          onClick={() => changeSlide("scrum")}
+          className={`p-3 
+            ${
+              slide === "scrum"
+                ? "bg-amber-500 rounded-md text-white"
+                : "text-black"
+            }
+            `}
+        >
+          Scrum
+        </motion.button>
+
+        <motion.button
+          whileHover={{
+            scale: 1.2,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          onClick={() => changeSlide("kanban")}
+          className={`p-3 
+            ${
+              slide === "kanban"
+                ? "bg-cyan-500 rounded-md text-white"
+                : "text-black"
+            }
+            `}
+        >
+          Kanban
+        </motion.button>
+
+        <motion.button
+          whileHover={{
+            scale: 1.2,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          onClick={() => changeSlide("spiral")}
+          className={`p-3 
+            ${
+              slide === "spiral"
+                ? "bg-rose-600 rounded-md text-white"
+                : "text-black"
+            }
+            `}
+        >
+          Spiral
+        </motion.button>
+
+        <motion.button
+          whileHover={{
+            scale: 1.2,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          onClick={() => changeSlide("vshape")}
+          className={`p-3 
+            ${
+              slide === "vshape"
+                ? "bg-pink-600 rounded-md text-white"
+                : "text-black"
+            }
+            `}
+        >
+          V-Shape
+        </motion.button>
+
+        <motion.button
+          whileHover={{
+            scale: 1.2,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          onClick={() => changeSlide("lean")}
+          className={`p-3 
+            ${
+              slide === "lean"
+                ? "bg-red-600 rounded-md text-white"
+                : "text-black"
+            }
+            `}
+        >
+          Lean
+        </motion.button>
+
+        <motion.button
+          whileHover={{
+            scale: 1.2,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          onClick={() => changeSlide("devops")}
+          className={`p-3 
+            ${
+              slide === "devops"
+                ? "bg-violet-600 rounded-md text-white"
+                : "text-black"
+            }
+            `}
+        >
+          DevOps
+        </motion.button>
+
+        <motion.button
+          whileHover={{
+            scale: 1.2,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          onClick={() => changeSlide("iterative")}
+          className={`p-3 
+            ${
+              slide === "iterative"
+                ? "bg-lime-600 rounded-md text-white"
+                : "text-black"
+            }
+            `}
+        >
+          Iterative
+        </motion.button>
+
+        <motion.button
+          whileHover={{
+            scale: 1.2,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          onClick={() => changeSlide("rad")}
+          className={`p-3 
+            ${
+              slide === "rad"
+                ? "bg-teal-600 rounded-md text-white"
+                : "text-black"
+            }
+            `}
+        >
+          RAD
+        </motion.button>
       </div>
+
+      {slide === "waterfall" && <Waterfall changeSlide={changeSlide} />}
+      {slide === "scrum" && <Scrum changeSlide={changeSlide} />}
+      {slide === "kanban" && <Kanban changeSlide={changeSlide} />}
+      {slide === "spiral" && <Spiral changeSlide={changeSlide} />}
+      {slide === "vshape" && <VShape changeSlide={changeSlide} />}
+      {slide === "lean" && <Lean changeSlide={changeSlide} />}
+      {slide === "devops" && <DevOps changeSlide={changeSlide} />}
+      {slide === "iterative" && <Iterative changeSlide={changeSlide} />}
+      {slide === "rad" && <RAD changeSlide={changeSlide} />}
+
+
     </>
   );
 };
