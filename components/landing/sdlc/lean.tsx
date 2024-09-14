@@ -18,6 +18,7 @@ const Lean: React.FC<SDLCProps> = ({ changeSlide }) => {
     <Image
       src="/samples/demo1.jpg"
       alt="iso1"
+      key={0}
       width={500}
       height={500}
       className="w-full border rounded-xl shadow-md"
@@ -25,6 +26,7 @@ const Lean: React.FC<SDLCProps> = ({ changeSlide }) => {
     <Image
       src="/samples/demo2.jpg"
       alt="iso2"
+      key={1}
       width={500}
       height={500}
       className="w-full border rounded-xl shadow-md"
@@ -32,6 +34,7 @@ const Lean: React.FC<SDLCProps> = ({ changeSlide }) => {
     <Image
       src="/samples/demo3.jpg"
       alt="iso2"
+      key={2}
       width={500}
       height={500}
       className="w-full border rounded-xl shadow-md"

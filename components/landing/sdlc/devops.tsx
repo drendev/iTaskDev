@@ -16,6 +16,7 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
   };
   const demoImages = [
     <Image
+      key={0}
       src="/samples/demo1.jpg"
       alt="iso1"
       width={500}
@@ -23,6 +24,7 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
       className="w-full border rounded-xl shadow-md"
     />,
     <Image
+      key={1}
       src="/samples/demo2.jpg"
       alt="iso2"
       width={500}
@@ -30,6 +32,7 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
       className="w-full border rounded-xl shadow-md"
     />,
     <Image
+      key={2}
       src="/samples/demo3.jpg"
       alt="iso2"
       width={500}
@@ -95,9 +98,7 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
               </div>
             </div>
 
-            <div
-              className="flex flex-col w-52 text-center"
-            >
+            <div className="flex flex-col w-52 text-center">
               <p className="text-sm">Building blocks</p>
               <div className="text-xs text-gray-400 mt-2">
                 100+ content types to communicate any idea.
@@ -113,9 +114,7 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
               </div>
             </div>
 
-            <div
-              className="flex flex-col w-52 text-center"
-            >
+            <div className="flex flex-col w-52 text-center">
               <p className="text-sm">Building blocks</p>
               <div className="text-xs text-gray-400 mt-2">
                 100+ content types to communicate any idea.
@@ -131,9 +130,7 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
               </div>
             </div>
 
-            <div
-              className="flex flex-col w-52 text-center"
-            >
+            <div className="flex flex-col w-52 text-center">
               <p className="text-sm">Building blocks</p>
               <div className="text-xs text-gray-400 mt-2">
                 100+ content types to communicate any idea.

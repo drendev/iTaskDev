@@ -17,6 +17,7 @@ const Iterative: React.FC<SDLCProps> = ({ changeSlide }) => {
   const demoImages = [
     <Image
       src="/samples/demo1.jpg"
+      key={0}
       alt="iso1"
       width={500}
       height={500}
@@ -24,6 +25,7 @@ const Iterative: React.FC<SDLCProps> = ({ changeSlide }) => {
     />,
     <Image
       src="/samples/demo2.jpg"
+      key={1}
       alt="iso2"
       width={500}
       height={500}
@@ -31,6 +33,7 @@ const Iterative: React.FC<SDLCProps> = ({ changeSlide }) => {
     />,
     <Image
       src="/samples/demo3.jpg"
+      key={2}
       alt="iso2"
       width={500}
       height={500}
