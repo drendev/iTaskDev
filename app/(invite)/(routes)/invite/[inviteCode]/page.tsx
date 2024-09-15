@@ -2,10 +2,12 @@ import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
-
 interface InviteCodePageProps {
     params: {
         inviteCode: string;
+    };
+    searchParams: {
+        success: string;
     }
 }
 
@@ -23,6 +25,19 @@ const InviteCodePage = async ({
         return redirect('/');
     }
 
+    const isInviteCodeValid = await db.workspace.findFirst({
+        where: {
+            joinCode: params.inviteCode,
+        },
+        select: {
+            joinCode: true
+        }
+    });
+
+    if (!isInviteCodeValid) {
+        return redirect(`/projects?error=invalid`);
+    }
+
     const existingProject = await db.workspace.findFirst({
         where: {
             joinCode: params.inviteCode,
@@ -35,7 +50,7 @@ const InviteCodePage = async ({
     });
 
     if (existingProject) {
-        return redirect(`/projects/${existingProject.id}`);
+        return redirect(`/projects/${existingProject.id}?success=already`);
     }
 
     const project = await db.workspace.update({
@@ -54,7 +69,7 @@ const InviteCodePage = async ({
     })
 
     if (project) {
-        return redirect(`/projects/${project.id}`);
+        return redirect(`/projects/${project.id}?success=joined`);
     }
 
     return (

@@ -1,3 +1,4 @@
+import ToastHandler from "@/app/(invite)/(routes)/invite/_components/toast-handler";
 
 interface ProjectIdPageProps {
     params: {

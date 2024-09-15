@@ -36,6 +36,7 @@ export const InviteModal = () => {
     const onCopy = () => {
         navigator.clipboard.writeText(inviteUrl);
         setCopied(true);
+        toast.success("Successfully copied the invite link");
 
         setTimeout(() => {
             setCopied(false);
@@ -47,7 +48,8 @@ export const InviteModal = () => {
             setIsLoading(true);
             const response = await axios.patch(`/api/workspaces/${workspace?.id}/invite-code`);
 
-            onOpen("invite", { workspace: response.data})
+            onOpen("invite", { workspace: response.data});
+            toast.info("Generated a new invite link");
         } catch (error) {
             console.error(error);
         } finally {

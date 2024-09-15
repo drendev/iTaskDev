@@ -1,5 +1,6 @@
 import { Navbar } from "./_components/navbar/navbar";
 import { SideBar } from "./_components/sidebar/sidebar";
+import ToastHandler from "../(invite)/(routes)/invite/_components/toast-handler";
 
 const MainLayout = async ({
     children
@@ -14,6 +15,7 @@ const MainLayout = async ({
                     <SideBar />
                 </div>
                 <div className="w-full px-5">
+                    <ToastHandler />
                     {children}
                 </div>
             </div>
