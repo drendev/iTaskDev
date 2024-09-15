@@ -2,6 +2,7 @@
 
 import { CreateProjectModal } from "../modals/create-project-modal";
 import { useEffect, useState } from "react";
+import { InviteModal } from "../modals/invite-modal";
 
 export const Modals = () => {
     const [mounted, setMounted] = useState(false);
@@ -15,6 +16,7 @@ export const Modals = () => {
     return (
         <>
             <CreateProjectModal />
+            <InviteModal />
         </>
     );
 }

@@ -2,6 +2,8 @@
 
 import { ProjectWithMembers } from "@/types";
 import { MemberRole } from "@prisma/client";
+import { Button } from "../ui/button";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface ProjectHeaderProps {
     project: ProjectWithMembers;
@@ -12,6 +14,8 @@ export const ProjectHeader = ({
     project,
     role
 }: ProjectHeaderProps) => {
+    const { onOpen } = useModal();
+
     const isAdmin = role === MemberRole.ADMIN;
     
     return (
@@ -21,10 +25,14 @@ export const ProjectHeader = ({
             </div>
 
             {isAdmin && (
-                <div className="text-md text-slate-700">
-                    Invite Members
+                <div className="text-slate-700">
+                    <Button
+                    size="sm"
+                    onClick={() => onOpen("invite", { workspace: project })}
+                    >
+                        Invite Members
+                    </Button>
                     Project Settings
-                    Manage Members
                 </div>
             )}
         </div>
