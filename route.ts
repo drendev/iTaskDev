@@ -8,7 +8,9 @@ export const publicRoutes = ["/", "/sdlc/devops",
   "/sdlc/spiral",
   "/sdlc/vshape",
   "/sdlc/waterfall",
-  "/sdlc",];
+  "/sdlc",
+  "/azuretest",
+];
 
 // An array of routes for authentication
 export const authRoutes = ["/auth/login", "/auth/error", "/"];
