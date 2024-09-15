@@ -81,7 +81,7 @@ const RAD: React.FC<SDLCProps> = ({ changeSlide }) => {
               RAD
             </motion.div>
             {!sdlcLoaded && (
-              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-52 md:h-72 xl:h-72 rounded-xl" />
+              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-40 md:h-72 xl:h-72 rounded-xl" />
             )}
             <Image
               src="/sdlc/rad.png"
