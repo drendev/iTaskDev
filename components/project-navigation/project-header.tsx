@@ -44,7 +44,7 @@ export const ProjectHeader = ({
                     onClick={() => onOpen("pending", { workspace: project })}
                     >
                     <GoPersonAdd className="w-4 h-4 mr-2"/>
-                    Pending Approval {pending.pending.length > 0 && <Badge className="absolute -top-2 -right-2 w-5 h-5" variant="destructive">{pending.pending.length}</Badge>}
+                    Pending Approval {pending.pending.length > 0 && <Badge className="absolute -top-2 -right-2" variant="destructive">{pending.pending.length}</Badge>}
                     </Button>
                 </div>
             )}
