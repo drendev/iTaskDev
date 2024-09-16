@@ -16,23 +16,33 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { ProjectWithPending } from "@/types";
 import { UserAvatar } from "@/app/(invite)/(routes)/pending/_components/user-avatar";
 import { GoCheckCircle } from "react-icons/go";
 import { GoXCircle } from "react-icons/go";
 
+
+
 export const PendingModal = () => {
     const user = useCurrentUser();
+    const router = useRouter();
 
-    const { isOpen, onClose, type, data } = useModal();
+    const { onOpen, isOpen, onClose, type, data } = useModal();
     const { workspace } = data as { workspace: ProjectWithPending};
+
     
-    const [ idPending, setIdPending ] = useState("");
+    const [idPending, setIdPending] = useState("");
     const [loadingId, setLoadingId] = useState("");
 
     const isModalOpen = isOpen && type === "pending";
+
+    useEffect(() => {
+        if (isModalOpen) {
+           router.refresh();
+        }
+    }, [isModalOpen]);
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>

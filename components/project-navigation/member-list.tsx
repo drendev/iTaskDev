@@ -55,6 +55,7 @@ export const MemberList = async ({
             <ProjectHeader
             project={project}
             role={role}
+            pending={project}
             />
         </div>
     )

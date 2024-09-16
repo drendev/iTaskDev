@@ -5,11 +5,12 @@ import { MemberRole } from "@prisma/client";
 import { Button } from "../ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 import { GoPersonAdd, GoPlusCircle } from "react-icons/go";
+import { Badge } from "../ui/badge";
 
 interface ProjectHeaderProps {
     project: ProjectWithMembers;
     role?: MemberRole;
-    pending?: ProjectWithPending
+    pending: ProjectWithPending;
 }
 
 export const ProjectHeader = ({
@@ -36,13 +37,14 @@ export const ProjectHeader = ({
                         <GoPlusCircle className="w-4 h-4 mr-2"/>
                         Invite Members
                     </Button>
-
+                    
                     <Button
+                    className="relative"
                     size="sm"
                     onClick={() => onOpen("pending", { workspace: project })}
                     >
                     <GoPersonAdd className="w-4 h-4 mr-2"/>
-                    Pending Approval
+                    Pending Approval {pending.pending.length > 0 && <Badge className="absolute -top-2 -right-2 w-5 h-5" variant="destructive">{pending.pending.length}</Badge>}
                     </Button>
                 </div>
             )}
