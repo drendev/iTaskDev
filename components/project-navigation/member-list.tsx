@@ -23,13 +23,25 @@ export const MemberList = async ({
         },
         include: {
             members: {
+                include: {
+                    user: true
+                },
                 orderBy: {
                     role: "asc"
                 },
             },
+            pending: {
+                include: {
+                    user: true
+                },
+                orderBy: {
+                    createdAt: "asc"
+                }
+            }
         },
     })
 
+    
     const members = project?.members.filter((member) => member.userId !== user.id);
 
     if(!project) {
@@ -37,7 +49,7 @@ export const MemberList = async ({
     }
 
     const role = project.members.find((member) => member.userId == user.id)?.role;
-    
+
     return (
         <div>
             <ProjectHeader

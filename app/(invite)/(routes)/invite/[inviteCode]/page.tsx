@@ -53,28 +53,78 @@ const InviteCodePage = async ({
         return redirect(`/projects/${existingProject.id}?success=already`);
     }
 
-    const project = await db.workspace.update({
+    const isProjectPrivate = await db.workspace.findFirst({
         where: {
-            joinCode: params.inviteCode
+            joinCode: params.inviteCode,
         },
-        data: {
-            members: {
-                create: [
-                    {
-                        userId: user.id
-                    }
-                ]
+        select: {
+            isPrivate: true
+        }
+    })
+
+    const isAlreadyPending = await db.workspace.findFirst({
+        where: {
+            joinCode: params.inviteCode,
+            pending: {
+                some: {
+                    userId: user.id
+                }
             }
         }
     })
 
-    if (project) {
-        return redirect(`/projects/${project.id}?success=joined`);
+    if (isProjectPrivate?.isPrivate === true) {
+
+        if (isAlreadyPending) {
+            return redirect('/projects?error=already');
+        }
+        
+        const pendingMember = await db.workspace.update({
+            where: {
+                joinCode: params.inviteCode
+            },
+            data: {
+                pending: {
+                    create: [
+                        {
+                            userId: user.id
+                        }
+                    ]
+                }
+            }
+        })
+
+        if (pendingMember) {
+            return redirect('/projects?success=pending');
+        }
+
+        
+    } else if (isProjectPrivate?.isPrivate === false) {
+        const project = await db.workspace.update({
+            where: {
+                joinCode: params.inviteCode
+            },
+            data: {
+                members: {
+                    create: [
+                        {
+                            userId: user.id
+                        }
+                    ]
+                }
+            }
+        })
+        if (project) {
+            return redirect(`/projects/${project.id}?success=joined`);
+        }
     }
+    
+
+    
 
     return (
         <div>
-            invite code page
+            Ooops! Its looks like you are not supposed to be here.
         </div>
     )
 }

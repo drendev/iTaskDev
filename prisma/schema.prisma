@@ -29,6 +29,7 @@ model User {
   accounts      Account[]
   workspaces    Workspace[]
   members       Member[]
+  pending       PendingMember[]
 
   @@map("users")
 }
@@ -60,10 +61,13 @@ model Workspace {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  isPrivate   Boolean  @default(true)
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @map("user_id")
 
   members Member[]
+  pending PendingMember[]
 
   @@map("workspaces")
   @@index([userId])
@@ -86,4 +90,20 @@ model Member {
 
   @@index([userId])
   @@index([workspaceId])
+}
+
+model PendingMember {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  workspaceId String
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([workspaceId])
+
+  @@map("pending_members")
 }

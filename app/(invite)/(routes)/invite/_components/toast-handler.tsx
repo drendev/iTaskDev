@@ -19,9 +19,10 @@ const ToastHandler = () => {
                     toast.success('Successfully joined the project');
                 } else if (success === 'already') {
                     toast.info('You are already a member of this project');
+                } else if (success === 'pending') {
+                    toast.info('Request to join the project has been sent');
                 }
 
-                // Remove the success parameter from the URL
                 const newSearchParams = new URLSearchParams(searchParams.toString());
                 newSearchParams.delete('success');
                 router.replace(window.location.pathname + '?' + newSearchParams.toString(), { scroll: false });
@@ -30,9 +31,10 @@ const ToastHandler = () => {
             } else if (error) {
                 if (error === 'invalid') {
                     toast.error('Invalid/Expired Invite Link');
+                } else if (error === 'already') {
+                    toast.error('You are already sent a request to join this project');
                 }
 
-                // Remove the error parameter from the URL
                 const newSearchParams = new URLSearchParams(searchParams.toString());
                 newSearchParams.delete('error');
                 router.replace(window.location.pathname + '?' + newSearchParams.toString(), { scroll: false });

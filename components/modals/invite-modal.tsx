@@ -9,19 +9,16 @@ import {
 } from "@/components/ui/dialog";
 
 import { toast } from "sonner";
-import { Check, Copy, Loader2, RefreshCw } from "lucide-react";
+import { Check, Copy, Loader2, LockKeyholeIcon, RefreshCw } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 import { useState } from "react";
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { Label } from "@/components/ui/label";
 import { useOrigin } from "@/hooks/use-origin";
-import { set } from "react-hook-form";
 import axios from "axios";
 
 export const InviteModal = () => {
-    const user = useCurrentUser();
     const origin = useOrigin();
 
     const { onOpen, isOpen, onClose, type, data } = useModal();
@@ -50,6 +47,27 @@ export const InviteModal = () => {
 
             onOpen("invite", { workspace: response.data});
             toast.info("Generated a new invite link");
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const onChangePrivacy = async () => {
+        try {
+            if (workspace?.isPrivate === true) {
+                setIsLoading(true);
+                const response = await axios.patch(`/api/workspaces/${workspace?.id}/public`);
+                onOpen("invite", { workspace: response.data});
+                toast.info("Link privacy changed to public");
+            } else if (workspace?.isPrivate === false) {
+                setIsLoading(true);
+                const response = await axios.patch(`/api/workspaces/${workspace?.id}/private`);
+                onOpen("invite", { workspace: response.data});
+                toast.info("Link privacy changed to private");
+            }
+            
         } catch (error) {
             console.error(error);
         } finally {
@@ -92,8 +110,18 @@ export const InviteModal = () => {
                     size="sm"
                     className="text-xs text-zinc-500 mt-4"
                     >
+                        <RefreshCw className="w-4 h-4 mr-2"/>
                         Generate a new link
-                        <RefreshCw className="w-4 h-4 ml-2"/>
+                    </Button>
+                    <Button
+                    onClick={onChangePrivacy}
+                    disabled={isLoading} 
+                    variant="link"
+                    size="sm"
+                    className="text-xs text-zinc-500 mt-4"
+                    >
+                        <LockKeyholeIcon className="w-4 h-4 mr-2"/>
+                        {workspace?.isPrivate === true ? "Make public" : "Make private"}
                     </Button>
                 </div>
             </DialogContent>
