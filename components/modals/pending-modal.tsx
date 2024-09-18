@@ -1,7 +1,6 @@
 "use client";
 
 import axios from "axios";
-
 import {
     Dialog,
     DialogContent,
@@ -32,17 +31,47 @@ export const PendingModal = () => {
     const { onOpen, isOpen, onClose, type, data } = useModal();
     const { workspace } = data as { workspace: ProjectWithPending};
 
-    
-    const [idPending, setIdPending] = useState("");
     const [loadingId, setLoadingId] = useState("");
+    const [loadingDeleteId, setLoadingDeleteId] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const isModalOpen = isOpen && type === "pending";
 
-    useEffect(() => {
-        if (isModalOpen) {
-           router.refresh();
+    const onApprove = async (pendingId: string, name: any) => {
+        try {
+            setLoadingId(pendingId);
+            setIsLoading(true);
+            const response = await axios.patch(`/api/workspaces/${workspace.id}/pending`, { pendingId });
+
+            router.refresh();
+            onOpen("pending", { workspace: response.data });
+            toast.success(`${name} has been approved`);
+        } catch (error) {
+            console.log(error);
+            setIsLoading(false);
+        } finally {
+            setLoadingId("");
+            setIsLoading(false);
         }
-    }, [isModalOpen]);
+    }
+
+    const onDecline = async (pendingId: string, name: any) => {
+        try {
+            setLoadingDeleteId(pendingId);
+            setIsLoading(true);
+            const response = await axios.delete(`/api/workspaces/${workspace.id}/pending`, { data: { pendingId } });
+
+            router.refresh();
+            onOpen("pending", { workspace: response.data });
+            toast.success(`${name} has been declined`);
+        } catch (error) {
+            console.log(error);
+            setIsLoading(false);
+        } finally {
+            setLoadingId("");
+            setIsLoading(false);
+        }
+    }
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -67,17 +96,29 @@ export const PendingModal = () => {
                                 </p>
                             </div>
                             <div className="ml-auto flex ">
-                                <Button variant="link">
+                                <Button 
+                                onClick={() => onApprove(pending.user.id, pending.user.name)}
+                                disabled={isLoading}
+                                variant="link"
+                                >
                                     <div className="flex flex-col gap-y-1 items-center">
-                                    <GoCheckCircle className="w-6 h-6 text-green-700" />
+                                        {loadingId === pending.user.id 
+                                        ? (<Loader2 className="animate-spin text-zinc-500 w-6 h-6" />) 
+                                        : <GoCheckCircle className="w-6 h-6 text-green-700" />}
                                     <p className="text-[0.6rem] text-green-700">
                                         Approve
                                     </p>
                                     </div>
                                 </Button>
-                                <Button variant="link">
+                                <Button
+                                onClick={() => onDecline(pending.user.id, pending.user.name)}
+                                variant="link"
+                                disabled={isLoading}
+                                >
                                     <div className="flex flex-col gap-y-1 items-center">
-                                    <GoXCircle className="w-6 h-6 text-red-700" />
+                                    {loadingDeleteId === pending.user.id
+                                    ? (<Loader2 className="animate-spin text-zinc-500 w-6 h-6" />)
+                                    : <GoXCircle className="w-6 h-6 text-red-700" />}
                                     <p className="text-[0.6rem] text-red-700">
                                         Decline
                                     </p>
