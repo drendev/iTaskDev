@@ -10,6 +10,7 @@ export const publicRoutes = ["/", "/sdlc/devops",
   "/sdlc/waterfall",
   "/sdlc",
   "/azuretest",
+  '/api/ner',
 ];
 
 // An array of routes for authentication
