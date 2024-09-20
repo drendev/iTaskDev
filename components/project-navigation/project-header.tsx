@@ -4,7 +4,7 @@ import { ProjectWithMembers, ProjectWithPending } from "@/types";
 import { MemberRole } from "@prisma/client";
 import { Button } from "../ui/button";
 import { useModal } from "@/hooks/use-modal-store";
-import { GoPerson, GoPersonAdd, GoPlusCircle } from "react-icons/go";
+import { GoPencil, GoPerson, GoPersonAdd, GoPlusCircle, GoTrash } from "react-icons/go";
 import { Badge } from "../ui/badge";
 
 interface ProjectHeaderProps {
@@ -27,9 +27,9 @@ export const ProjectHeader = ({
             <div className="text-2xl">
                 Project Name: {project.name}
             </div>
-
+            <div className="text-slate-700 ">
             {isAdmin && (
-                <div className="text-slate-700 space-x-3">
+                <div className="space-x-3">
                     <Button
                     size="sm"
                     onClick={() => onOpen("invite", { workspace: project })}
@@ -53,8 +53,35 @@ export const ProjectHeader = ({
                         <GoPerson className="w-4 h-4 mr-2"/>
                         Manage Members
                     </Button>
+
+                    <Button
+                    size="sm"
+                    onClick={() => onOpen("editProject", { workspace: project })}
+                    >
+                        <GoPencil className="w-4 h-4 mr-2"/>
+                        Edit Project
+                    </Button>
+                    <Button
+                    size="sm"
+                    onClick={() => onOpen("deleteProject", { workspace: project })}
+                    >
+                        <GoTrash className="w-4 h-4 mr-2"/>
+                        Delete Project
+                    </Button>
                 </div>
             )}
+            {!isAdmin && (
+                <div>
+                    <Button
+                    size="sm"
+                    onClick={() => onOpen("leaveProject", { workspace: project })}
+                    >
+                        <GoPencil className="w-4 h-4 mr-2"/>
+                        Leave Project
+                    </Button>
+                </div>
+            )}
+            </div>
         </div>
     )
 }
