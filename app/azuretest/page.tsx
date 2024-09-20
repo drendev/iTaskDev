@@ -1,66 +1,71 @@
-import {
-    AnalyzeBatchAction,
-    AzureKeyCredential,
-    TextAnalysisClient,
-  } from "@azure/ai-language-text";
-  
-  
-  // You will need to set these environment variables or edit the following values
-  const endpoint = process.env["LANGUAGE_ENDPOINT"] || "<cognitive language service endpoint>";
-  const apiKey = process.env["LANGUAGE_KEY"] || "<api key>";
-  const deploymentName = process.env["CUSTOM_ENTITIES_DEPLOYMENT_NAME"] || "deployment name";
-  const projectName = process.env["CUSTOM_ENTITIES_PROJECT_NAME"] || "deployment name";
-  
-  const documents = [
-    "This Loan Agreement ('Agreement') is entered into as of September 15, 2024, by and between The Lender agrees to loan the Borrower the principal sum of $10,000 USD (the “Loan”), which will be disbursed on September 20, 2024."
-  ];
-  
- async function main() {
-    console.log("== Custom Entity Recognition Sample ==");
-  
-    const client = new TextAnalysisClient(endpoint, new AzureKeyCredential(apiKey));
-    const actions: AnalyzeBatchAction[] = [
-      {
-        kind: "CustomEntityRecognition",
-        deploymentName,
-        projectName,
-      },
-    ];
-    const poller = await client.beginAnalyzeBatch(actions, documents, "en");
-    const results = await poller.pollUntilDone();
-  
-    for await (const actionResult of results) {
-      if (actionResult.kind !== "CustomEntityRecognition") {
-        throw new Error(`Expected a CustomEntityRecognition results but got: ${actionResult.kind}`);
-      }
-      if (actionResult.error) {
-        const { code, message } = actionResult.error;
-        throw new Error(`Unexpected error (${code}): ${message}`);
-      }
-      for (const result of actionResult.results) {
-        console.log(`- Document ${result.id}`);
-        if (result.error) {
-          const { code, message } = result.error;
-          throw new Error(`Unexpected error (${code}): ${message}`);
-        }
-        console.log("\tRecognized Entities:");
-        for (const entity of result.entities) {
-          console.log(`\t- Entity "${entity.text}" of type ${entity.category}`);
-        }
-      }
-    }
-  }
-  
-  
+"use client";
 
-const AzureTest = () => {
+import React from "react";
+import { useState } from "react";
 
-main().catch((err) => {
-    console.error("The sample encountered an error:", err);
-    });
-
-
-  return <div>TEst</div>;
+type Entity = {
+  text: string;
+  category: string;
 };
 
-export default AzureTest;
+type RecognizedEntity = {
+  documentId: string;
+  entities: Entity[];
+};
+
+type Main = {
+  recognizedEntities: RecognizedEntity[];
+};
+
+export default function AzureTest() {
+  const [data, setData] = useState<Main | null>(null);
+
+  const FormAction = async (formData: FormData): Promise<void> => {
+    const res = await fetch("http://localhost:3000/api/ner", {
+      method: "POST",
+      body: formData,
+    });
+
+    const jsonData: Main = await res.json();
+    setData(jsonData);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    FormAction(formData);
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <textarea rows={50} cols={50} name="first" placeholder="q1" />
+        <textarea rows={50} cols={50} name="second" placeholder="q2" />
+
+        <button type="submit" name="submit">
+          Submit
+        </button>
+      </form>
+
+      <div>
+        <h1>Recognized Entities</h1>
+        {data ? (
+          data.recognizedEntities.map((entity, index) => (
+            <div key={entity.documentId}>
+              <h2>Document ID: {entity.documentId}</h2>
+              <ul>
+                {entity.entities.map((e, idx) => (
+                  <li key={idx}>
+                    {e.text} - {e.category}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
+    </>
+  );
+}
