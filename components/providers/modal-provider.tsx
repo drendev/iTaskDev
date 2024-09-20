@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { InviteModal } from "../modals/invite-modal";
 import { PendingModal } from "../modals/pending-modal";
 import { MembersModal } from "../modals/members-modal";
+import { EditProjectModal } from "../modals/edit-project-modal";
+import { LeaveProjectModal } from "../modals/leave-project-modal";
+import { DeleteProjectModal } from "../modals/delete-project-modal";
 
 export const Modals = () => {
     const [mounted, setMounted] = useState(false);
@@ -21,6 +24,9 @@ export const Modals = () => {
             <InviteModal />
             <PendingModal />
             <MembersModal />
+            <EditProjectModal />
+            <LeaveProjectModal />
+            <DeleteProjectModal />
         </>
     );
 }
