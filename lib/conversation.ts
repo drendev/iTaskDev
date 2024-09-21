@@ -1,59 +1,44 @@
 import { db } from "@/lib/db";
 
-export const getOrCreateConversation = async (memberOneId: string, memberTwoId: string) => {
-    let conversation = await findConversation(memberOneId, memberTwoId) || await findConversation(memberTwoId, memberOneId);
+export const getOrCreateConversation = async (userOneId: string, userTwoId: string) => {
+    let conversation = await findConversation(userOneId, userTwoId) || await findConversation(userTwoId, userOneId);
 
     if (!conversation) {
-        conversation = await createNewConversation(memberOneId, memberTwoId)
+        conversation = await createNewConversation(userOneId, userTwoId)
     }
+    
     return conversation;
 }
 
-const findConversation = async (memberOneId: string, memberTwoId: string) => {
+const findConversation = async (userOneId: string, userTwoId: string) => {
     try{
     return await db.conversation.findFirst({
         where: {
             AND: [
-                { memberOneId: memberOneId },
-                { memberTwoId: memberTwoId },
+                { userOneId: userOneId },
+                { userTwoId: userTwoId },
             ]
         },
         include: {
-            memberOne: {
-                include: {
-                    user: true
-                }
-            },
-            memberTwo: {
-                include: {
-                    user: true
-                }
-            }
-        }
+            userOne: true,
+            userTwo: true,
+        },
     });
     } catch {
         return null
     }
 }
 
-const createNewConversation = async (memberOneId: string, memberTwoId: string) => {
+const createNewConversation = async (userOneId: string, userTwoId: string) => {
     try {
         return await db.conversation.create({
             data: {
-                memberOneId,
-                memberTwoId,
+                userOneId,
+                userTwoId,
             },
             include: {
-                memberOne: {
-                    include: {
-                        user: true
-                    }
-                },
-                memberTwo: {
-                    include: {
-                        user: true
-                    }
-                }
+                userOne: true,
+                userTwo: true,
             }
         })
     } catch {

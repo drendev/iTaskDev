@@ -47,8 +47,6 @@ export const MembersModal = () => {
 
     const directMessage = (memberId: string) => {
         router.push(`/projects/${workspace.id}/conversations/${memberId}`);
-        onClose();
-        router.refresh();
     }
 
     const getInitials = (fullName: string): string => {

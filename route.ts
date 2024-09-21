@@ -12,7 +12,8 @@ export const publicRoutes = ["/", "/sdlc/devops",
   "/azuretest",
   '/api/ner',
   "/openai",
-  "/api/openapi"
+  "/api/openapi",
+  "/api/socket/io"
 ];
 
 // An array of routes for authentication

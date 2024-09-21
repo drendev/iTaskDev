@@ -1,8 +1,9 @@
 import { UserAvatar } from "@/app/(invite)/(routes)/pending/_components/user-avatar";
 import { Hash } from "lucide-react";
+import { SocketIndicator } from "@/components/socket-indicator";
 
 interface ConversationHeaderProps {
-    projectId: string;
+    projectId?: string;
     type: "Project Members Chat" | "direct";
     imageUrl?: string | null;
     name?: string | null;
@@ -33,6 +34,9 @@ export const ConversationHeader = ({
                 </p>
                 </>
             )}
+            <div className="ml-auto flex items-center"> 
+                <SocketIndicator />
+            </div>
         </div>
     )
 }
