@@ -16,7 +16,7 @@ import { Lekton } from "next/font/google";
 
 const SDLC = () => {
   const searchParams = useSearchParams();
-  let myValue = searchParams.get("page");
+  let myValue = searchParams ? searchParams.get("page") : null;
 
   const [slide, setSlide] = useState<any>(
     myValue !== undefined ? myValue : "waterfall"
