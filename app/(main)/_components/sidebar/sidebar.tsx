@@ -21,7 +21,7 @@ export const SideBar = () => {
     return (
         <>
             {NavPaths.map((labels) => {
-                const isActive = pathName === labels.path || pathName.startsWith(labels.path.length > 1 ? labels.path : labels.path + '/');
+                const isActive = pathName && (pathName === labels.path || pathName.startsWith(labels.path.length > 1 ? labels.path : labels.path + '/'));
 
                 return (
                     <NavLinks
