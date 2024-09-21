@@ -12,13 +12,13 @@ import {
 import { toast } from "sonner";
 import { MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import { useState } from "react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { ProjectWithMembers } from "@/types";
 import { UserAvatar } from "@/app/(invite)/(routes)/pending/_components/user-avatar";
-import { GoShieldCheck, GoStack, GoXCircle } from "react-icons/go";
+import { GoComment, GoShieldCheck, GoStack, GoXCircle } from "react-icons/go";
 import { ScrollArea } from "../ui/scroll-area";
 
 import {
@@ -44,6 +44,12 @@ export const MembersModal = () => {
     const { workspace } = data as { workspace: ProjectWithMembers};
 
     const isModalOpen = isOpen && type === "members";
+
+    const directMessage = (memberId: string) => {
+        router.push(`/projects/${workspace.id}/conversations/${memberId}`);
+        onClose();
+        router.refresh();
+    }
 
     const getInitials = (fullName: string): string => {
         const nameParts = fullName.split(' ');
@@ -92,6 +98,11 @@ export const MembersModal = () => {
                                             <MoreVertical className="w-4 h-4 text-zinc-500"/>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent side="left">
+                                            <DropdownMenuItem onClick={() => {directMessage(member.id)}}>
+                                            <GoComment className="w-4 h-4 mr-2"/>
+                                                Direct Message
+                                            </DropdownMenuItem>
+                                            <DropdownMenuSeparator />
                                             <DropdownMenuItem>
                                             <GoStack className="w-4 h-4 mr-2"/>
                                                 Manage Tasks

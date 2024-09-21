@@ -7,6 +7,15 @@ import { useModal } from "@/hooks/use-modal-store";
 import { GoPencil, GoPerson, GoPersonAdd, GoPlusCircle, GoTrash } from "react-icons/go";
 import { Badge } from "../ui/badge";
 
+import {
+    DropdownMenu,
+    DropdownMenuContent, 
+    DropdownMenuItem, 
+    DropdownMenuTrigger
+ } from "@/components/ui/dropdown-menu"
+import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+
 interface ProjectHeaderProps {
     project: ProjectWithMembers;
     role?: MemberRole;
@@ -24,63 +33,123 @@ export const ProjectHeader = ({
     
     return (
         <div>
-            <div className="text-2xl">
-                Project Name: {project.name}
+            <div className="text-xl mb-3">
+                Project: {project.name}
             </div>
-            <div className="text-slate-700 ">
-            {isAdmin && (
-                <div className="space-x-3">
-                    <Button
+            <div className="flex space-x-2">
+            <DropdownMenu>
+                <DropdownMenuTrigger
+                className="focus:outline-none"
+                asChild
+                >
+                    <Button 
+                    className="flex items-center px-3 focus:outline-none transition-all [&[data-state=open]>svg]:rotate-180"
                     size="sm"
-                    onClick={() => onOpen("invite", { workspace: project })}
                     >
-                        <GoPlusCircle className="w-4 h-4 mr-2"/>
-                        Invite Members
+                        Members Settings
+                        <ChevronDown className="h-5 w-5 ml-auto transition-transform duration-200"/>
                     </Button>
-                    
-                    <Button
-                    className="relative"
-                    size="sm"
-                    onClick={() => onOpen("pending", { workspace: project })}
-                    >
-                    <GoPersonAdd className="w-4 h-4 mr-2"/>
-                    Pending Approval {pending.pending.length > 0 && <Badge className="absolute -top-2 -right-2" variant="destructive">{pending.pending.length}</Badge>}
-                    </Button>
-                    <Button
-                    size="sm"
-                    onClick={() => onOpen("members", { workspace: project })}
-                    >
-                        <GoPerson className="w-4 h-4 mr-2"/>
-                        Manage Members
-                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                className="w-52 text-xs font-medium space-y-[2px]"
+                >
+                    {isAdmin && (
+                        <>
+                        <DropdownMenuItem
+                        onClick={() => onOpen("invite", { workspace: project })}
+                        >
+                            <GoPlusCircle className="w-4 h-4 mr-2"/>
+                            Invite Members
+                        </DropdownMenuItem>
+                        
+                        <DropdownMenuItem
+                        className="relative"
+                        onClick={() => onOpen("pending", { workspace: project })}
+                        >
+                        <GoPersonAdd className="w-4 h-4 mr-2"/>
+                        Pending Approval {pending.pending.length > 0 && <Badge className="absolute -top-2 -right-2" variant="destructive">{pending.pending.length}</Badge>}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                        onClick={() => onOpen("members", { workspace: project })}
+                        >
+                            <GoPerson className="w-4 h-4 mr-2"/>
+                            Manage Members
+                        </DropdownMenuItem>
 
-                    <Button
+                        <DropdownMenuItem
+                        onClick={() => onOpen("editProject", { workspace: project })}
+                        >
+                            <GoPencil className="w-4 h-4 mr-2"/>
+                            Edit Project
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                        onClick={() => onOpen("deleteProject", { workspace: project })}
+                        >
+                            <GoTrash className="w-4 h-4 mr-2"/>
+                            Delete Project
+                        </DropdownMenuItem>
+                        </>
+                    )}
+                    {!isAdmin && (
+                        <div>
+                            <DropdownMenuItem
+                            onClick={() => onOpen("leaveProject", { workspace: project })}
+                            >
+                                <GoPencil className="w-4 h-4 mr-2"/>
+                                Leave Project
+                            </DropdownMenuItem>
+                        </div>
+                    )}
+                </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+                <DropdownMenuTrigger
+                className="focus:outline-none"
+                asChild
+                >
+                    <Button 
+                    className="flex items-center px-3 focus:outline-none transition-all [&[data-state=open]>svg]:rotate-180"
                     size="sm"
-                    onClick={() => onOpen("editProject", { workspace: project })}
                     >
-                        <GoPencil className="w-4 h-4 mr-2"/>
-                        Edit Project
+                        Project Settings
+                        <ChevronDown className="h-5 w-5 ml-auto transition-transform duration-200"/>
                     </Button>
-                    <Button
-                    size="sm"
-                    onClick={() => onOpen("deleteProject", { workspace: project })}
-                    >
-                        <GoTrash className="w-4 h-4 mr-2"/>
-                        Delete Project
-                    </Button>
-                </div>
-            )}
-            {!isAdmin && (
-                <div>
-                    <Button
-                    size="sm"
-                    onClick={() => onOpen("leaveProject", { workspace: project })}
-                    >
-                        <GoPencil className="w-4 h-4 mr-2"/>
-                        Leave Project
-                    </Button>
-                </div>
-            )}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                className="w-52 text-xs font-medium space-y-[2px]"
+                >
+                    {isAdmin && (
+                        <>
+                        <DropdownMenuItem
+                        onClick={() => onOpen("editProject", { workspace: project })}
+                        >
+                            <GoPencil className="w-4 h-4 mr-2"/>
+                            Edit Project
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                        onClick={() => onOpen("deleteProject", { workspace: project })}
+                        >
+                            <GoTrash className="w-4 h-4 mr-2"/>
+                            Delete Project
+                        </DropdownMenuItem>
+                        </>
+                    )}
+                    {!isAdmin && (
+                        <div>
+                            <DropdownMenuItem
+                            onClick={() => onOpen("leaveProject", { workspace: project })}
+                            >
+                                <GoPencil className="w-4 h-4 mr-2"/>
+                                Leave Project
+                            </DropdownMenuItem>
+                        </div>
+                    )}
+                </DropdownMenuContent>
+            </DropdownMenu>
+            <Link href={`/projects/${project.id}/conversations`}>
+                Chat
+            </Link>
             </div>
         </div>
     )
