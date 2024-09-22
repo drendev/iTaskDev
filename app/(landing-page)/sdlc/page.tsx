@@ -161,7 +161,7 @@ const SDLC = () => {
           className={`p-3 
             ${
               slide === "devops"
-                ? "bg-violet-600 rounded-md text-white"
+                ? "bg-fuchsia-600 rounded-md text-white"
                 : "text-black"
             }
             `}
