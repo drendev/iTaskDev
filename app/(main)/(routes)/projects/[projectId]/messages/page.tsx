@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { ConversationHeader } from "@/components/conversation/conversation-header";
 import { ChatInput } from "@/components/conversation/chat-input";
+import { ChatMessages } from "@/components/conversation/chat-messages";
 
 interface ProjectMessagesPageProps {
     params: {
@@ -41,9 +42,21 @@ const ProjectMessagesPage = async ({
             <ConversationHeader 
             type="Project Members Chat"
             />
-            <div className="flex-1">
-                Future Messages
-            </div>
+            <ChatMessages
+            name={project.name}
+            member={member}
+            type="Project Members Chat"
+            apiUrl="/api/messages"
+            socketUrl="/api/socket/messages"
+            socketQuery={{
+                projectId: params.projectId,
+                memberId: user.id
+            }}
+            paramKey="projectId"
+            paramValue={project.id}
+            chatId={project.id}
+            />
+
             <ChatInput 
             type="Project Members Chat"
             apiUrl="/api/socket/messages"
