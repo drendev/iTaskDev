@@ -7,8 +7,8 @@ import { toast } from "sonner";
 const ToastHandler = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const success = searchParams.get('success');
-    const error = searchParams.get('error');
+    const success = searchParams ? searchParams.get('success') : null;
+    const error = searchParams ? searchParams.get('error') : null;
 
     const toastShown = useRef(false);
 
@@ -23,7 +23,7 @@ const ToastHandler = () => {
                     toast.info('Request to join the project has been sent');
                 }
 
-                const newSearchParams = new URLSearchParams(searchParams.toString());
+                const newSearchParams = searchParams ? new URLSearchParams(searchParams.toString()) : new URLSearchParams();
                 newSearchParams.delete('success');
                 router.replace(window.location.pathname + '?' + newSearchParams.toString(), { scroll: false });
 
@@ -35,7 +35,7 @@ const ToastHandler = () => {
                     toast.error('You are already sent a request to join this project');
                 }
 
-                const newSearchParams = new URLSearchParams(searchParams.toString());
+                const newSearchParams = searchParams ? new URLSearchParams(searchParams.toString()) : new URLSearchParams();
                 newSearchParams.delete('error');
                 router.replace(window.location.pathname + '?' + newSearchParams.toString(), { scroll: false });
 

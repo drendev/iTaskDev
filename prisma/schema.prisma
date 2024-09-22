@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASEBETA")
 }
 
 enum UserRole {
@@ -30,6 +30,10 @@ model User {
   workspaces    Workspace[]
   members       Member[]
   pending       PendingMember[]
+  directMessages DirectMessage[]
+
+  conversationsInitiated Conversation[] @relation("UserOne")
+  conversationsnReceived Conversation[] @relation("UserTwo")
 
   @@map("users")
 }
@@ -69,6 +73,8 @@ model Workspace {
   members Member[]
   pending PendingMember[]
 
+  chat ProjectChat[]
+
   @@map("workspaces")
   @@index([userId])
 }
@@ -88,6 +94,8 @@ model Member {
   workspaceId String
   workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
+  chat ProjectChat[]
+
   @@index([userId])
   @@index([workspaceId])
 }
@@ -106,4 +114,58 @@ model PendingMember {
   @@index([workspaceId])
 
   @@map("pending_members")
+}
+
+model ProjectChat {
+  id  String @id @default(uuid())
+  content String @db.Text
+
+  fileUrl String? @db.Text
+
+  memberId String
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  projectId String
+  workspace Workspace @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  deleted Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([projectId])
+}
+
+model Conversation {
+  id String @id @default(uuid())
+
+  userOneId String
+  userOne User @relation("UserOne", fields: [userOneId], references: [id], onDelete: Cascade)
+
+  userTwoId String
+  userTwo User @relation("UserTwo", fields: [userTwoId], references: [id], onDelete: Cascade)
+
+  directMessages DirectMessage[]
+
+  @@unique([userOneId, userTwoId])
+}
+
+model DirectMessage {
+  id String @id @default(uuid())
+  content String @db.Text
+  fileUrl String? @db.Text
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  conversationId String
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  deleted Boolean @default(false)
+
+  @@index([userId])
+  @@index([conversationId])
 }
