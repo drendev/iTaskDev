@@ -205,7 +205,7 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
               className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
         
         
-        ${active === 0 ? "border-violet-500 " : "border-gray-300"}`}
+        ${active === 0 ? "border-fuchsia-500 " : "border-gray-300"}`}
             >
               <p className="text-sm">Building blocks</p>
               <div className="text-xs text-gray-400 mt-2">
@@ -224,7 +224,7 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
               className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
         
         
-        ${active === 1 ? "border-violet-500 " : "border-gray-300"}`}
+        ${active === 1 ? "border-fuchsia-500 " : "border-gray-300"}`}
             >
               <p className="text-sm">Building blocks</p>
               <div className="text-xs text-gray-400 mt-2">
@@ -243,7 +243,7 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
               className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
         
         
-        ${active === 2 ? "border-violet-500 " : "border-gray-300"}`}
+        ${active === 2 ? "border-fuchsia-500 " : "border-gray-300"}`}
             >
               <p className="text-sm">Building blocks</p>
               <div className="text-xs text-gray-400 mt-2">
@@ -276,13 +276,13 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
             <div className="flex justify-between my-10 w-full">
               <Button
                 onClick={() => handleLinkClick("lean")}
-                className="w-[100px] bg-violet-500 hover:bg-violet-800"
+                className="w-[100px] bg-fuchsia-500 hover:bg-fuchsia-800"
               >
                 Lean
               </Button>
               <Button
                 onClick={() => handleLinkClick("iterative")}
-                className="w-[100px] bg-violet-500 hover:bg-violet-800"
+                className="w-[100px] bg-fuchsia-500 hover:bg-fuchsia-800"
               >
                 Iterative
               </Button>
