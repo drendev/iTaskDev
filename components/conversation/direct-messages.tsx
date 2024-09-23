@@ -1,6 +1,6 @@
 "use client";
 
-import { Member, ProjectChat, User } from "@prisma/client";
+import { Member, ProjectChat, User, DirectMessage } from "@prisma/client";
 import { ChatWelcome } from "./chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { Loader2, ServerCrash } from "lucide-react";
@@ -9,30 +9,29 @@ import { ChatItem } from "./chat-item";
 import { format } from "date-fns";
 import { useChatSocket } from "@/hooks/use-chat-socket";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
+import { DirectChatItem } from "./direct-chat-item";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
-type MessageWithMemberWithUser = ProjectChat & {
-    member: Member & {
-        user: User
-    }
+type MessageWithUser = DirectMessage & {
+    user: User;
 }
 
 interface ChatMessagesProps {
     name?: string;
-    member: Member;
+    user: User;
     chatId: string;
     apiUrl: string;
     socketUrl: string;
     socketQuery: Record<string, any>;
-    paramKey: "projectId" | "conversationId"
+    paramKey: "projectId" | "conversationId";
     paramValue: string;
     type: "Project Members Chat" | "direct";
 }
 
-export const ChatMessages = ({
+export const DirectMessages = ({
     name,
-    member,
+    user,
     chatId,
     apiUrl,
     socketUrl,
@@ -115,13 +114,12 @@ export const ChatMessages = ({
             <div className="flex flex-col-reverse">
                 {data?.pages?.map((group, i) => (
                     <Fragment key={i}>
-                        {group.items.map((message: MessageWithMemberWithUser) => (
+                        {group.items.map((message: MessageWithUser) => (
             
-                            <ChatItem
+                            <DirectChatItem
                             id={message.id}
-                            key={message.id} 
-                            currentMember={member}
-                            member={message.member}
+                            key={message.id}
+                            user={user}
                             content={message.content}
                             fileUrl={message.fileUrl}
                             deleted={message.deleted}

@@ -2,11 +2,12 @@ import qs from 'query-string';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { useSocket } from '@/components/providers/socket-provider';
+import axios from 'axios';
 
 interface ChatQueryProps {
     queryKey: string;
     apiUrl: string;
-    paramKey: "projectId" | "memberId";
+    paramKey: "projectId" | "conversationId";
     paramValue: string;
 };
 
@@ -27,8 +28,8 @@ export const useChatQuery = ({
             }
         }, { skipNull: true });
 
-        const res = await fetch(url);
-        return res.json();
+        const res = await axios.get(url);
+        return res.data;
     };
 
     const {
@@ -41,7 +42,7 @@ export const useChatQuery = ({
         queryKey: [queryKey],
         queryFn: fetchMessages,
         getNextPageParam: (lastPage) => lastPage?.nextCursor,
-        refetchInterval: isConnected ? false : 1000,
+        refetchInterval: isConnected ? false : 500,
         initialPageParam: undefined
     })
 

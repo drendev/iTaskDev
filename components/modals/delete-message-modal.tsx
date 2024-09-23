@@ -38,7 +38,7 @@ export const DeleteMessageModal = () => {
             await axios.delete(url);
 
             onClose();
-
+            setIsLoading(false);
         } catch (error) {
             console.error(error);
             setIsLoading(false);

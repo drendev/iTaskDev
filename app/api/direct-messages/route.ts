@@ -1,7 +1,7 @@
 import { currentUser } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { ProjectChat } from "@prisma/client";
+import { DirectMessage, ProjectChat } from "@prisma/client";
 
 const MESSAGES_BATCH = 5;
 
@@ -13,51 +13,43 @@ export async function GET(
         const { searchParams } = new URL(req.url);
 
         const cursor = searchParams.get("cursor");
-        const projectId = searchParams.get("projectId");
+        const conversationId = searchParams.get("conversationId");
 
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        if (!projectId) {
-            return new NextResponse("Project ID missing", { status: 400 });
+        if (!conversationId) {
+            return new NextResponse("Conversation ID missing", { status: 400 });
         }
 
-        let messages: ProjectChat[] = [];
+        let messages: DirectMessage[] = [];
 
         if (cursor) {
-            messages = await db.projectChat.findMany({
+            messages = await db.directMessage.findMany({
                 take: MESSAGES_BATCH,
                 skip: 1,
                 cursor: {
                     id: cursor
                 },
                 where: {
-                    projectId
+                    conversationId
                 },
                 include: {
-                    member: {
-                        include: {
-                            user: true
-                        }
-                    }
+                    user: true
                 },
                 orderBy: {
                     createdAt: "desc",
                 }
             })
         } else {
-            messages = await db.projectChat.findMany({
+            messages = await db.directMessage.findMany({
                 take: MESSAGES_BATCH,
                 where: {
-                    projectId
+                    conversationId
                 },
                 include: {
-                    member: {
-                        include: {
-                            user: true
-                        }
-                    }
+                    user: true
                 },
                 orderBy: {
                     createdAt: "desc",
@@ -77,7 +69,7 @@ export async function GET(
         });
 
     } catch (error) {
-        console.log("MESSAGES GET ERROR", error);
+        console.log("DIRECT MESSAGES GET ERROR", error);
         return new NextResponse("Internal Server Error", { status: 500 });
     }
 }

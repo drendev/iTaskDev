@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { ConversationHeader } from "@/components/conversation/conversation-header";
 import { ChatInput } from "@/components/conversation/chat-input";
 import { ChatMessages } from "@/components/conversation/chat-messages";
+import { MediaRoom } from "@/components/media-room";
 
 interface ProjectMessagesPageProps {
     params: {
@@ -42,6 +43,11 @@ const ProjectMessagesPage = async ({
             <ConversationHeader 
             type="Project Members Chat"
             />
+{/*             <MediaRoom 
+            chatId={project.id}
+            video={false}
+            audio={true}
+            /> */}
             <ChatMessages
             name={project.name}
             member={member}
