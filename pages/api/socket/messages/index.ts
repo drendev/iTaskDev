@@ -71,7 +71,7 @@ export default async function handler(
             }
         });
 
-        const projectKey = `chat: ${projectId}:messages`;
+        const projectKey = `chat:${projectId}:messages`;
 
         res?.socket?.server?.io?.emit(projectKey, message);
         
