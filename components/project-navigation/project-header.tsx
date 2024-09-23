@@ -147,8 +147,8 @@ export const ProjectHeader = ({
                     )}
                 </DropdownMenuContent>
             </DropdownMenu>
-            <Link href={`/projects/${project.id}/conversations`}>
-                Chat
+            <Link href={`/projects/${project.id}/messages`}>
+                Chat Beta
             </Link>
             </div>
         </div>
