@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { ProjectChat } from "@prisma/client";
 
+const MESSAGES_BATCH = 5;
 
 export async function GET(
     req: Request
@@ -26,7 +27,7 @@ export async function GET(
 
         if (cursor) {
             messages = await db.projectChat.findMany({
-                take: 5,
+                take: MESSAGES_BATCH,
                 skip: 1,
                 cursor: {
                     id: cursor
@@ -47,7 +48,7 @@ export async function GET(
             })
         } else {
             messages = await db.projectChat.findMany({
-                take: 5,
+                take: MESSAGES_BATCH,
                 where: {
                     projectId
                 },
@@ -66,8 +67,8 @@ export async function GET(
 
         let nextCursor = null;
 
-        if (messages.length === 5) {
-            nextCursor = messages[5 - 1].id;
+        if (messages.length === MESSAGES_BATCH) {
+            nextCursor = messages[MESSAGES_BATCH - 1].id;
         }
 
         return NextResponse.json({
