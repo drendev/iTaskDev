@@ -1,5 +1,6 @@
 import qs from 'query-string';
 import { useInfiniteQuery } from '@tanstack/react-query';
+
 import axios from 'axios';
 
 interface ChatQueryProps {
@@ -25,8 +26,8 @@ export const useChatQuery = ({
             }
         }, { skipNull: true });
 
-        const res = await axios.get(url);
-        return res.data;
+        const res = await fetch(url);
+        return res.json();
     };
 
     const {
@@ -39,7 +40,7 @@ export const useChatQuery = ({
         queryKey: [queryKey],
         queryFn: fetchMessages,
         getNextPageParam: (lastPage) => lastPage?.nextCursor,
-        refetchInterval: 10,
+        refetchInterval: 50,
         initialPageParam: undefined
     })
 
