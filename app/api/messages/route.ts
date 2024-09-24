@@ -3,11 +3,13 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { ProjectChat } from "@prisma/client";
 
-const MESSAGES_BATCH = 5;
+
 
 export async function GET(
     req: Request
 ) {
+    const MESSAGES_BATCH = 5;
+    
     try {
         const user = await currentUser();
         const { searchParams } = new URL(req.url);
