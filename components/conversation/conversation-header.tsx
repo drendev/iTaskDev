@@ -39,6 +39,7 @@ export const ConversationHeader = ({
                 {type === "direct" && (
                     <ChatVideoButton />
                 )}
+                <SocketIndicator />
             </div>
         </div>
     )
