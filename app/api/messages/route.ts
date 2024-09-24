@@ -5,79 +5,46 @@ import { ProjectChat } from "@prisma/client";
 
 const MESSAGES_BATCH = 5;
 
-export async function GET(
-    req: Request
-) {
+export async function GET(req: Request) {
     try {
         const user = await currentUser();
-        const { searchParams } = new URL(req.url);
-
-        const cursor = searchParams.get("cursor");
-        const projectId = searchParams.get("projectId");
-
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
+
+        const { searchParams } = new URL(req.url);
+        const projectId = searchParams.get("projectId");
+        const cursor = searchParams.get("cursor");
 
         if (!projectId) {
             return new NextResponse("Project ID missing", { status: 400 });
         }
 
-        let messages: ProjectChat[] = [];
+        const queryOptions: any = {
+            take: MESSAGES_BATCH,
+            where: { projectId },
+            include: {
+                member: {
+                    include: {
+                        user: true
+                    }
+                }
+            },
+            orderBy: { createdAt: "desc" }
+        };
 
         if (cursor) {
-            messages = await db.projectChat.findMany({
-                take: MESSAGES_BATCH,
-                skip: 1,
-                cursor: {
-                    id: cursor
-                },
-                where: {
-                    projectId
-                },
-                include: {
-                    member: {
-                        include: {
-                            user: true
-                        }
-                    }
-                },
-                orderBy: {
-                    createdAt: "desc",
-                }
-            })
-        } else {
-            messages = await db.projectChat.findMany({
-                take: MESSAGES_BATCH,
-                where: {
-                    projectId
-                },
-                include: {
-                    member: {
-                        include: {
-                            user: true
-                        }
-                    }
-                },
-                orderBy: {
-                    createdAt: "desc",
-                }
-            })
+            queryOptions.skip = 1;
+            queryOptions.cursor = { id: cursor };
         }
 
-        let nextCursor = null;
+        const messages: ProjectChat[] = await db.projectChat.findMany(queryOptions);
 
-        if (messages.length === MESSAGES_BATCH) {
-            nextCursor = messages[MESSAGES_BATCH - 1].id;
-        }
+        const nextCursor = messages.length === MESSAGES_BATCH ? messages[MESSAGES_BATCH - 1].id : null;
 
-        return NextResponse.json({
-            items: messages,
-            nextCursor
-        });
-
+        return NextResponse.json({ items: messages, nextCursor });
     } catch (error) {
-        console.log("MESSAGES GET ERROR", error);
+        console.error("MESSAGES GET ERROR", error);
         return new NextResponse("Internal Server Error", { status: 500 });
     }
 }
