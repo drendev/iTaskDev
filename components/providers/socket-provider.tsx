@@ -45,12 +45,10 @@ export const SocketProvider = ({
         });
 
         setSocket(socketInstance);
-
         return () => {
             socketInstance.disconnect();
         }
     }, []);
-
     return (
         <SocketContext.Provider value={{ socket, isConnected }}>
             {children}
