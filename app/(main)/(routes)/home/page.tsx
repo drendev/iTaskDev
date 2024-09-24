@@ -67,7 +67,7 @@ const Home = () => {
               <div className="flex flex-col items-start space-y-5 text-sm">
                 <button>Add a user</button>
                 <button>Delete a user</button>
-                <button>Update a user's name or email</button>
+                <button>Update a users name or email</button>
                 <button>Create an alternate email address (email alias)</button>
               </div>
             </CardContent>
