@@ -7,7 +7,6 @@ import { Loader2, ServerCrash } from "lucide-react";
 import { Fragment, useRef, ElementRef } from "react";
 import { ChatItem } from "./chat-item";
 import { format } from "date-fns";
-import { useChatSocket } from "@/hooks/use-chat-socket";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
 import { DirectChatItem } from "./direct-chat-item";
 
@@ -42,8 +41,6 @@ export const DirectMessages = ({
 }: ChatMessagesProps) => {
 
     const queryKey = `chat:${chatId}`;
-    const addKey = `chat:${chatId}:messages`;
-    const updateKey = `chat:${chatId}:message:update`;
 
     const chatRef = useRef<ElementRef<"div">>(null);
     const bottomRef = useRef<ElementRef<"div">>(null);
@@ -61,7 +58,6 @@ export const DirectMessages = ({
         paramValue
     });
 
-    useChatSocket({ queryKey, addKey, updateKey });
     useChatScroll({
         chatRef,
         bottomRef,

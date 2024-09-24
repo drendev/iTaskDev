@@ -1,6 +1,5 @@
 import { UserAvatar } from "@/app/(invite)/(routes)/pending/_components/user-avatar";
 import { Hash } from "lucide-react";
-import { SocketIndicator } from "@/components/socket-indicator";
 import { ChatVideoButton } from "./chat-video-button";
 
 interface ConversationHeaderProps {
@@ -39,7 +38,6 @@ export const ConversationHeader = ({
                 {type === "direct" && (
                     <ChatVideoButton />
                 )}
-                <SocketIndicator />
             </div>
         </div>
     )

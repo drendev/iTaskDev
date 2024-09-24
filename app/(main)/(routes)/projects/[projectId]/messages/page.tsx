@@ -53,7 +53,7 @@ const ProjectMessagesPage = async ({
             member={member}
             type="Project Members Chat"
             apiUrl="/api/messages"
-            socketUrl="/api/socket/messages"
+            socketUrl="/api/polling/messages"
             socketQuery={{
                 projectId: params.projectId,
                 memberId: user.id
@@ -65,7 +65,7 @@ const ProjectMessagesPage = async ({
 
             <ChatInput 
             type="Project Members Chat"
-            apiUrl="/api/socket/messages"
+            apiUrl="/api/polling/messages"
             name={project.name}
             query={{
                 projectId: params.projectId,

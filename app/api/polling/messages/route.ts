@@ -1,34 +1,29 @@
-import { currentUser } from "@/lib/auth";
-import { NextApiResponseServerIo } from "@/types";
-import { NextApiRequest } from "next";
-import { auth } from '@/auth';
-import { db } from "@/lib/db";
-import { currentUserPages } from "@/lib/current-user-pages";
 
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponseServerIo
+import { db } from "@/lib/db";
+import { NextResponse } from "next/server";
+
+export async function POST(
+    req: Request,
 ) {
 
-    if (req.method !== "POST") {
-        return res.status(405).json({ error: "Method not allowed" });
-    }
-
     try {
+        const url = new URL(req.url);
 
-        const { content, fileUrl } = req.body;
-        const { projectId, memberId } = req.query;
+        const { content, fileUrl } = await req.json();
+
+        const projectId = url.searchParams.get('projectId');
+        const memberId = url.searchParams.get('memberId');
 
         if(!memberId) {
-            return res.status(401).json({ error: "Unauthorized" });
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         if(!projectId) {
-            return res.status(400).json({ error: "Project ID Missing" });
+            return NextResponse.json({ error: "Project ID Missing" }, { status: 400 });
         }
 
         if(!content) {
-            return res.status(400).json({ error: "Content Missing" });
+            return NextResponse.json({ error: "Content Missing" }, { status: 400 });
         }
 
         const project = await db.workspace.findFirst({
@@ -46,13 +41,13 @@ export default async function handler(
         });
         
         if (!project) {
-            return res.status(404).json({ error: "Project not found" });
+            return NextResponse.json({ error: "Project Not Found" }, { status: 404 });
         }
 
         const member = project.members.find((member) => member.userId === memberId);
 
         if (!member) {
-            return res.status(404).json({ error: "Member not found" });
+            return NextResponse.json({ error: "Member Not Found" }, { status: 404 });
         }
 
         const message = await db.projectChat.create({
@@ -70,14 +65,10 @@ export default async function handler(
                 }
             }
         });
-
-        const projectKey = `chat:${projectId}:messages`;
-
-        res?.socket?.server?.io?.emit(projectKey, message);
         
-        return res.status(200).json(message);
+        return NextResponse.json(message, { status: 200 });
     } catch (error) {
         console.log("MESSAGES_POST", error);
-        return res.status(500).json({ message: "Internal Server Error taenma" });
+        return NextResponse.json({ error: "Internal Server error" }, { status: 500 });
     }
 }

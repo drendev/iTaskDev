@@ -35,7 +35,7 @@ export const DeleteMessageModal = () => {
                 query: query,
             });
 
-            await axios.delete(url);
+            await axios.post(url);
 
             onClose();
             setIsLoading(false);
