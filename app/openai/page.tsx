@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -102,7 +103,7 @@ export default function OpenAI() {
   const [completion, setCompletion] = useState<string[]>([]);
   const [sdlcImg, setSdlcImg] = useState<string>("");
   const [confPercent, setConfPercent] = useState<number>(0);
-  const [sdlcColorTheme, setSdlcColorTheme] = useState<string>("");
+  const [sdlcColorTheme, setSdlcColorTheme] = useState<string>("#f3f4f6");
   const [sdlcDesc, setSdlcDesc] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -132,58 +133,57 @@ export default function OpenAI() {
     const filteredArray: string[] = sectionsArray.filter(
       (section: string) => section.trim() !== ""
     );
-    const numberOnly = parseInt(filteredArray[1].replace("%", ""), 10);
-    setConfPercent(numberOnly);
+    if (filteredArray[0] != "Unrelated") {
+      const numberOnly = parseInt(filteredArray[1].replace("%", ""), 10);
+      setConfPercent(numberOnly);
 
-    console.log(filteredArray);
-    setCompletion(filteredArray);
-
-    if (filteredArray[0].toLowerCase() == "waterfall") {
-      setSdlcImg(sdlcPicLinks.waterfall);
-      setSdlcColorTheme(sdlcColor.waterfall);
-      setSdlcDesc(sdlcDescription.waterfall);
-    } else if (filteredArray[0].toLowerCase() == "scrum") {
-      setSdlcImg(sdlcPicLinks.scrum);
-      setSdlcColorTheme(sdlcColor.scrum);
-      setSdlcDesc(sdlcDescription.scrum);
-    } else if (filteredArray[0].toLowerCase() == "kanban") {
-      setSdlcImg(sdlcPicLinks.kanban);
-      setSdlcColorTheme(sdlcColor.kanban);
-      setSdlcDesc(sdlcDescription.kanban);
-    } else if (filteredArray[0].toLowerCase() == "devops") {
-      setSdlcImg(sdlcPicLinks.devops);
-      setSdlcColorTheme(sdlcColor.devops);
-      setSdlcDesc(sdlcDescription.devops);
-    } else if (filteredArray[0].toLowerCase() == "lean") {
-      setSdlcImg(sdlcPicLinks.lean);
-      setSdlcColorTheme(sdlcColor.lean);
-      setSdlcDesc(sdlcDescription.lean);
-    } else if (filteredArray[0].toLowerCase() == "spiral") {
-      setSdlcImg(sdlcPicLinks.spiral);
-      setSdlcColorTheme(sdlcColor.spiral);
-      setSdlcDesc(sdlcDescription.spiral);
-    } else if (filteredArray[0].toLowerCase() == "iterative") {
-      setSdlcImg(sdlcPicLinks.iterative);
-      setSdlcColorTheme(sdlcColor.iterative);
-      setSdlcDesc(sdlcDescription.iterative);
-    } else if (filteredArray[0].toLowerCase() == "v-shape") {
-      setSdlcImg(sdlcPicLinks.vshape);
-      setSdlcColorTheme(sdlcColor.vshape);
-      setSdlcDesc(sdlcDescription.vshape);
-    } else if (filteredArray[0].toLowerCase() == "rad") {
-      setSdlcImg(sdlcPicLinks.rad);
-      setSdlcColorTheme(sdlcColor.rad);
-      setSdlcDesc(sdlcDescription.rad);
+      if (filteredArray[0].toLowerCase() == "waterfall") {
+        setSdlcImg(sdlcPicLinks.waterfall);
+        setSdlcColorTheme(sdlcColor.waterfall);
+        setSdlcDesc(sdlcDescription.waterfall);
+      } else if (filteredArray[0].toLowerCase() == "scrum") {
+        setSdlcImg(sdlcPicLinks.scrum);
+        setSdlcColorTheme(sdlcColor.scrum);
+        setSdlcDesc(sdlcDescription.scrum);
+      } else if (filteredArray[0].toLowerCase() == "kanban") {
+        setSdlcImg(sdlcPicLinks.kanban);
+        setSdlcColorTheme(sdlcColor.kanban);
+        setSdlcDesc(sdlcDescription.kanban);
+      } else if (filteredArray[0].toLowerCase() == "devops") {
+        setSdlcImg(sdlcPicLinks.devops);
+        setSdlcColorTheme(sdlcColor.devops);
+        setSdlcDesc(sdlcDescription.devops);
+      } else if (filteredArray[0].toLowerCase() == "lean") {
+        setSdlcImg(sdlcPicLinks.lean);
+        setSdlcColorTheme(sdlcColor.lean);
+        setSdlcDesc(sdlcDescription.lean);
+      } else if (filteredArray[0].toLowerCase() == "spiral") {
+        setSdlcImg(sdlcPicLinks.spiral);
+        setSdlcColorTheme(sdlcColor.spiral);
+        setSdlcDesc(sdlcDescription.spiral);
+      } else if (filteredArray[0].toLowerCase() == "iterative") {
+        setSdlcImg(sdlcPicLinks.iterative);
+        setSdlcColorTheme(sdlcColor.iterative);
+        setSdlcDesc(sdlcDescription.iterative);
+      } else if (filteredArray[0].toLowerCase() == "v-shape") {
+        setSdlcImg(sdlcPicLinks.vshape);
+        setSdlcColorTheme(sdlcColor.vshape);
+        setSdlcDesc(sdlcDescription.vshape);
+      } else if (filteredArray[0].toLowerCase() == "rad") {
+        setSdlcImg(sdlcPicLinks.rad);
+        setSdlcColorTheme(sdlcColor.rad);
+        setSdlcDesc(sdlcDescription.rad);
+      }
     }
 
+    setCompletion(filteredArray);
     setLoading(false);
     setDisabled(false);
-    setModalOpen(true);
   }
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-wrap items-center justify-center min-h-screen">
         <div className="relative">
           <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
             {/* Left Side */}
@@ -221,7 +221,7 @@ export default function OpenAI() {
                           <Textarea
                             placeholder="Example: We're building an Inventory Management System for ABC Retail Corp in 9 months, with a 12-person team focusing on AI-powered stock prediction, RFID tracking, and real-time notifications. The first 3 months will cover requirements gathering and prototype development, with bi-weekly meetings to align with client goals, and continuous testing throughout the project. The system will be deployed on Google Cloud using CI/CD pipelines, with 12 months of post-deployment support for bug fixes and performance monitoring."
                             {...field}
-                            className="resize-none h-[350px] w-96"
+                            className="resize-none h-[350px] w-[800px]"
                           />
                         </FormControl>
                         <FormDescription>
@@ -251,110 +251,154 @@ export default function OpenAI() {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px] md:min-w-[1000px] md:max-h-[700px] overflow-y-scroll max-h-screen">
                       <>
-                        <DialogHeader>
-                          <DialogTitle className="mx-auto text-3xl">
-                            {completion[0]}
-                          </DialogTitle>
-                        </DialogHeader>
+                        {completion[0] === "Unrelated" ? (
+                          <DialogHeader>
+                            <DialogTitle className="mx-auto text-3xl">
+                              Failed
+                            </DialogTitle>
+                          </DialogHeader>
+                        ) : (
+                          <>
+                            <DialogHeader>
+                              <DialogTitle className="mx-auto text-3xl">
+                                {completion[0]}
+                              </DialogTitle>
+                            </DialogHeader>
 
-                        <Image
-                          src={sdlcImg}
-                          width={500}
-                          height={500}
-                          alt="waterfall"
-                          className="mx-auto mt-10"
-                        />
-                        <div className="flex justify-center mt-24 mb-24">
-                          <p className="flex items-center w-20 mr-20 text-xl">
-                            Confidence Percentage:
-                          </p>
-                          <div style={{ width: 200, height: 200 }}>
-                            <CircularProgressbar
-                              value={confPercent}
-                              text={completion[1]}
-                              styles={buildStyles({
-                                // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                                strokeLinecap: "butt",
-
-                                // Text size
-                                textSize: "16px",
-
-                                // How long animation takes to go from one percentage to another, in seconds
-                                pathTransitionDuration: 0.5,
-
-                                // Can specify path transition in more detail, or remove it entirely
-                                // pathTransition: 'none',
-
-                                // Colors
-                                pathColor: `${sdlcColorTheme}`,
-                                textColor: `${sdlcColorTheme}`,
-                                trailColor: "#e5e7eb",
-                                backgroundColor: "#3e98c7",
-                              })}
+                            <Image
+                              src={sdlcImg}
+                              width={500}
+                              height={500}
+                              alt="waterfall"
+                              className="mx-auto mt-10"
                             />
-                          </div>
-                        </div>
-                        <div>
-                          <p className="my-3">{sdlcDesc}</p>
-                        </div>
-                        <div>
-                          <p className="text-2xl my-3">Timeline</p>
-                          <Separator className="text-blue-800" />
-                          <p className="my-3">{completion[2]}</p>
-                        </div>
-                        <div>
-                          <p className="text-2xl my-3">Team Size</p>
-                          <Separator />
-                          <p className="my-3">{completion[3]}</p>
-                        </div>
-                        <div>
-                          <p className="text-2xl my-3">Complex Features</p>
-                          <Separator />
-                          <p className="my-3">{completion[4]}</p>
-                        </div>
-                        <div>
-                          <p className="text-2xl my-3">Client Involvement</p>
-                          <Separator />
-                          <p className="my-3">{completion[5]}</p>
-                        </div>
-                        <div>
-                          <p className="text-2xl my-3">
-                            Scope and Requirements Stability
-                          </p>
-                          <Separator />
-                          <p className="my-3">{completion[6]}</p>
-                        </div>
-                        <div>
-                          <p className="text-2xl my-3">
-                            Resource Availability and Skill Levels
-                          </p>
-                          <Separator />
-                          <p className="my-3">{completion[7]}</p>
-                        </div>
-                        <div>
-                          <p className="text-2xl my-3">
-                            Quality Assurance and Testing
-                          </p>
-                          <Separator />
-                          <p className="my-3">{completion[8]}</p>
-                        </div>
-                        <div>
-                          <p className="text-2xl my-3">Deployment</p>
-                          <Separator />
-                          <p className="my-3">{completion[9]}</p>
-                        </div>
+                            <div className="flex justify-center mt-24 mb-24">
+                              <p className="flex items-center w-20 mr-20 text-xl">
+                                Confidence Percentage:
+                              </p>
+                              <div style={{ width: 200, height: 200 }}>
+                                <CircularProgressbar
+                                  value={confPercent}
+                                  text={completion[1]}
+                                  styles={buildStyles({
+                                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                                    strokeLinecap: "butt",
 
-                        <DialogFooter>
-                          <DialogClose asChild>
-                            <Button
-                              type="button"
-                              className={`bg-[${sdlcColorTheme}]`}
-                              onClick={() => setModalOpen(false)}
-                            >
-                              Close
-                            </Button>
-                          </DialogClose>
-                        </DialogFooter>
+                                    // Text size
+                                    textSize: "16px",
+
+                                    // How long animation takes to go from one percentage to another, in seconds
+                                    pathTransitionDuration: 0.5,
+
+                                    // Can specify path transition in more detail, or remove it entirely
+                                    // pathTransition: 'none',
+
+                                    // Colors
+                                    pathColor: `${sdlcColorTheme}`,
+                                    textColor: `${sdlcColorTheme}`,
+                                    trailColor: "#e5e7eb",
+                                    backgroundColor: "#3e98c7",
+                                  })}
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <p className="my-3">{sdlcDesc}</p>
+                            </div>
+                            <div>
+                              <p className="text-2xl my-3">Timeline</p>
+                              <Separator className="text-blue-800" />
+                              <p className="my-3">
+                                {completion[2]
+                                  ? completion[2]
+                                  : "No sufficient data is given"}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-2xl my-3">Team Size</p>
+                              <Separator />
+                              <p className="my-3">
+                                {completion[3]
+                                  ? completion[3]
+                                  : "No sufficient data is given"}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-2xl my-3">Complex Features</p>
+                              <Separator />
+                              <p className="my-3">
+                                {completion[4]
+                                  ? completion[4]
+                                  : "No sufficient data is given"}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-2xl my-3">
+                                Client Involvement
+                              </p>
+                              <Separator />
+                              <p className="my-3">
+                                {completion[5]
+                                  ? completion[5]
+                                  : "No sufficient data is given"}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-2xl my-3">
+                                Scope and Requirements Stability
+                              </p>
+                              <Separator />
+                              <p className="my-3">
+                                {completion[6]
+                                  ? completion[6]
+                                  : "No sufficient data is given"}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-2xl my-3">
+                                Resource Availability and Skill Levels
+                              </p>
+                              <Separator />
+                              <p className="my-3">
+                                {completion[7]
+                                  ? completion[7]
+                                  : "No sufficient data is given"}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-2xl my-3">
+                                Quality Assurance and Testing
+                              </p>
+                              <Separator />
+                              <p className="my-3">
+                                {completion[8]
+                                  ? completion[8]
+                                  : "No sufficient data is given"}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-2xl my-3">Deployment</p>
+                              <Separator />
+                              <p className="my-3">
+                                {completion[9]
+                                  ? completion[9]
+                                  : "No sufficient data is given"}
+                              </p>
+                            </div>
+
+                            <DialogFooter>
+                              <DialogClose asChild>
+                                <Button
+                                  type="button"
+                                  className={`bg-[${sdlcColorTheme}]`}
+                                  onClick={() => setModalOpen(false)}
+                                >
+                                  Close
+                                </Button>
+                              </DialogClose>
+                            </DialogFooter>
+                          </>
+                        )}
                       </>
                     </DialogContent>
                   </Dialog>
@@ -362,9 +406,42 @@ export default function OpenAI() {
               </Form>
             </div>
 
-            {/* Right Side */}
-            <div className="hidden md:flex flex-col w-96 p-10 mr-5 items-center justify-center">
-              <p>Guide Questions</p>
+            {/* Second Section */}
+            <div className="flex flex-col w-[500px] p-10 my-10 mx-auto bg-white shadow-2xl rounded-2xl border-2">
+              <div className="justify-center items-center mx-auto">
+                <p className="text-xl text-center">Recommended SDLC</p>
+                {sdlcImg ? (
+                  <div>
+                    <Image
+                      src={`${sdlcImg}`}
+                      alt="none"
+                      width={500}
+                      height={500}
+                      className="w-[80%] h-[80%] my-10 mx-auto"
+                    />
+                    <p className="italic text-muted-foreground text-center">
+                      {completion[0]}
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <Image
+                      src="/transhumans/reflecting.png"
+                      alt="none"
+                      width={500}
+                      height={500}
+                      className="w-52 h-52 my-10"
+                    />
+                    <p className="italic text-muted-foreground text-center">
+                      Nothing selected yet
+                    </p>
+                  </>
+                )}
+              </div>
+            </div>
+            {/* Third Section */}
+            <div className="md:flex flex-col w-full p-10 mr-5 items-center justify-center">
+              <p className="mt-10">Guide Questions</p>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
                   <AccordionTrigger>Timeline</AccordionTrigger>
