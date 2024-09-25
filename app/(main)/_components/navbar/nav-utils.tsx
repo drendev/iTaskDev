@@ -24,7 +24,7 @@ export const NavUtils = () => {
     const user = useCurrentUser();
 
     return (
-        <div className="flex justify-end items-center">
+        <div className="justify-end items-center hidden lg:flex">
             <Button variant="ghost" className="rounded-full">
                 <GoBell className="w-5 h-5" color="#475569"/>
             </Button>
