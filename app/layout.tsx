@@ -4,7 +4,6 @@ import { auth } from "@/auth";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { Modals } from "@/components/providers/modal-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
 
@@ -27,7 +26,6 @@ export default async function RootLayout({
         <html lang="en">
           <body className={ibm.className}>
               <Toaster />
-              <Modals />
               <QueryProvider>
                 {children}
               </QueryProvider>

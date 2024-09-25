@@ -75,6 +75,7 @@ model Workspace {
   pending PendingMember[]
 
   chat ProjectChat[]
+  tasks Task[]
 
   @@map("workspaces")
   @@index([userId])
@@ -95,7 +96,10 @@ model Member {
   workspaceId String
   workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
+  workLoad Int?
+
   chat ProjectChat[]
+  tasks TaskMember[]
 
   @@index([userId])
   @@index([workspaceId])
@@ -169,4 +173,39 @@ model DirectMessage {
 
   @@index([userId])
   @@index([conversationId])
+}
+
+model Task {
+  id String @id @default(uuid())
+  content String @db.Text
+
+  members TaskMember[]
+
+  projectId String
+  workspace Workspace @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  DateAssigned DateTime?
+  DateDue DateTime?
+  DateCompleted DateTime?
+
+  Intensity Int?
+  Priority Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+}
+
+model TaskMember {
+  id String @id @default(uuid())
+
+  taskId String
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  memberId String
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@index([memberId])
 }
