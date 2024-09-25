@@ -1,14 +1,23 @@
 import Image from "next/image";
+import Link from "next/link";
 
-export const NavLogo = () => {
-    return(
-        <div className="flex space-x-2">
-            <div className="">
-                <Image src={"/logo.png"} alt={"logo"} width={32} height={32}/>
-            </div>
-            <div className="font-bold text-lg text-slate-600">
-                iTaskDev
-            </div>
+const NavLogo = () => {
+  return (
+    <>
+      <Link href="/">
+        <div className="flex items-center gap-2  p-3">
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={100}
+            height={100}
+            className="w-8"
+          />
+          <p className="font-bold text-lg">iTaskDev</p>
         </div>
-    )
-}
+      </Link>
+    </>
+  );
+};
+
+export default NavLogo;

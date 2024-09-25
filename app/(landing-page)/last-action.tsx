@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 const LastAction = () => {
   return (
     <div className="flex flex-col items-center mt-10">
-      <div className="font-medium 2xl:w-1/3 xl:w-1/2 md:w-2/3 lg:px-0 lg:mt-10 lg:text-6xl px-8 text-4xl xl:text-5xl flex justify-center text-center my-5">
+      <div className="font-medium 2xl:w-1/3 xl:w-1/2 md:w-2/3 lg:px-0 lg:mt-10 lg:text-6xl px-8 text-2xl xl:text-5xl flex justify-center text-center my-5">
         Start your software project now with iTaskDev.
       </div>
       <Image

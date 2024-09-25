@@ -1,5 +1,5 @@
 import React from "react";
-import { SessionProvider} from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
@@ -8,9 +8,9 @@ import { Modals } from "@/components/providers/modal-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
 
-const ibm = Poppins({ subsets: ["latin"], weight: "500"});
+const ibm = Poppins({ subsets: ["latin"], weight: "500" });
 
-export const metadata: Metadata ={
+export const metadata: Metadata = {
   title: "iTaskDev",
   description: "Optimize Task Assignment in Software Development",
 };
@@ -23,16 +23,12 @@ export default async function RootLayout({
   const session = await auth();
 
   return (
-      <SessionProvider session={session}>
-        <html lang="en">
-          <body className={ibm.className}>
-              <Toaster />
-              <Modals />
-              <QueryProvider>
-                {children}
-              </QueryProvider>
-            </body>
-        </html>
-      </SessionProvider>
+    <SessionProvider session={session}>
+      <html lang="en">
+        <body className={ibm.className}>
+          <QueryProvider>{children}</QueryProvider>
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

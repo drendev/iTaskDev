@@ -27,7 +27,7 @@ const ActionButtons = () => {
         <div className="flex xl:space-x-4">
           <div className="flex lg:space-x-4 items-center pr-4">
             <div>
-              <Link href={"/contact-sales"}>
+              <Link href={"/auth/login"}>
                 <LoginButton>
                   <Button className="hidden lg:flex items-center border-none text-md">
                     Sign in
