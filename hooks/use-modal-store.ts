@@ -1,7 +1,7 @@
 import { Workspace } from "@prisma/client";
 import { create } from "zustand";
 
-export type ModalType = "createProject" | "invite" | "pending" | "members" | "editProject" | "leaveProject" | "deleteProject" | "messageFile" | "deleteMessage";
+export type ModalType = "createProject" | "invite" | "pending" | "members" | "editProject" | "leaveProject" | "deleteProject" | "messageFile" | "deleteMessage" | "addTask";
 
 interface ModalData {
     workspace?: Workspace;

@@ -25,7 +25,10 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en">
         <body className={ibm.className}>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <Toaster />
+            {children}
+          </QueryProvider>
         </body>
       </html>
     </SessionProvider>
