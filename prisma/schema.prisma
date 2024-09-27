@@ -68,11 +68,14 @@ model Workspace {
 
   isPrivate   Boolean  @default(true)
 
+  sdlc String? @db.Text
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @map("user_id")
 
   members Member[]
   pending PendingMember[]
+  info ProjectInformation[]
 
   chat ProjectChat[]
   tasks Task[]
@@ -208,4 +211,25 @@ model TaskMember {
 
   @@index([taskId])
   @@index([memberId])
+}
+
+model ProjectInformation {
+  id String @id @default(uuid())
+
+  workspaceId String @unique
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  description String @db.Text
+  dueDate DateTime
+  complexFeatures Boolean @default(false)
+  clientInvolvement Boolean @default(false)
+  deployment Boolean @default(false)
+  testing String @db.Text
+  tasks Int
+  members String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([workspaceId])
 }

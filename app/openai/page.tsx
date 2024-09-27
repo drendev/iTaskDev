@@ -120,7 +120,7 @@ export default function OpenAI() {
     setLoading(true);
     setDisabled(true);
     console.log(JSON.stringify(values));
-    const res = await fetch("http://localhost:3000/api/openapi", {
+    const res = await fetch("/api/openapi", {
       method: "POST",
       body: JSON.stringify(values),
     });
