@@ -29,7 +29,7 @@ export const SearchBar = () => {
 
   return (
     <div
-      className="md:w-[500px] relative hidden lg:flex"
+      className="md:w-[400px] relative hidden lg:flex"
       ref={commandRef}
     >
       <Command>

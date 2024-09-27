@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import React, { useState, useEffect} from "react";
+import { useSearchParams } from "next/navigation";
 import Waterfall from "@/components/landing/sdlc/waterfall";
 import Scrum from "@/components/landing/sdlc/scrum";
 import Kanban from "@/components/landing/sdlc/kanban";
@@ -12,7 +12,7 @@ import DevOps from "@/components/landing/sdlc/devops";
 import Iterative from "@/components/landing/sdlc/iterative";
 import RAD from "@/components/landing/sdlc/rad";
 import { motion } from "framer-motion";
-import { Lekton } from "next/font/google";
+
 
 const SDLC = () => {
   const searchParams = useSearchParams();
