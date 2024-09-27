@@ -1,28 +1,13 @@
 import {
-  Tag,
-  Users,
   Settings,
-  Bookmark,
-  SquarePen,
   LayoutGrid,
   LucideIcon,
-  House,
   Rocket,
   Mail,
   ClipboardCheck,
   Telescope,
   Shield,
 } from "lucide-react";
-
-import {
-  GoBeaker,
-  GoHome,
-  GoMention,
-  GoRepo,
-  GoRocket,
-  GoShieldLock,
-  GoStack,
-} from "react-icons/go";
 
 type Submenu = {
   href: string;
@@ -65,18 +50,7 @@ export function getMenuList(pathname: string): Group[] {
           label: "Projects",
           active: pathname.includes("/projects"),
           icon: Rocket,
-          submenus: [
-            // {
-            //   href: "/posts",
-            //   label: "All Posts",
-            //   active: pathname === "/posts",
-            // },
-            // {
-            //   href: "/posts/new",
-            //   label: "New Post",
-            //   active: pathname === "/posts/new",
-            // },
-          ],
+          submenus: [],
         },
         {
           href: "/messages",

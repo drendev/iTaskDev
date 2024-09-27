@@ -2,7 +2,7 @@
 
 import NavLogo from "./nav-logo";
 import { NavUtils } from "@/app/(main)/_components/navbar/nav-utils";
-import { SearchBar } from "./search-bar";
+import { SearchBar } from "../../../../components/admin-panel/search-bar";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";

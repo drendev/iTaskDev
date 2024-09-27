@@ -25,6 +25,8 @@
 
 // export default MainLayout;
 
+import { ContentLayout } from "@/components/admin-panel/content-layout";
+
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 
 export default function DemoLayout({
@@ -32,5 +34,9 @@ export default function DemoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AdminPanelLayout>{children}</AdminPanelLayout>;
+  return (
+    <AdminPanelLayout>
+      <ContentLayout>{children}</ContentLayout>
+    </AdminPanelLayout>
+  );
 }
