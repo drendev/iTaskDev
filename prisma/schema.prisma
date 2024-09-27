@@ -77,6 +77,8 @@ model Workspace {
   pending PendingMember[]
   info ProjectInformation[]
 
+  sdlcAi ProjectSdlc[]
+
   chat ProjectChat[]
   tasks Task[]
 
@@ -231,5 +233,26 @@ model ProjectInformation {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
+  @@index([workspaceId])
+}
+
+model ProjectSdlc {
+  id String @id @default(uuid())
+
+  workspaceId String @unique
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  timeline String @db.Text
+  teamSize String @db.Text
+  complexFeatures String @db.Text
+  clientInvolvement String @db.Text
+  scopeAndRequirements String @db.Text
+  resourceAvailability String @db.Text
+  qualityAssurance String @db.Text
+  deployment String @db.Text
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([workspaceId])
 }

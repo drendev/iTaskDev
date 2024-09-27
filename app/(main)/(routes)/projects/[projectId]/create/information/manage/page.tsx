@@ -30,7 +30,9 @@ const ManageInformationPage = async ({
 
     return (
         <div>
-            <RenderInformation info={projectInformation} />
+            <RenderInformation 
+            info={projectInformation}
+             />
         </div>
     )
 }
