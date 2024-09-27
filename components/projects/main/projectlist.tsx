@@ -45,6 +45,7 @@ import {
 } from "@/components/ui/pagination";
 
 import { useMediaQuery } from "react-responsive";
+import { useModal } from "@/hooks/use-modal-store";
 
 const test = [
   {
@@ -151,6 +152,8 @@ const test = [
 ];
 
 const ProjectList = () => {
+  const { onOpen } = useModal();
+
   const [layout, setLayout] = useState<string>("list");
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -160,6 +163,7 @@ const ProjectList = () => {
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = test.slice(firstPostIndex, lastPostIndex);
 
+  
   console.log(currentPosts);
   return (
     <>
@@ -198,7 +202,7 @@ const ProjectList = () => {
           </div>
 
           <div className="flex space-x-2 mt-5 justify-between">
-            <Button>+ Create a Project</Button>
+            <Button onClick={() => onOpen("createProject")}>+ Create a Project</Button>
             <div>
               <Button
                 variant="ghost"
