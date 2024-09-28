@@ -14,6 +14,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useModal } from "@/hooks/use-modal-store";
+import { ProjectWithInformation } from "@/types";
+import { Info } from "lucide-react";
 
 interface RenderInformationProps {
   info: ProjectInformation;
@@ -21,9 +23,9 @@ interface RenderInformationProps {
 
 export const RenderInformation = ({ info }: RenderInformationProps) => {
   const router = useRouter();
+  const { onOpen } = useModal();
 
   const onSubmit = async () => {
-    console.log("CLicked");
     try {
       const response = await axios.post("/api/openapi", {
         description: info.description,
@@ -42,10 +44,6 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
       console.log(error);
     }
   };
-
-  const onPrevious = () => {
-    router.push(`/projects/${info.workspaceId}/create/information`);
-  }
 
   return (
     <div className="flex flex-col">
@@ -119,7 +117,7 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button className="w-40" variant="ghost" onClick={onPrevious}>
+          <Button className="w-40" variant="ghost" onClick={() => onOpen("editInformation", { info: info })}>
             Go back
           </Button>
           <Button className="w-40" onClick={onSubmit}>

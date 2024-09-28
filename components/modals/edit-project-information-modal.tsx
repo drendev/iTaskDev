@@ -70,6 +70,7 @@ const formSchema = z.object({
   });
 
 export const EditProjectInformationModal = () => {
+    const user = useCurrentUser();
 
     const { isOpen, onClose, type, data } = useModal();
    
@@ -77,12 +78,20 @@ export const EditProjectInformationModal = () => {
     
     const router = useRouter();
 
-    const { workspace } = data as { workspace: ProjectWithInformation};
+    const { info } = data;
     const isModalOpen = isOpen && type === "editInformation";
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+          tasks: info?.tasks,
+          description: info?.description,
+          dueDate: info?.dueDate,
+          complexFeatures: info?.complexFeatures,
+          clientInvolvement: info?.clientInvolvement,
+          deployment: info?.deployment,
+          testing: info?.testing,
+          members: info?.members,
         },
       });
 
@@ -91,7 +100,7 @@ export const EditProjectInformationModal = () => {
         try {
             setLoading(true);
             const response = await axios.post(
-                `/api/workspaces/${workspace.id}/create/information`,
+                `/api/workspaces/${info?.workspaceId}/create/information`,
                 {
                   tasks: values.tasks,
                   description: values.description,
@@ -127,7 +136,6 @@ export const EditProjectInformationModal = () => {
                     </DialogDescription>
                 </DialogHeader>
 
-                {workspace.info.map((info) => (
                     <Form {...form}>
                     <form
                       className="w-full space-y-5"
@@ -135,8 +143,8 @@ export const EditProjectInformationModal = () => {
                     >
                       <FormField
                         control={form.control}
+                        defaultValue={info?.tasks}
                         name="tasks"
-                        defaultValue={info.tasks}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel> Number of Tasks</FormLabel>
@@ -164,7 +172,7 @@ export const EditProjectInformationModal = () => {
                       <FormField
                         control={form.control}
                         name="description"
-                        defaultValue={info.description}
+                        defaultValue={info?.description}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel> Project Description</FormLabel>
@@ -181,8 +189,8 @@ export const EditProjectInformationModal = () => {
     
                       <FormField
                         control={form.control}
-                        defaultValue={info.dueDate}
                         name="dueDate"
+                        defaultValue={info?.dueDate}
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <FormLabel>Project Due Date</FormLabel>
@@ -228,7 +236,7 @@ export const EditProjectInformationModal = () => {
     
                       <FormField
                         control={form.control}
-                        defaultValue={info.complexFeatures}
+                        defaultValue={info?.complexFeatures}
                         name="complexFeatures"
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
@@ -259,7 +267,7 @@ export const EditProjectInformationModal = () => {
                       <FormField
                         control={form.control}
                         name="clientInvolvement"
-                        defaultValue={info.clientInvolvement}
+                        defaultValue={info?.clientInvolvement}
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <FormLabel>
@@ -288,8 +296,8 @@ export const EditProjectInformationModal = () => {
     
                       <FormField
                         control={form.control}
-                        defaultValue={info.deployment}
                         name="deployment"
+                        defaultValue={info?.deployment}
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <FormLabel>
@@ -318,8 +326,8 @@ export const EditProjectInformationModal = () => {
     
                       <FormField
                         control={form.control}
-                        defaultValue={info.testing}
                         name="testing"
+                        defaultValue={info?.testing}
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <FormLabel>
@@ -350,8 +358,8 @@ export const EditProjectInformationModal = () => {
     
                       <FormField
                         control={form.control}
-                        defaultValue={info.members}
                         name="members"
+                        defaultValue={info?.members}
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <FormLabel>
@@ -384,6 +392,10 @@ export const EditProjectInformationModal = () => {
                         )}
                       />
     
+                      <Button type="submit">Submit</Button>
+                    </form>
+                  </Form>
+
                     <Button type="submit" className="w-full" size="lg" disabled={false}>
                         {loading ? (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -393,12 +405,6 @@ export const EditProjectInformationModal = () => {
                         </>
                         )}
                     </Button>
-                    </form>
-                  </Form>
-                ))}
-
-                
-                    
 
             </DialogContent>
         </Dialog>
