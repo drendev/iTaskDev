@@ -32,7 +32,8 @@ const ManageInformationPage = async ({
   return (
     <div className='m-4'>
       <ProgressBar progress={16.6} />
-      <RenderInformation info={projectInformation} />
+      <RenderInformation
+      info={projectInformation} />
     </div>
   );
 };
