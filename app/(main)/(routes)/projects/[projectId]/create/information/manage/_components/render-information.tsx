@@ -4,6 +4,7 @@ import { ProjectInformation } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { ClipboardCheck } from "lucide-react";
 
 import {
   Card,
@@ -45,13 +46,14 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
 
   const onPrevious = () => {
     router.push(`/projects/${info.workspaceId}/create/information`);
-  }
+  };
 
   return (
     <div className="flex flex-col">
       <Card className="w-full">
         <CardHeader>
           <div className="flex items-center gap-3">
+            <ClipboardCheck size={50} />
             <CardTitle>Confirm project details</CardTitle>
           </div>
           <CardDescription>
@@ -59,61 +61,75 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-4 gap-10">
+          <div className="grid grid-col-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
             <Card className="w-full">
               <CardHeader>
-                <CardTitle>Project Description:</CardTitle>
+                <CardTitle className="text-lg">Project Description:</CardTitle>
               </CardHeader>
-              <CardContent>{info.description}</CardContent>
+              <CardContent className="text-sm">{info.description}</CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">
               <CardHeader>
-                <CardTitle>Project Due Date:</CardTitle>
+                <CardTitle className="text-lg">Project Due Date:</CardTitle>
               </CardHeader>
-              <CardContent>{info.dueDate.toString()}</CardContent>
+              <CardContent className="text-sm">
+                {info.dueDate.toString()}
+              </CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">
               <CardHeader>
-                <CardTitle>Project Members:</CardTitle>
+                <CardTitle className="text-lg">Project Members:</CardTitle>
               </CardHeader>
-              <CardContent>{info.members}</CardContent>
+              <CardContent className="text-sm">{info.members}</CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">
               <CardHeader>
-                <CardTitle>Project Deployment:</CardTitle>
+                <CardTitle className="text-lg">Project Deployment:</CardTitle>
               </CardHeader>
-              <CardContent>{info.deployment.toString()}</CardContent>
+              <CardContent className="text-sm">
+                {info.deployment.toString()}
+              </CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">
               <CardHeader>
-                <CardTitle>Project Client Involvement:</CardTitle>
+                <CardTitle className="text-lg">
+                  Project Client Involvement:
+                </CardTitle>
               </CardHeader>
-              <CardContent>{info.clientInvolvement.toString()}</CardContent>
+              <CardContent className="text-sm">
+                {info.clientInvolvement.toString()}
+              </CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">
               <CardHeader>
-                <CardTitle>Project Complex Features:</CardTitle>
+                <CardTitle className="text-lg">
+                  Project Complex Features:
+                </CardTitle>
               </CardHeader>
-              <CardContent>{info.complexFeatures.toString()}</CardContent>
+              <CardContent className="text-sm">
+                {info.complexFeatures.toString()}
+              </CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">
               <CardHeader>
-                <CardTitle>Project Initial Number of Tasks:</CardTitle>
+                <CardTitle className="text-lg">
+                  Project Initial Number of Tasks:
+                </CardTitle>
               </CardHeader>
-              <CardContent>{info.tasks}</CardContent>
+              <CardContent className="text-sm">{info.tasks}</CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">
               <CardHeader>
-                <CardTitle>Project Testing:</CardTitle>
+                <CardTitle className="text-lg">Project Testing:</CardTitle>
               </CardHeader>
-              <CardContent>{info.testing}</CardContent>
+              <CardContent className="text-sm">{info.testing}</CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
           </div>

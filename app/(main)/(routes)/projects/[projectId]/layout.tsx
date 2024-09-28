@@ -34,7 +34,6 @@ const ProjectIdLayout = async ({
 
     return (
         <div className="h-full">
-            <div className="w-full h-32 p-5 bg-gray-400 rounded-md shadow-xl"></div>
             <MemberList projectId={params.projectId} />
             {children}
         </div>

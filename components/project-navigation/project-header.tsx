@@ -13,6 +13,8 @@ import {
 } from "react-icons/go";
 import { Badge } from "../ui/badge";
 
+import { useMediaQuery } from "react-responsive";
+
 import {
   Card,
   CardContent,
@@ -44,14 +46,15 @@ export const ProjectHeader = ({
   role,
   pending,
 }: ProjectHeaderProps) => {
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   const { onOpen } = useModal();
 
   const isAdmin = role === MemberRole.ADMIN;
 
   return (
     <div>
-      <div className="text-4xl my-10">{project.name}</div>
-      <div className="flex space-x-2">
+      <div className="text-lg md:text-xl lg:text-3xl my-10">{project.name}</div>
+      <div className={`flex space-x-2 ${isSmallScreen ? "flex-col" : ""}`}>
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none" asChild>
             <Button
@@ -173,7 +176,7 @@ export const ProjectHeader = ({
           </Button>
         </Link>
       </div>
-      <Separator className="mt-5"/>
+      <Separator className="mt-5" />
     </div>
   );
 };
