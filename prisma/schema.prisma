@@ -224,7 +224,7 @@ model ProjectInformation {
   description String @db.Text
   dueDate DateTime
   complexFeatures Boolean @default(false)
-  clientInvolvement Boolean @default(false)
+  clientInvolvement String @db.Text
   deployment Boolean @default(false)
   testing String @db.Text
   tasks Int
