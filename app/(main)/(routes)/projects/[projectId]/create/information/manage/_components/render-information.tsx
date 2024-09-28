@@ -4,6 +4,7 @@ import { ProjectInformation } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface RenderInformationProps {
     info: ProjectInformation,
@@ -13,6 +14,7 @@ export const RenderInformation = ({
     info,
 }: RenderInformationProps) => {
     const router = useRouter();
+    const { onOpen } = useModal();
     
     const onSubmit = async () => {
         console.log("CLicked");
@@ -65,6 +67,9 @@ export const RenderInformation = ({
             <div>
                 Project Testing: {info.testing}
             </div>
+            <Button onClick={() => onOpen("editInformation")}>
+                Edit Information
+            </Button>
             <Button className="w-40" onClick={onSubmit}>
                 Proceed
             </Button>

@@ -10,6 +10,7 @@ import { LeaveProjectModal } from "../modals/leave-project-modal";
 import { DeleteProjectModal } from "../modals/delete-project-modal";
 import { MessageFileModal } from "../modals/message-file-modal";
 import { DeleteMessageModal } from "../modals/delete-message-modal";
+import { EditProjectInformationModal } from "../modals/edit-project-information-modal";
 
 export const Modals = () => {
     const [mounted, setMounted] = useState(false);
@@ -31,7 +32,7 @@ export const Modals = () => {
             <DeleteProjectModal />
             <MessageFileModal />
             <DeleteMessageModal />
-            
+            <EditProjectInformationModal />
         </>
     );
 }

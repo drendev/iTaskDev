@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import { cn } from "@/lib/utils";
 
 import {
     Dialog,
@@ -10,8 +11,40 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormDescription,
+    FormMessage,
+    FormLabel,
+} from "@/components/ui/form";
+
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+  
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { Textarea } from "@/components/ui/textarea";
+
+import { useForm } from "react-hook-form";
+
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -19,9 +52,24 @@ import { useModal } from "@/hooks/use-modal-store";
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { ProjectWithInformation } from "@/types";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+    tasks: z
+      .number()
+      .min(1, "Minimum of 1 task")
+      .max(100, "Maximum of 100 tasks"),
+    description: z.string().min(12, "Minimum of 12 characters"),
+    dueDate: z.date().min(new Date(), "Due date must be in the future"),
+    complexFeatures: z.boolean(),
+    clientInvolvement: z.string().min(1, "Client involvement is required"),
+    deployment: z.boolean(),
+    testing: z.string().min(1, "testing is required"),
+    members: z.string().min(1, "Members cannot be empty"),
+  });
 
 export const EditProjectInformationModal = () => {
-    const user = useCurrentUser();
 
     const { isOpen, onClose, type, data } = useModal();
    
@@ -30,34 +78,35 @@ export const EditProjectInformationModal = () => {
     const router = useRouter();
 
     const { workspace } = data as { workspace: ProjectWithInformation};
-    const [ name, setName ] = useState("");
-    const isModalOpen = isOpen && type === "editProject";
+    const isModalOpen = isOpen && type === "editInformation";
 
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+        },
+      });
 
-        if (!name) {
-            toast.error("Project Name is required");
-            return;
-        } else if (name.length < 12) {
-            toast.error("Project Name must be at least 12 characters");
-            return;
-        } else if (name.length > 80) {
-            toast.error("Maximum of 80 characters allowed for Project Name");
-            return;
-        }
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
 
         try {
             setLoading(true);
-            const response = await axios.patch(`/api/workspaces/${workspace?.id}`, { name, userId: user?.id });
-            if (response) {
-                setLoading(false);
-                router.push(`/projects/${response.data.id}`);
-                setName("");
-                toast.error("Project Name Successfully Updated");
-                onClose();
-                router.refresh();
-            }
+            const response = await axios.post(
+                `/api/workspaces/${workspace.id}/create/information`,
+                {
+                  tasks: values.tasks,
+                  description: values.description,
+                  dueDate: values.dueDate,
+                  complexFeatures: values.complexFeatures,
+                  clientInvolvement: values.clientInvolvement,
+                  deployment: values.deployment,
+                  testing: values.testing,
+                  members: values.members,
+                }
+              );
+        
+            form.reset();
+            router.refresh();
+            onClose();
         } catch (error) {
             setLoading(false);
             console.log(error);
@@ -66,7 +115,6 @@ export const EditProjectInformationModal = () => {
 
     const handleClose = () => {
         onClose();
-        setName("");
     }
 
     return (
@@ -78,7 +126,264 @@ export const EditProjectInformationModal = () => {
                         Create a new project to start collaborating with your team.
                     </DialogDescription>
                 </DialogHeader>
-                
+
+                {workspace.info.map((info) => (
+                    <Form {...form}>
+                    <form
+                      className="w-full space-y-5"
+                      onSubmit={form.handleSubmit(onSubmit)}
+                    >
+                      <FormField
+                        control={form.control}
+                        name="tasks"
+                        defaultValue={info.tasks}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel> Number of Tasks</FormLabel>
+                            <FormControl>
+                              <Input
+                                className="w-96"
+                                disabled={false}
+                                placeholder="Number of Tasks"
+                                type="number"
+                                {...field}
+                                min={1}
+                                onChange={(e) => {
+                                  const value = e.target.value
+                                    ? Number(e.target.value)
+                                    : "";
+                                  field.onChange(value);
+                                }}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+    
+                      <FormField
+                        control={form.control}
+                        name="description"
+                        defaultValue={info.description}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel> Project Description</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                disabled={false}
+                                placeholder="Project Description"
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+    
+                      <FormField
+                        control={form.control}
+                        defaultValue={info.dueDate}
+                        name="dueDate"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel>Project Due Date</FormLabel>
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                      "w-[240px] pl-3 text-left font-normal",
+                                      !field.value && "text-muted-foreground"
+                                    )}
+                                  >
+                                    {field.value ? (
+                                      format(field.value, "PPP")
+                                    ) : (
+                                      <span>Pick a date</span>
+                                    )}
+                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar
+                                  mode="single"
+                                  selected={field.value}
+                                  onSelect={field.onChange}
+                                  disabled={(date) =>
+                                    date < new Date() ||
+                                    date > new Date("2027-01-01")
+                                  }
+                                  initialFocus
+                                />
+                              </PopoverContent>
+                            </Popover>
+                            <FormDescription className="text-xs">
+                              Project expected to be done
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+    
+                      <FormField
+                        control={form.control}
+                        defaultValue={info.complexFeatures}
+                        name="complexFeatures"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel>
+                              Does your project have complex features?
+                            </FormLabel>
+                            <FormControl>
+                              <Select
+                                onValueChange={(value) =>
+                                  field.onChange(value === "true")
+                                }
+                              >
+                                <SelectTrigger className="w-[180px]">
+                                  <SelectValue placeholder="None" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectItem value="false">None</SelectItem>
+                                    <SelectItem value="true">Yes</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+    
+                      <FormField
+                        control={form.control}
+                        name="clientInvolvement"
+                        defaultValue={info.clientInvolvement}
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel>
+                              Does your project include client involvement?
+                            </FormLabel>
+                            <FormControl>
+                              <Select
+                                onValueChange={(value) =>
+                                  field.onChange(value === "true")
+                                }
+                              >
+                                <SelectTrigger className="w-[180px]">
+                                  <SelectValue placeholder="None" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectItem value="false">None</SelectItem>
+                                    <SelectItem value="true">Yes</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+    
+                      <FormField
+                        control={form.control}
+                        defaultValue={info.deployment}
+                        name="deployment"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel>
+                              Does your project need to be deployed?
+                            </FormLabel>
+                            <FormControl>
+                              <Select
+                                onValueChange={(value) =>
+                                  field.onChange(value === "true")
+                                }
+                              >
+                                <SelectTrigger className="w-[180px]">
+                                  <SelectValue placeholder="No" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectItem value="false">No</SelectItem>
+                                    <SelectItem value="true">Yes</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+    
+                      <FormField
+                        control={form.control}
+                        defaultValue={info.testing}
+                        name="testing"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel>
+                              Approximate testing time for the project:
+                            </FormLabel>
+                            <FormControl>
+                              <Select onValueChange={field.onChange}>
+                                <SelectTrigger className="w-[180px]">
+                                  <SelectValue
+                                    defaultValue="low"
+                                    placeholder="Low"
+                                  />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectItem value="low">Low</SelectItem>
+                                    <SelectItem value="moderate">
+                                      Moderate
+                                    </SelectItem>
+                                    <SelectItem value="high">High</SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+    
+                      <FormField
+                        control={form.control}
+                        defaultValue={info.members}
+                        name="members"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel>
+                              How many members will your project have?
+                            </FormLabel>
+                            <FormControl>
+                              <Select onValueChange={field.onChange}>
+                                <SelectTrigger className="w-[180px]">
+                                  <SelectValue placeholder="2-3 Members" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectItem value="2-3 members">
+                                      2 - 3 members
+                                    </SelectItem>
+                                    <SelectItem value="4-5 members">
+                                      4 - 5 members
+                                    </SelectItem>
+                                    <SelectItem value="6-7 members">
+                                      6 - 7 members
+                                    </SelectItem>
+                                    <SelectItem value="8-9 members">
+                                      8 - 9 members
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+    
                     <Button type="submit" className="w-full" size="lg" disabled={false}>
                         {loading ? (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -88,7 +393,13 @@ export const EditProjectInformationModal = () => {
                         </>
                         )}
                     </Button>
+                    </form>
+                  </Form>
+                ))}
+
+                
                     
+
             </DialogContent>
         </Dialog>
     )
