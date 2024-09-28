@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface RenderInformationProps {
   info: ProjectInformation;
