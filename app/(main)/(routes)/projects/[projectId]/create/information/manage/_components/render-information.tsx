@@ -5,69 +5,127 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 interface RenderInformationProps {
-    info: ProjectInformation,
+  info: ProjectInformation;
 }
 
-export const RenderInformation = ({
-    info,
-}: RenderInformationProps) => {
-    const router = useRouter();
-    
-    const onSubmit = async () => {
-        console.log("CLicked");
-        try {
-            const response = await axios.post(
-            '/api/openapi',
-            {
-                description: info.description,
-                dueDate: info.dueDate.toString(),
-                members: info.members,
-                deployment: info.deployment.toString(),
-                clientInvolvement: info.clientInvolvement.toString(),
-                complexFeatures: info.complexFeatures.toString(),
-                tasks: info.tasks,
-                testing: info.testing,
-                projectId: info.workspaceId
-            }
-            );
-            router.push(`/projects/${info.workspaceId}/create/sdlc`);
-            console.log(response);
+export const RenderInformation = ({ info }: RenderInformationProps) => {
+  const router = useRouter();
 
-            } catch (error) {
-                console.log(error);
-            }
-    };
-    
-    return (
-        <div className="flex flex-col">
-            <div>
-                Project Description: {info.description}
-            </div>
-            <div>
-                Project Due Date: {info.dueDate.toString()}
-            </div>
-            <div>
-                Project Members: {info.members}
-            </div>
-            <div>
-                Project Deployment: {info.deployment.toString()}
-            </div>
-            <div>
-                Project Client Involvement: {info.clientInvolvement.toString()}
-            </div>
-            <div>
-                Project Complex Features: {info.complexFeatures.toString()}
-            </div>
-            <div>
-                Project Number of Tasks: {info.tasks}
-            </div>
-            <div>
-                Project Testing: {info.testing}
-            </div>
-            <Button className="w-40" onClick={onSubmit}>
-                Proceed
-            </Button>
-        </div>
-    )
-}
+  const onSubmit = async () => {
+    console.log("CLicked");
+    try {
+      const response = await axios.post("/api/openapi", {
+        description: info.description,
+        dueDate: info.dueDate.toString(),
+        members: info.members,
+        deployment: info.deployment.toString(),
+        clientInvolvement: info.clientInvolvement.toString(),
+        complexFeatures: info.complexFeatures.toString(),
+        tasks: info.tasks,
+        testing: info.testing,
+        projectId: info.workspaceId,
+      });
+      router.push(`/projects/${info.workspaceId}/create/sdlc`);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onPrevious = () => {
+    router.push(`/projects/${info.workspaceId}/create/information`);
+  }
+
+  return (
+    <div className="flex flex-col">
+      <Card className="w-full">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <CardTitle>Confirm project details</CardTitle>
+          </div>
+          <CardDescription>
+            Details provided will be used for SDLC selection.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-4 gap-10">
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Project Description:</CardTitle>
+              </CardHeader>
+              <CardContent>{info.description}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Project Due Date:</CardTitle>
+              </CardHeader>
+              <CardContent>{info.dueDate.toString()}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Project Members:</CardTitle>
+              </CardHeader>
+              <CardContent>{info.members}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Project Deployment:</CardTitle>
+              </CardHeader>
+              <CardContent>{info.deployment.toString()}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Project Client Involvement:</CardTitle>
+              </CardHeader>
+              <CardContent>{info.clientInvolvement.toString()}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Project Complex Features:</CardTitle>
+              </CardHeader>
+              <CardContent>{info.complexFeatures.toString()}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Project Initial Number of Tasks:</CardTitle>
+              </CardHeader>
+              <CardContent>{info.tasks}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle>Project Testing:</CardTitle>
+              </CardHeader>
+              <CardContent>{info.testing}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button className="w-40" variant="ghost" onClick={onPrevious}>
+            Go back
+          </Button>
+          <Button className="w-40" onClick={onSubmit}>
+            Proceed
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
+  );
+};

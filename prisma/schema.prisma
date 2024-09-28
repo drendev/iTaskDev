@@ -20,17 +20,17 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String   @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?  @unique
   emailVerified Boolean? @default(true)
   image         String?
   role          UserRole @default(USER)
 
-  accounts      Account[]
-  workspaces    Workspace[]
-  members       Member[]
-  pending       PendingMember[]
+  accounts       Account[]
+  workspaces     Workspace[]
+  members        Member[]
+  pending        PendingMember[]
   directMessages DirectMessage[]
 
   conversationsInitiated Conversation[] @relation("UserOne")
@@ -40,18 +40,18 @@ model User {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
-  type               String
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -66,24 +66,24 @@ model Workspace {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  isPrivate   Boolean  @default(true)
+  isPrivate Boolean @default(true)
 
   sdlc String? @db.Text
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String   @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
 
   members Member[]
   pending PendingMember[]
-  info ProjectInformation[]
+  info    ProjectInformation[]
 
   sdlcAi ProjectSdlc[]
 
-  chat ProjectChat[]
+  chat  ProjectChat[]
   tasks Task[]
 
-  @@map("workspaces")
   @@index([userId])
+  @@map("workspaces")
 }
 
 enum MemberRole {
@@ -92,18 +92,18 @@ enum MemberRole {
 }
 
 model Member {
-  id String @id @default(uuid())
+  id   String     @id @default(uuid())
   role MemberRole @default(MEMBER)
 
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   workspaceId String
-  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
   workLoad Int?
 
-  chat ProjectChat[]
+  chat  ProjectChat[]
   tasks TaskMember[]
 
   @@index([userId])
@@ -111,34 +111,33 @@ model Member {
 }
 
 model PendingMember {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
 
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   workspaceId String
-  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([workspaceId])
-
   @@map("pending_members")
 }
 
 model ProjectChat {
-  id  String @id @default(uuid())
+  id      String @id @default(uuid())
   content String @db.Text
 
   fileUrl String? @db.Text
 
   memberId String
-  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
 
   projectId String
   workspace Workspace @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
-  deleted Boolean @default(false)
+  deleted   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -150,10 +149,10 @@ model Conversation {
   id String @id @default(uuid())
 
   userOneId String
-  userOne User @relation("UserOne", fields: [userOneId], references: [id], onDelete: Cascade)
+  userOne   User   @relation("UserOne", fields: [userOneId], references: [id], onDelete: Cascade)
 
   userTwoId String
-  userTwo User @relation("UserTwo", fields: [userTwoId], references: [id], onDelete: Cascade)
+  userTwo   User   @relation("UserTwo", fields: [userTwoId], references: [id], onDelete: Cascade)
 
   directMessages DirectMessage[]
 
@@ -161,15 +160,15 @@ model Conversation {
 }
 
 model DirectMessage {
-  id String @id @default(uuid())
-  content String @db.Text
+  id      String  @id @default(uuid())
+  content String  @db.Text
   fileUrl String? @db.Text
 
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   conversationId String
-  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -181,7 +180,7 @@ model DirectMessage {
 }
 
 model Task {
-  id String @id @default(uuid())
+  id      String @id @default(uuid())
   content String @db.Text
 
   members TaskMember[]
@@ -189,12 +188,12 @@ model Task {
   projectId String
   workspace Workspace @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
-  DateAssigned DateTime?
-  DateDue DateTime?
+  DateAssigned  DateTime?
+  DateDue       DateTime?
   DateCompleted DateTime?
 
   Intensity Int?
-  Priority Int?
+  Priority  Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -206,10 +205,10 @@ model TaskMember {
   id String @id @default(uuid())
 
   taskId String
-  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
 
   memberId String
-  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
 
   @@index([taskId])
   @@index([memberId])
@@ -218,39 +217,39 @@ model TaskMember {
 model ProjectInformation {
   id String @id @default(uuid())
 
-  workspaceId String @unique
-  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String    @unique
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
-  description String @db.Text
-  dueDate DateTime
-  complexFeatures Boolean @default(false)
-  clientInvolvement Boolean @default(false)
-  deployment Boolean @default(false)
-  testing String @db.Text
-  tasks Int
-  members String @db.Text
+  description       String   @db.Text
+  dueDate           DateTime
+  complexFeatures   Boolean  @default(false)
+  clientInvolvement String   @db.Text
+  deployment        Boolean  @default(false)
+  testing           String   @db.Text
+  tasks             Int
+  members           String   @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   @@index([workspaceId])
 }
 
 model ProjectSdlc {
   id String @id @default(uuid())
 
-  workspaceId String @unique
-  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String    @unique
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
-  timeline String @db.Text
-  teamSize String @db.Text
-  complexFeatures String @db.Text
-  clientInvolvement String @db.Text
+  timeline             String @db.Text
+  teamSize             String @db.Text
+  complexFeatures      String @db.Text
+  clientInvolvement    String @db.Text
   scopeAndRequirements String @db.Text
   resourceAvailability String @db.Text
-  qualityAssurance String @db.Text
-  deployment String @db.Text
-  
+  qualityAssurance     String @db.Text
+  deployment           String @db.Text
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

@@ -2,6 +2,7 @@ import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { RenderSdlc } from "./_components/render-sdlc";
+import ProgressBar from "../information/manage/_components/progressbar";
 
 interface RecommendSDLCPageProps {
     params: {
@@ -47,7 +48,8 @@ const RecommendSDLCPage = async ({
     }
 
     return (
-        <div>
+        <div className="mt-5">
+            <ProgressBar progress={33.2} />
             <RenderSdlc
             sdlc={recommendedSdlc}
             info={sdlcWithInformation}

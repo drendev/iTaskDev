@@ -1,0 +1,62 @@
+"use client";
+
+import { Progress } from "@/components/ui/progress";
+import { Protest_Guerrilla } from "next/font/google";
+import { useEffect, useState } from "react";
+
+interface ProgressBarProps {
+  progress: number;
+}
+
+const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
+  const [prog, setProg] = useState<number>(16.6);
+  useEffect(() => {
+    setProg(progress);
+  }, []);
+
+  return (
+    <div className="flex flex-col">
+      <div className="flex">
+        <span className="text-xs basis-2/12">Step 1: Project details</span>
+        <span
+          className={`text-xs basis-2/12 w-[200px ${
+            prog > 32 ? "text-black" : "text-gray-400"
+          }`}
+        >
+          Step 2: Get your SDLC
+        </span>
+        <span
+          className={`text-xs basis-2/12 w-[200px ${
+            prog > 48 ? "text-black" : "text-gray-400"
+          }`}
+        >
+          Step 3: Add initial tasks
+        </span>
+        <span
+          className={`text-xs basis-2/12 w-[200px ${
+            prog > 64 ? "text-black" : "text-gray-400"
+          }`}
+        >
+          Step 4: Tasks intensity
+        </span>
+        <span
+          className={`text-xs basis-2/12 w-[200px ${
+            prog > 80 ? "text-black" : "text-gray-400"
+          }`}
+        >
+          Step 5: Manage members
+        </span>
+        <span
+          className={`text-xs basis-2/12 w-[200px ${
+            prog > 96 ? "text-black" : "text-gray-400"
+          }`}
+        >
+          Step 6: Tasks assignment
+        </span>
+      </div>
+      <Progress value={prog} className="w-full my-10" />
+    </div>
+  );
+};
+
+export default ProgressBar;
