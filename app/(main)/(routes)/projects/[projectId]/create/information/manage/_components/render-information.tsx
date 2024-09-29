@@ -136,9 +136,9 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
             </Card>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="flex justify-end">
           <Button className="w-40" variant="ghost" onClick={() => onOpen("editInformation", { info: info })}>
-            Go back
+            Edit Details
           </Button>
           <Button className="w-40" onClick={onSubmit}>
             Proceed
