@@ -22,6 +22,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 
 import ProgressBar from "../../information/manage/_components/progressbar";
@@ -145,59 +146,75 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                           </DialogTrigger>
                           <DialogContent className="overflow-y-scroll lg:min-w-[800px] lg:h-[500px] py-10">
                             <DialogHeader>
-                              <DialogTitle>{sdlc.toUpperCase()}</DialogTitle>
+                              <DialogTitle className="text-2xl">
+                                {sdlc.toUpperCase()}
+                              </DialogTitle>
                               <DialogDescription>
                                 {method.desc}
                               </DialogDescription>
                             </DialogHeader>
                             <Card className="w-full mt-5">
                               <CardHeader>
-                                <CardTitle>Timeline</CardTitle>
+                                <CardTitle className="text-lg">
+                                  Timeline
+                                </CardTitle>
                                 <CardDescription>
                                   What is the timeframe of the development?
                                 </CardDescription>
                               </CardHeader>
-                              <CardContent>{info.timeline}</CardContent>
+                              <CardContent className="text-sm">
+                                {info.timeline}
+                              </CardContent>
                               <CardFooter className="flex justify-between"></CardFooter>
                             </Card>
                             <Card className="w-full mt-5">
                               <CardHeader>
-                                <CardTitle>Team Size</CardTitle>
+                                <CardTitle className="text-lg">
+                                  Team Size
+                                </CardTitle>
                                 <CardDescription>
                                   How many members are in the team?
                                 </CardDescription>
                               </CardHeader>
-                              <CardContent>{info.teamSize}</CardContent>
+                              <CardContent className="text-sm">
+                                {info.teamSize}
+                              </CardContent>
                               <CardFooter className="flex justify-between"></CardFooter>
                             </Card>
                             <Card className="w-full mt-5">
                               <CardHeader>
-                                <CardTitle>Complex Features</CardTitle>
+                                <CardTitle className="text-lg">
+                                  Complex Features
+                                </CardTitle>
                                 <CardDescription>
                                   Does your system involve unfamiliar concepts
                                   and features (e.g. Aritifical Intelligence)?
                                 </CardDescription>
                               </CardHeader>
-                              <CardContent>{info.complexFeatures}</CardContent>
+                              <CardContent className="text-sm">
+                                {info.complexFeatures}
+                              </CardContent>
                             </Card>
 
                             {/*  */}
                             <Card className="w-full mt-5">
                               <CardHeader>
-                                <CardTitle>Client Involvement</CardTitle>
+                                <CardTitle className="text-lg">
+                                  Client Involvement
+                                </CardTitle>
                                 <CardDescription>
                                   How often does the client check the
                                   development progress?
                                 </CardDescription>
                               </CardHeader>
-                              <CardContent>
+                              <CardContent className="text-sm">
                                 {info.clientInvolvement}
                               </CardContent>
                               <CardFooter className="flex justify-between"></CardFooter>
                             </Card>
                             <Card className="w-full mt-5">
                               <CardHeader>
-                                <CardTitle>
+                                <CardTitle className="text-lg">
                                   Scope and Requirements Stability
                                 </CardTitle>
                                 <CardDescription>
@@ -205,48 +222,60 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                                   was planned in the preparation phase?
                                 </CardDescription>
                               </CardHeader>
-                              <CardContent>
+                              <CardContent className="text-sm">
                                 {info.scopeAndRequirements}
                               </CardContent>
                               <CardFooter className="flex justify-between"></CardFooter>
                             </Card>
                             <Card className="w-full mt-5">
                               <CardHeader>
-                                <CardTitle>Resource Availability</CardTitle>
+                                <CardTitle className="text-lg">
+                                  Resource Availability
+                                </CardTitle>
                                 <CardDescription>
                                   Are the resources sufficient for development?
                                 </CardDescription>
                               </CardHeader>
-                              <CardContent>
+                              <CardContent className="text-sm">
                                 {info.resourceAvailability}
                               </CardContent>
                               <CardFooter className="flex justify-between"></CardFooter>
                             </Card>
                             <Card className="w-full mt-5">
                               <CardHeader>
-                                <CardTitle>
+                                <CardTitle className="text-lg">
                                   Quality Assurance and Testing
                                 </CardTitle>
                                 <CardDescription>
                                   How often are the system tested?
                                 </CardDescription>
                               </CardHeader>
-                              <CardContent>{info.qualityAssurance}</CardContent>
+                              <CardContent className="text-sm">
+                                {info.qualityAssurance}
+                              </CardContent>
                               <CardFooter className="flex justify-between"></CardFooter>
                             </Card>
                             <Card className="w-full mt-5">
                               <CardHeader>
-                                <CardTitle>Deployment</CardTitle>
+                                <CardTitle className="text-lg">
+                                  Deployment
+                                </CardTitle>
                                 <CardDescription>
                                   How will the system be developed?
                                 </CardDescription>
                               </CardHeader>
-                              <CardContent>{info.deployment}</CardContent>
+                              <CardContent className="text-sm">
+                                {info.deployment}
+                              </CardContent>
                               <CardFooter className="flex justify-between"></CardFooter>
                             </Card>
 
                             <DialogFooter>
-                              <Button>Close</Button>
+                              <DialogClose asChild>
+                                <Button type="button" variant="default">
+                                  Close
+                                </Button>
+                              </DialogClose>
                             </DialogFooter>
                           </DialogContent>
                         </Dialog>
