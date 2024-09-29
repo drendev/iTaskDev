@@ -13,26 +13,25 @@ import { DeleteMessageModal } from "../modals/delete-message-modal";
 import { EditProjectInformationModal } from "../modals/edit-project-information-modal";
 
 export const Modals = () => {
-    const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true)
-    }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-    if (!mounted) return null;
+  if (!mounted) return null;
 
-    return (
-        <>
-            <CreateProjectModal />
-            <InviteModal />
-            <PendingModal />
-            <MembersModal />
-            <EditProjectModal />
-            <LeaveProjectModal />
-            <DeleteProjectModal />
-            <MessageFileModal />
-            <DeleteMessageModal />
-            <EditProjectInformationModal />
-        </>
-    );
-}
+  return (
+    <>
+      <CreateProjectModal />
+      <InviteModal />
+      <PendingModal />
+      <MembersModal />
+      <EditProjectModal />
+      <LeaveProjectModal />
+      <DeleteProjectModal />
+      <MessageFileModal />
+      <DeleteMessageModal />
+    </>
+  );
+};

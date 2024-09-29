@@ -15,7 +15,6 @@ export default function DemoLayout({
         <Modals />
         <ContentLayout>{children}</ContentLayout>
       </AdminPanelLayout>
-      ;
     </div>
   );
 }
