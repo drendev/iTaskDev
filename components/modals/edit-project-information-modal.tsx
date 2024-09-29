@@ -96,12 +96,27 @@ export const EditProjectInformationModal = () => {
         },
       });
 
+      useEffect(() => {
+        if (info) {
+            form.reset({
+                tasks: info?.tasks,
+                description: info?.description,
+                dueDate: info?.dueDate,
+                complexFeatures: info?.complexFeatures,
+                clientInvolvement: info?.clientInvolvement,
+                deployment: info?.deployment,
+                testing: info?.testing,
+                members: info?.members,
+            });
+        }
+    }, [info, form]);
+
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
 
         try {
             setLoading(true);
-            const response = await axios.post(
-                `/api/workspaces/${info?.workspaceId}/create/information`,
+              await axios.post(
+                `/api/workspaces/${info?.workspaceId}/create/edit`,
                 {
                   tasks: values.tasks,
                   description: values.description,
@@ -120,6 +135,8 @@ export const EditProjectInformationModal = () => {
         } catch (error) {
             setLoading(false);
             console.log(error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -148,9 +165,10 @@ export const EditProjectInformationModal = () => {
                         control={form.control}
                         defaultValue={info?.tasks}
                         name="tasks"
+                        disabled={loading}
                         render={({ field }) => (
-                          <FormItem>
-                            <FormLabel> Number of Tasks</FormLabel>
+                          <FormItem className="mb-3">
+                            <FormLabel className="font-semibold"> Number of Tasks : </FormLabel>
                             <FormControl>
                               <Input
                                 className="w-96"
@@ -175,10 +193,11 @@ export const EditProjectInformationModal = () => {
                       <FormField
                         control={form.control}
                         name="description"
+                        disabled={loading}
                         defaultValue={info?.description}
                         render={({ field }) => (
-                          <FormItem>
-                            <FormLabel> Project Description</FormLabel>
+                          <FormItem className="mb-3">
+                            <FormLabel className="font-semibold"> Project Description :</FormLabel>
                             <FormControl>
                               <Textarea
                                 disabled={false}
@@ -193,14 +212,16 @@ export const EditProjectInformationModal = () => {
                       <FormField
                         control={form.control}
                         name="dueDate"
+                        disabled={loading}
                         defaultValue={info?.dueDate}
                         render={({ field }) => (
-                          <FormItem className="flex flex-col">
-                            <FormLabel>Project Due Date</FormLabel>
+                          <FormItem className="flex flex-col mb-3">
+                            <FormLabel className="font-semibold">Project Due Date :</FormLabel>
                             <Popover>
                               <PopoverTrigger asChild>
                                 <FormControl>
                                   <Button
+                                    disabled={loading}
                                     variant={"outline"}
                                     className={cn(
                                       "w-[240px] pl-3 text-left font-normal",
@@ -240,12 +261,14 @@ export const EditProjectInformationModal = () => {
                       <FormField
                       control={form.control}
                       name="complexFeatures"
+                      disabled={loading}
                       defaultValue={info?.complexFeatures ?? false}
                       render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                          <FormLabel>Does your project have complex features?</FormLabel>
+                        <FormItem className="flex flex-col mb-3">
+                          <FormLabel className="font-semibold">Does your project have complex features?</FormLabel>
                           <FormControl>
                             <Select
+                              disabled={loading}
                               onValueChange={(value) => field.onChange(value === "true")}
                               value={field.value ? "true" : "false"}
                             >
@@ -267,15 +290,16 @@ export const EditProjectInformationModal = () => {
                       <FormField
                       control={form.control}
                       name="clientInvolvement"
+                      disabled={loading}
                       defaultValue={info?.clientInvolvement}
                       render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                          <FormLabel>
+                        <FormItem className="flex flex-col mb-3">
+                          <FormLabel className="font-semibold">
                             How often is the client involved with the
                             development?
                           </FormLabel>
                           <FormControl>
-                            <Select onValueChange={field.onChange} value={field.value}>
+                            <Select disabled={loading} onValueChange={field.onChange} value={field.value}>
                               <SelectTrigger className="w-[180px]">
                                 <SelectValue
                                   defaultValue="low"
@@ -300,14 +324,16 @@ export const EditProjectInformationModal = () => {
                       <FormField
                         control={form.control}
                         name="deployment"
+                        disabled={loading}
                         defaultValue={info?.complexFeatures ?? false}
                         render={({ field }) => (
-                          <FormItem className="flex flex-col">
-                            <FormLabel>
+                          <FormItem className="flex flex-col mb-3">
+                            <FormLabel className="font-semibold">
                               Does your project need to be deployed?
                             </FormLabel>
                             <FormControl>
                               <Select
+                                disabled={loading}
                                 onValueChange={(value) => field.onChange(value === "true")}
                                 value={field.value ? "true" : "false"}
                               >
@@ -329,14 +355,15 @@ export const EditProjectInformationModal = () => {
                       <FormField
                         control={form.control}
                         name="testing"
+                        disabled={loading}
                         defaultValue={info?.testing}
                         render={({ field }) => (
-                          <FormItem className="flex flex-col">
-                            <FormLabel>
+                          <FormItem className="flex flex-col mb-3">
+                            <FormLabel className="font-semibold">
                               Approximate testing time for the project:
                             </FormLabel>
                             <FormControl>
-                              <Select onValueChange={field.onChange} value={field.value}>
+                              <Select disabled={loading} onValueChange={field.onChange} value={field.value}>
                                 <SelectTrigger className="w-[180px]">
                                   <SelectValue
                                     defaultValue={info?.testing}
@@ -362,14 +389,15 @@ export const EditProjectInformationModal = () => {
                       <FormField
                         control={form.control}
                         name="members"
+                        disabled={loading}
                         defaultValue={info?.members}
                         render={({ field }) => (
-                          <FormItem className="flex flex-col">
-                            <FormLabel>
+                          <FormItem className="flex flex-col mb-3">
+                            <FormLabel className="font-semibold">
                               How many members will your project have?
                             </FormLabel>
                             <FormControl>
-                              <Select onValueChange={field.onChange} value={field.value}>
+                              <Select disabled={loading} onValueChange={field.onChange} value={field.value}>
                                 <SelectTrigger className="w-[180px]">
                                   <SelectValue placeholder="2-3 Members" />
                                 </SelectTrigger>
@@ -396,7 +424,12 @@ export const EditProjectInformationModal = () => {
                       />
                       </div>
                       </ScrollArea>
-                    <Button type="submit" className="w-full" size="lg" disabled={false}>
+                    <Button
+                     type="submit" 
+                     className="w-full" 
+                     size="lg" 
+                     disabled={loading}
+                     >
                         {loading ? (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         ) : (

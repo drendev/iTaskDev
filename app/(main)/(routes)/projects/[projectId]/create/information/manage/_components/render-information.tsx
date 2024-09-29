@@ -4,7 +4,7 @@ import { ProjectInformation } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ClipboardCheck } from "lucide-react";
+import { ClipboardCheck, Loader2 } from "lucide-react";
 
 import {
   Card,
@@ -17,6 +17,7 @@ import {
 import { useModal } from "@/hooks/use-modal-store";
 import { ProjectWithInformation } from "@/types";
 import { Info } from "lucide-react";
+import { useState } from "react";
 
 interface RenderInformationProps {
   info: ProjectInformation;
@@ -26,8 +27,11 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
   const router = useRouter();
   const { onOpen } = useModal();
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const onSubmit = async () => {
     try {
+      setLoading(true);
       const response = await axios.post("/api/openapi", {
         description: info.description,
         dueDate: info.dueDate.toString(),
@@ -43,11 +47,10 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
       console.log(response);
     } catch (error) {
       console.log(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const onPrevious = () => {
-    router.push(`/projects/${info.workspaceId}/create/information`);
   };
 
   return (
@@ -136,12 +139,18 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
             </Card>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-end">
+        <CardFooter className="flex justify-end space-x-3">
           <Button className="w-40" variant="ghost" onClick={() => onOpen("editInformation", { info: info })}>
             Edit Details
           </Button>
-          <Button className="w-40" onClick={onSubmit}>
-            Proceed
+          <Button disabled={loading} className="w-40" onClick={onSubmit}>
+            {loading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+            <>
+                Proceed
+            </>
+            )}
           </Button>
         </CardFooter>
       </Card>

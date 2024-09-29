@@ -32,6 +32,7 @@ export const Modals = () => {
       <DeleteProjectModal />
       <MessageFileModal />
       <DeleteMessageModal />
+      <EditProjectInformationModal />
     </>
   );
 };

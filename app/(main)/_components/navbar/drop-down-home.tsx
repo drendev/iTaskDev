@@ -83,7 +83,7 @@ const DropDownHome: React.FC<DropDownMenuProps> = ({ onClose }) => {
         <div className="pt-12">
           <div className="space-y-4 flex flex-col px-4 mb-4 md:left-64">
             <Link href="/auth/login">
-              <Button className="w-full">Log Out</Button>
+              <LogoutButton />
             </Link>
           </div>
         </div>

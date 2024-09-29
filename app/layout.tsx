@@ -4,7 +4,6 @@ import { auth } from "@/auth";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
 
 const ibm = Poppins({ subsets: ["latin"], weight: "500" });
@@ -26,7 +25,6 @@ export default async function RootLayout({
       <html lang="en">
         <body className={ibm.className}>
           <QueryProvider>
-            <Toaster />
             {children}
           </QueryProvider>
         </body>

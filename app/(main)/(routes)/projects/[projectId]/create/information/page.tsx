@@ -6,7 +6,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { format } from "date-fns";
-import { CalendarIcon, ChevronsLeftRightEllipsis } from "lucide-react";
+import { CalendarIcon, ChevronsLeftRightEllipsis, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "react-responsive";
 
@@ -48,6 +48,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import ProgressBar from "./manage/_components/progressbar";
+import { useState } from "react";
 
 interface ProjectInformationPageProps {
   params: {
@@ -72,6 +73,8 @@ const formSchema = z.object({
 const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
   const router = useRouter();
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -89,6 +92,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
 
     try {
+      setLoading(true);
       const response = await axios.post(
         `/api/workspaces/${params.projectId}/create/information`,
         {
@@ -107,13 +111,14 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
       router.push(`/projects/${params.projectId}/create/information/manage`);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="m-4">
-      <ProgressBar progress={16.6} color={"bg-black"}/>
-
+      <ProgressBar progress={16.6}/>
       <Card>
         <CardHeader>
           <ChevronsLeftRightEllipsis size={50} />
@@ -136,7 +141,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                         <FormControl>
                           <Input
                             className="w-full"
-                            disabled={false}
+                            disabled={loading}
                             placeholder="Number of Tasks"
                             type="number"
                             {...field}
@@ -162,7 +167,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                         <FormLabel> Project Description</FormLabel>
                         <FormControl>
                           <Textarea
-                            disabled={false}
+                            disabled={loading}
                             placeholder="Project Description"
                             className="resize-none"
                             {...field}
@@ -182,6 +187,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
+                                disabled={loading}
                                 variant={"outline"}
                                 className={cn(
                                   "w-[240px] pl-3 text-left font-normal",
@@ -228,6 +234,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                         </FormLabel>
                         <FormControl>
                           <Select
+                            disabled={loading}
                             onValueChange={(value) =>
                               field.onChange(value === "true")
                             }
@@ -258,7 +265,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                           How often is the client involved with the development?
                         </FormLabel>
                         <FormControl>
-                          <Select onValueChange={field.onChange}>
+                          <Select disabled={loading} onValueChange={field.onChange}>
                             <SelectTrigger className="w-[180px]">
                               <SelectValue
                                 defaultValue="low"
@@ -290,6 +297,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                         </FormLabel>
                         <FormControl>
                           <Select
+                            disabled={loading}
                             onValueChange={(value) =>
                               field.onChange(value === "true")
                             }
@@ -318,7 +326,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                           Approximate testing time for the project:
                         </FormLabel>
                         <FormControl>
-                          <Select onValueChange={field.onChange}>
+                          <Select disabled={loading} onValueChange={field.onChange}>
                             <SelectTrigger className="w-[180px]">
                               <SelectValue
                                 defaultValue="low"
@@ -349,7 +357,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                           How many members will your project have?
                         </FormLabel>
                         <FormControl>
-                          <Select onValueChange={field.onChange}>
+                          <Select disabled={loading} onValueChange={field.onChange}>
                             <SelectTrigger className="w-[180px]">
                               <SelectValue placeholder="2-3 Members" />
                             </SelectTrigger>
@@ -376,10 +384,17 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                   />
                 </div>
               </div>
-
-              <Button type="submit" className="mt-10">
-                Submit
+              <div className="flex justify-end">
+              <Button disabled={loading} type="submit" className="mt-10 w-40">
+                {loading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                <>
+                    Proceed
+                </>
+                )}
               </Button>
+              </div>
             </form>
           </Form>
         </CardContent>

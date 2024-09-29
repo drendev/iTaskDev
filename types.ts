@@ -1,10 +1,12 @@
 
-import { Workspace, Member, PendingMember, User, Task, ProjectInformation, ProjectSdlc } from '@prisma/client'
+import { Workspace, Member, PendingMember, User, Task, ProjectInformation, ProjectSdlc, MemberRole } from '@prisma/client'
 
 export type ProjectWithMembers = Workspace & {
     members: (Member & { user: User})[]
 }
-
+export type ProjectWithRole = Workspace & {
+    role: MemberRole
+}
 export type ProjectWithPending = Workspace & {
     pending: (PendingMember & { user: User})[]
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
@@ -46,6 +48,12 @@ import {
 
 import { useMediaQuery } from "react-responsive";
 import { useModal } from "@/hooks/use-modal-store";
+import { Workspace } from "@prisma/client";
+import { useRouter } from "next/navigation";
+
+interface ProjectListProps {
+  project: Workspace[];
+}
 
 const test = [
   {
@@ -151,8 +159,11 @@ const test = [
   },
 ];
 
-const ProjectList = () => {
+const ProjectList = ({
+  project,
+}: ProjectListProps) => {
   const { onOpen } = useModal();
+  const router = useRouter();
 
   const [layout, setLayout] = useState<string>("list");
   const [currentPage, setCurrentPage] = useState(1);
@@ -161,10 +172,12 @@ const ProjectList = () => {
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPosts = test.slice(firstPostIndex, lastPostIndex);
+  const currentPosts = project.slice(firstPostIndex, lastPostIndex);
 
-  
-  console.log(currentPosts);
+  const onClick = (projectId: string) => {
+    router.push(`/projects/${projectId}`);
+  }
+
   return (
     <>
       {isSmallScreen ? (
@@ -235,10 +248,10 @@ const ProjectList = () => {
             </TableHeader>
             <TableBody>
               {currentPosts.map((proj, index) => (
-                <TableRow key={index}>
-                  <TableCell className="font-medium">{proj.project}</TableCell>
-                  <TableCell>{proj.SDLC}</TableCell>
-                  {!isSmallScreen && <TableCell>{proj.openTest}</TableCell>}
+                <TableRow className="cursor-pointer" onClick={() => onClick(proj.id)} key={index}>
+                  <TableCell className="font-medium">{proj.name}</TableCell>
+                  <TableCell>{proj.sdlc}</TableCell>
+                  {!isSmallScreen && <TableCell>{proj.isPrivate}</TableCell>}
                 </TableRow>
               ))}
             </TableBody>
@@ -250,12 +263,12 @@ const ProjectList = () => {
             <Card className="mb-5 mr-5" key={index}>
               <CardHeader>
                 <CardTitle className="flex justify-between items-center text-lg">
-                  {proj.project}
+                  {proj.name}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p>{proj.SDLC}</p>
-                <p className="text-gray-400">{proj.openTest}</p>
+                <p>{proj.sdlc}</p>
+                <p className="text-gray-400">{proj.isPrivate}</p>
               </CardContent>
             </Card>
           ))}
