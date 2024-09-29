@@ -7,73 +7,72 @@ import { ChatMessages } from "@/components/conversation/chat-messages";
 import { MediaRoom } from "@/components/media-room";
 
 interface ProjectMessagesPageProps {
-    params: {
-        projectId: string;
-    }
+  params: {
+    projectId: string;
+  };
 }
 
-const ProjectMessagesPage = async ({
-    params
-}: ProjectMessagesPageProps) => {
-    const user = await currentUser();
+const ProjectMessagesPage = async ({ params }: ProjectMessagesPageProps) => {
+  const user = await currentUser();
 
-    if (!user) {
-        redirect("/auth/login")
-    }
+  if (!user) {
+    redirect("/auth/login");
+  }
 
-    const project = await db.workspace.findUnique({
-        where: {
-            id: params.projectId
-        }
-    });
+  const project = await db.workspace.findUnique({
+    where: {
+      id: params.projectId,
+    },
+  });
 
-    const member = await db.member.findFirst({
-        where: {
-            workspaceId: params.projectId,
-            userId: user.id
-        }
-    })
+  const member = await db.member.findFirst({
+    where: {
+      workspaceId: params.projectId,
+      userId: user.id,
+    },
+  });
 
-    if (!project || !member) {
-        redirect("/");
-    }
+  if (!project || !member) {
+    redirect("/");
+  }
 
-    return (
-        <div className="flex flex-col h-full">
-            <ConversationHeader 
-            type="Project Members Chat"
-            />
-{/*             <MediaRoom 
+  return (
+    <div className="flex flex-col h-[500px] ">
+      <div className="">
+        <ConversationHeader type="Project Members Chat" />
+      </div>
+      <div className="overflow-y-scroll">
+        {/*             <MediaRoom 
             chatId={project.id}
             video={false}
             audio={true}
             /> */}
-            <ChatMessages
-            name={project.name}
-            member={member}
-            type="Project Members Chat"
-            apiUrl="/api/messages"
-            socketUrl="/api/polling/messages"
-            socketQuery={{
-                projectId: params.projectId,
-                memberId: user.id
-            }}
-            paramKey="projectId"
-            paramValue={project.id}
-            chatId={project.id}
-            />
-
-            <ChatInput 
-            type="Project Members Chat"
-            apiUrl="/api/polling/messages"
-            name={project.name}
-            query={{
-                projectId: params.projectId,
-                memberId: user.id
-            }}
-            />
-        </div>
-    )
-}
+        <ChatMessages
+          name={project.name}
+          member={member}
+          type="Project Members Chat"
+          apiUrl="/api/messages"
+          socketUrl="/api/polling/messages"
+          socketQuery={{
+            projectId: params.projectId,
+            memberId: user.id,
+          }}
+          paramKey="projectId"
+          paramValue={project.id}
+          chatId={project.id}
+        />
+      </div>
+      <ChatInput
+        type="Project Members Chat"
+        apiUrl="/api/polling/messages"
+        name={project.name}
+        query={{
+          projectId: params.projectId,
+          memberId: user.id,
+        }}
+      />
+    </div>
+  );
+};
 
 export default ProjectMessagesPage;

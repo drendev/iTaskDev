@@ -49,7 +49,7 @@ const RecommendSDLCPage = async ({
 
     return (
         <div className="mt-5">
-            
+            <ProgressBar progress={33.2}/>
             <RenderSdlc
             sdlc={recommendedSdlc}
             info={sdlcWithInformation}

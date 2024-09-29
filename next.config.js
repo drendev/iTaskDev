@@ -12,6 +12,13 @@ const nextConfig = {
     domains: [
       "uploadthing.com",
       "utfs.io"
+    ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        port: "",
+      }
     ]
   }
 }

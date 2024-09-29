@@ -7,19 +7,14 @@ import { useMediaQuery } from "react-responsive";
 
 interface ProgressBarProps {
   progress: number;
-  color: string;
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ progress, color }) => {
+const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
 
   const [prog, setProg] = useState<number>(16.6);
-  const [bgColor, setBgColor] = useState<string>("bg-black");
   useEffect(() => {
-    setBgColor(color);
     setProg(progress);
-    console.log(bgColor);
-    console.log(prog);
   }, []);
 
   return (
@@ -104,7 +99,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress, color }) => {
         </div>
       )}
 
-      <Progress value={prog} className={`w-full my-10 [&>*]:${bgColor}`} />
+      <Progress value={prog} className={`w-full my-10 `} />
     </div>
   );
 };
