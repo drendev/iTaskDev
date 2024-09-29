@@ -54,6 +54,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { ProjectWithInformation } from "@/types";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ScrollArea } from "../ui/scroll-area";
 
 const formSchema = z.object({
     tasks: z
@@ -130,17 +131,19 @@ export const EditProjectInformationModal = () => {
         <Dialog open={isModalOpen} onOpenChange={handleClose}>
             <DialogContent className="bg-white text-black p-4 overflow-hidden">
                 <DialogHeader className="px-6">
-                    <DialogTitle>Edit Project</DialogTitle>
+                    <DialogTitle>Edit Project Details</DialogTitle>
                     <DialogDescription>
-                        Create a new project to start collaborating with your team.
+                        Edit project details to better suit your needs
                     </DialogDescription>
                 </DialogHeader>
-
+                  
                     <Form {...form}>
                     <form
-                      className="w-full space-y-5"
+                      className="w-full space-y-5 p-3 h-full"
                       onSubmit={form.handleSubmit(onSubmit)}
                     >
+                      <ScrollArea className="max-h-[420px] h-full">
+                      <div className="p-3">
                       <FormField
                         control={form.control}
                         defaultValue={info?.tasks}
@@ -235,69 +238,69 @@ export const EditProjectInformationModal = () => {
                       />
     
                       <FormField
-                        control={form.control}
-                        defaultValue={info?.complexFeatures}
-                        name="complexFeatures"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col">
-                            <FormLabel>
-                              Does your project have complex features?
-                            </FormLabel>
-                            <FormControl>
-                              <Select
-                                onValueChange={(value) =>
-                                  field.onChange(value === "true")
-                                }
-                              >
-                                <SelectTrigger className="w-[180px]">
-                                  <SelectValue placeholder="None" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectItem value="false">None</SelectItem>
-                                    <SelectItem value="true">Yes</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
+                      control={form.control}
+                      name="complexFeatures"
+                      defaultValue={info?.complexFeatures ?? false}
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                          <FormLabel>Does your project have complex features?</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={(value) => field.onChange(value === "true")}
+                              value={field.value ? "true" : "false"}
+                            >
+                              <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="None" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectItem value="false">None</SelectItem>
+                                  <SelectItem value="true">Yes</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
     
                       <FormField
-                        control={form.control}
-                        name="clientInvolvement"
-                        defaultValue={info?.clientInvolvement}
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col">
-                            <FormLabel>
-                              Does your project include client involvement?
-                            </FormLabel>
-                            <FormControl>
-                              <Select
-                                onValueChange={(value) =>
-                                  field.onChange(value === "true")
-                                }
-                              >
-                                <SelectTrigger className="w-[180px]">
-                                  <SelectValue placeholder="None" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectItem value="false">None</SelectItem>
-                                    <SelectItem value="true">Yes</SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
+                      control={form.control}
+                      name="clientInvolvement"
+                      defaultValue={info?.clientInvolvement}
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                          <FormLabel>
+                            How often is the client involved with the
+                            development?
+                          </FormLabel>
+                          <FormControl>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <SelectTrigger className="w-[180px]">
+                                <SelectValue
+                                  defaultValue="low"
+                                  placeholder="Low"
+                                />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectItem value="low">Low</SelectItem>
+                                  <SelectItem value="moderate">
+                                    Moderate
+                                  </SelectItem>
+                                  <SelectItem value="high">High</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
     
                       <FormField
                         control={form.control}
                         name="deployment"
-                        defaultValue={info?.deployment}
+                        defaultValue={info?.complexFeatures ?? false}
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <FormLabel>
@@ -305,9 +308,8 @@ export const EditProjectInformationModal = () => {
                             </FormLabel>
                             <FormControl>
                               <Select
-                                onValueChange={(value) =>
-                                  field.onChange(value === "true")
-                                }
+                                onValueChange={(value) => field.onChange(value === "true")}
+                                value={field.value ? "true" : "false"}
                               >
                                 <SelectTrigger className="w-[180px]">
                                   <SelectValue placeholder="No" />
@@ -334,12 +336,13 @@ export const EditProjectInformationModal = () => {
                               Approximate testing time for the project:
                             </FormLabel>
                             <FormControl>
-                              <Select onValueChange={field.onChange}>
+                              <Select onValueChange={field.onChange} value={field.value}>
                                 <SelectTrigger className="w-[180px]">
                                   <SelectValue
-                                    defaultValue="low"
+                                    defaultValue={info?.testing}
                                     placeholder="Low"
-                                  />
+                                  >
+                                    </SelectValue>
                                 </SelectTrigger>
                                 <SelectContent>
                                   <SelectGroup>
@@ -355,7 +358,7 @@ export const EditProjectInformationModal = () => {
                           </FormItem>
                         )}
                       />
-    
+                      
                       <FormField
                         control={form.control}
                         name="members"
@@ -366,7 +369,7 @@ export const EditProjectInformationModal = () => {
                               How many members will your project have?
                             </FormLabel>
                             <FormControl>
-                              <Select onValueChange={field.onChange}>
+                              <Select onValueChange={field.onChange} value={field.value}>
                                 <SelectTrigger className="w-[180px]">
                                   <SelectValue placeholder="2-3 Members" />
                                 </SelectTrigger>
@@ -391,11 +394,8 @@ export const EditProjectInformationModal = () => {
                           </FormItem>
                         )}
                       />
-    
-                      <Button type="submit">Submit</Button>
-                    </form>
-                  </Form>
-
+                      </div>
+                      </ScrollArea>
                     <Button type="submit" className="w-full" size="lg" disabled={false}>
                         {loading ? (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -405,7 +405,8 @@ export const EditProjectInformationModal = () => {
                         </>
                         )}
                     </Button>
-
+                    </form>
+                  </Form> 
             </DialogContent>
         </Dialog>
     )
