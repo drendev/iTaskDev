@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 import ToastHandler from "@/app/(invite)/(routes)/invite/_components/toast-handler";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -13,6 +12,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  PolarGrid,
+  PolarRadiusAxis,
+  RadialBar,
+  RadialBarChart,
+} from "recharts";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label, Pie, PieChart } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -25,6 +30,7 @@ import {
   Database,
   Globe,
   Settings,
+  Video,
 } from "lucide-react";
 
 import {
@@ -43,6 +49,20 @@ interface ProjectIdPageProps {
     projectId: string;
   };
 }
+
+const radialChartData = [
+  { browser: "safari", visitors: 50, fill: "var(--color-safari)" }, // 75% progress
+];
+
+const radialChartConfig = {
+  visitors: {
+    label: "Visitors",
+  },
+  safari: {
+    label: "Safari",
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig;
 
 const chartData = [
   { status: "notstarted", tasks: 275, fill: "var(--color-notstarted)" },
@@ -268,7 +288,76 @@ const ProjectIdPage = ({ params }: ProjectIdPageProps) => {
           <CardTitle>Project Progress</CardTitle>
         </CardHeader>
         <CardContent>
-          <CircularProgressbar value={percentage} text={`${percentage}%`} />;
+          <ChartContainer
+            config={radialChartConfig}
+            className="mx-auto aspect-square max-h-[250px]"
+          >
+            <RadialBarChart
+              data={radialChartData}
+              startAngle={90} // Starts at 12 o'clock
+              endAngle={-270} // Ends at the full circle, clockwise
+              innerRadius={80}
+              outerRadius={140}
+            >
+              <PolarGrid
+                gridType="circle"
+                radialLines={false}
+                stroke="none"
+                polarRadius={[86, 74]}
+              />
+              {/* Base Radial Bar for the full 100% (gray background) */}
+              <RadialBar
+                dataKey="visitors"
+                className="opacity-0"
+                cornerRadius={10} // Smooth edges
+                minAngle={15} // Minimum angle for better visualization even for small values
+                data={[
+                  {
+                    browser: "safari",
+                    visitors: 100,
+                    fill: "var(--color-muted)",
+                  },
+                ]} // 100% background
+              />
+              {/* Foreground Radial Bar for actual progress */}
+              <RadialBar
+                dataKey="visitors"
+                cornerRadius={10}
+                fill="var(--color-safari)" // Set the fill color for the progress bar
+              />
+              <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+                <Label
+                  content={({ viewBox }) => {
+                    if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                      return (
+                        <text
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                        >
+                          <tspan
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            className="fill-foreground text-4xl font-bold"
+                          >
+                            {radialChartData[0].visitors.toLocaleString()}%
+                          </tspan>
+                          <tspan
+                            x={viewBox.cx}
+                            y={(viewBox.cy || 0) + 24}
+                            className="fill-muted-foreground"
+                          >
+                            Progress
+                          </tspan>
+                        </text>
+                      );
+                    }
+                  }}
+                />
+              </PolarRadiusAxis>
+            </RadialBarChart>
+          </ChartContainer>
         </CardContent>
         <CardFooter className="flex justify-between"></CardFooter>
       </Card>
@@ -278,8 +367,46 @@ const ProjectIdPage = ({ params }: ProjectIdPageProps) => {
         <CardHeader>
           <CardTitle>My Meetings</CardTitle>
         </CardHeader>
-        <CardContent>
-          
+        <CardContent className="space-y-3">
+          <Card className="hover:bg-gray-200 cursor-pointer">
+            <CardHeader>
+              <div>
+                <Badge className="bg-lime-500">On Going</Badge>
+              </div>
+              <div className="flex items-center gap-3">
+                <Video size={30} />
+                <CardTitle className="text-lg">Sprint 1 Meeting</CardTitle>
+              </div>
+              <CardDescription>Implementation of objective # 1</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2"></CardContent>
+          </Card>
+          <Card className="hover:bg-gray-200 cursor-pointer">
+            <CardHeader>
+              <div>
+                <Badge className="bg-blue-500">Scheduled</Badge>
+              </div>
+              <div className="flex items-center gap-3">
+                <Video size={30} />
+                <CardTitle className="text-lg">Sprint 2 Meeting</CardTitle>
+              </div>
+              <CardDescription>Implementation of objective # 2</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2"></CardContent>
+          </Card>
+          <Card className="hover:bg-gray-200 cursor-pointer">
+            <CardHeader>
+              <div>
+                <Badge className="bg-blue-500">Scheduled</Badge>
+              </div>
+              <div className="flex items-center gap-3">
+                <Video size={30} />
+                <CardTitle className="text-lg">Sprint 3 Meeting</CardTitle>
+              </div>
+              <CardDescription>Implementation of objective # 3</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2"></CardContent>
+          </Card>
         </CardContent>
         <CardFooter className="flex justify-between"></CardFooter>
       </Card>
