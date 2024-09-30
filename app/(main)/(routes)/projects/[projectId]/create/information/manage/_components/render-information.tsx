@@ -39,7 +39,6 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
         deployment: info.deployment.toString(),
         clientInvolvement: info.clientInvolvement.toString(),
         complexFeatures: info.complexFeatures.toString(),
-        tasks: info.tasks,
         testing: info.testing,
         projectId: info.workspaceId,
         scope: info.scope,
@@ -125,10 +124,10 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
             <Card className="w-full">
               <CardHeader>
                 <CardTitle className="text-lg">
-                  Project Initial Number of Tasks:
+                  Scope and Requirements Stability: 
                 </CardTitle>
               </CardHeader>
-              <CardContent className="text-sm">{info.tasks}</CardContent>
+              <CardContent className="text-sm">{info.scope}</CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">
