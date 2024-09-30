@@ -49,7 +49,7 @@ export const useChatScroll = ({
             }
 
             const distanceFromBottom = topDiv.scrollHeight - topDiv.scrollTop - topDiv.clientHeight;
-            return distanceFromBottom <= 100;
+            return distanceFromBottom <= 10;
         }
 
         if (shouldAutoScroll()) {
@@ -57,7 +57,7 @@ export const useChatScroll = ({
                 bottomRef.current?.scrollIntoView({
                     behavior: "smooth"
                 })
-            }, 100);
+            }, 10);
         }
     }, [bottomRef, chatRef, count, hasInitialized]);
 }

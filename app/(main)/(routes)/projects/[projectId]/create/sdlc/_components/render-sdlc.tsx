@@ -101,11 +101,11 @@ const sdlcTemp = [
 export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
   return (
     <>
-      {sdlcTemp.map((method) => {
+      {sdlcTemp.map((method, index) => {
         // Conditional rendering if sdlc matches the method's sdlc field
         if (sdlc.toLowerCase() === method.sdlc.toLowerCase()) {
           return (
-            <div>
+            <div key={index}>
               <Card className="w-full mt-5">
                 <CardHeader>
                   <div className="flex items-center gap-3">

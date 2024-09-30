@@ -5,6 +5,7 @@ import { ConversationHeader } from "@/components/conversation/conversation-heade
 import { ChatInput } from "@/components/conversation/chat-input";
 import { ChatMessages } from "@/components/conversation/chat-messages";
 import { MediaRoom } from "@/components/media-room";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ProjectMessagesPageProps {
   params: {
@@ -41,12 +42,13 @@ const ProjectMessagesPage = async ({ params }: ProjectMessagesPageProps) => {
       <div className="">
         <ConversationHeader type="Project Members Chat" />
       </div>
-      <div className="overflow-y-scroll">
+      <div>
         {/*             <MediaRoom 
             chatId={project.id}
             video={false}
             audio={true}
             /> */}
+        <ScrollArea className="max-h-[420px] h-full">
         <ChatMessages
           name={project.name}
           member={member}
@@ -61,6 +63,7 @@ const ProjectMessagesPage = async ({ params }: ProjectMessagesPageProps) => {
           paramValue={project.id}
           chatId={project.id}
         />
+        </ScrollArea>
       </div>
       <ChatInput
         type="Project Members Chat"

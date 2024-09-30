@@ -44,8 +44,6 @@ interface ProjectIdPageProps {
   };
 }
 
-export const description = "A donut chart with text";
-
 const chartData = [
   { status: "notstarted", tasks: 275, fill: "var(--color-notstarted)" },
   { status: "inprogress", tasks: 200, fill: "var(--color-inprogress)" },
