@@ -29,7 +29,7 @@ export const SearchBar = () => {
 
   return (
     <div
-      className="md:w-[400px] relative hidden lg:flex"
+      className="md:w-[400px] flex"
       ref={commandRef}
     >
       <Command>
@@ -38,7 +38,7 @@ export const SearchBar = () => {
           onClick={() => setValue(true)}
         />
         {value && (
-          <CommandList className="absolute left-0 right-0 mt-10 bg-white border border-gray-300 rounded-md shadow-lg z-50 max-h-[400px]">
+          <CommandList className="absolute mt-10 bg-white border border-gray-300 rounded-md shadow-lg z-50 w-[230px] md:w-[400px] max-h-[400px]">
             <CommandEmpty> No results found. </CommandEmpty>
             <CommandGroup heading="Feature">
               <CommandItem>

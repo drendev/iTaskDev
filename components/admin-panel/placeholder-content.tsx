@@ -15,8 +15,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import { PiArrowsLeftRightThin } from "react-icons/pi";
 import { useMediaQuery } from "react-responsive";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const PlaceholderContent = () => {
+  const user = useCurrentUser();
+
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 992 });
   const isLargeScreen = useMediaQuery({ minWidth: 993, maxWidth: 1550 });
@@ -27,11 +30,11 @@ const PlaceholderContent = () => {
         <div className="w-full">
           <div className="flex items-center gap-3">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={`${user?.image}`} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-2xl">Charles Sherwin</p>
+              <p className="text-2xl">{user?.name}</p>
               <p className="text-gray-500">Welcome to iTaskDev Home Page</p>
             </div>
           </div>
@@ -192,11 +195,11 @@ const PlaceholderContent = () => {
         <div className="w-full">
           <div className="flex items-center gap-3">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={`${user?.image}`} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-2xl">Charles Sherwin</p>
+              <p className="text-2xl">{user?.name}</p>
               <p className="text-gray-500">Welcome to iTaskDev Home Page</p>
             </div>
           </div>
@@ -357,11 +360,11 @@ const PlaceholderContent = () => {
         <div className="w-full">
           <div className="flex items-center gap-3">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={`${user?.image}`} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-2xl">Charles Sherwin</p>
+              <p className="text-2xl">{user?.name}</p>
               <p className="text-gray-500">Welcome to iTaskDev Home Page</p>
             </div>
           </div>
@@ -375,29 +378,29 @@ const PlaceholderContent = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div>
-                    <CardTitle>Users</CardTitle>
-                    <CardDescription>Add or manage users</CardDescription>
+                    <CardTitle>Tasks</CardTitle>
+                    <CardDescription>Collaborative tasks progress</CardDescription>
                   </div>
-                  <div className="flex items-center text-sm">Manage</div>
+                  <div className="flex top-0 text-sm">View All</div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="flex gap-3 mb-5">
                   <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>1</AvatarFallback>
                   </Avatar>
                   <Avatar>
                     <AvatarImage />
                     <AvatarFallback>+</AvatarFallback>
                   </Avatar>
                 </div>
-                <div className="flex flex-col items-start space-y-5 text-sm">
-                  <button>Add a user</button>
-                  <button>Delete a user</button>
-                  <button>Update a users name or email</button>
+                <div className="flex flex-col items-start space-y-3 text-sm">
+                  <button>My progress</button>
+                  <button>View tasks calendar</button>
+                  <button>Recent Tasks</button>
                   <button className="text-start">
-                    Create an alternate email address (email alias)
+                    Task analytics
                   </button>
                 </div>
               </CardContent>
@@ -406,22 +409,20 @@ const PlaceholderContent = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div>
-                    <CardTitle>Product Updates</CardTitle>
+                    <CardTitle>Security</CardTitle>
                     <CardDescription>
-                      Latest updates in iTaskDev
+                      Handle security and privacy
                     </CardDescription>
                   </div>
-                  <div className="flex items-center text-sm">View all</div>
+                  <div className="flex top-0 text-sm">View all</div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between">
                   <div className="text-sm mr-8">
-                    Implementation of DevIntel AI an SDLC Recommendation feature
-                    to find the best Methodology for your project powered by
-                    NLP.
+                    Learn how we handle your data and how to keep it safe.
                   </div>
-                  <div className="flex text-sm text-gray-500">September 23</div>
+                  <div className="flex text-sm text-gray-500">Data Encryption</div>
                 </div>
               </CardContent>
             </Card>
@@ -432,19 +433,19 @@ const PlaceholderContent = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div>
-                    <CardTitle>Billing</CardTitle>
+                    <CardTitle>Projects</CardTitle>
                     <CardDescription>
-                      Manage subscriptions and billing
+                      Create and manage project 
                     </CardDescription>
                   </div>
-                  <div className="flex items-center text-sm">Manage</div>
+                  <div className="flex top-0 text-sm">Manage</div>
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-col items-start text-sm space-y-10">
-                  <button className="mt-5">Manage subscriptions</button>
-                  <button>Payment accounts</button>
-                  <button>Get more services</button>
+                <div className="flex flex-col items-start text-sm space-y-3">
+                  <button className="mt-5">My own projects</button>
+                  <button>Create project</button>
+                  <button>Project analytics</button>
                 </div>
               </CardContent>
             </Card>
@@ -452,15 +453,15 @@ const PlaceholderContent = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div>
-                    <CardTitle>Domains</CardTitle>
-                    <CardDescription>Manage your domains</CardDescription>
+                    <CardTitle>Alerts</CardTitle>
+                    <CardDescription>Manage your notifications</CardDescription>
                   </div>
                   <div className="flex items-center text-sm">Overview</div>
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-500 text-sm">Primary domain</p>
-                <p className="text-xl">itask.dev</p>
+                <p className="text-gray-500 text-sm">Primary notification</p>
+                <p className="text-xl">Email</p>
               </CardContent>
             </Card>
           </div>
@@ -475,7 +476,7 @@ const PlaceholderContent = () => {
                       Get the most out of iTaskDev
                     </CardDescription>
                   </div>
-                  <div className="flex items-center text-sm">Manage</div>
+                  <div className="flex top-0 text-sm">Manage</div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -499,9 +500,9 @@ const PlaceholderContent = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div className="mr-5">
-                    <CardTitle>Alerts</CardTitle>
+                    <CardTitle>Help</CardTitle>
                     <CardDescription>
-                      View notifications about potential issues
+                      Get help from iTaskDev
                     </CardDescription>
                   </div>
                   <div className="flex items-center text-sm">View all</div>
@@ -526,11 +527,11 @@ const PlaceholderContent = () => {
         <div className="w-full">
           <div className="flex items-center gap-3">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={`${user?.image}`} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-2xl">Charles Sherwin</p>
+              <p className="text-2xl">{user?.name}</p>
               <p className="text-gray-500">Welcome to iTaskDev Home Page</p>
             </div>
           </div>
