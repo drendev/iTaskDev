@@ -10,10 +10,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 interface ProjectMessagesPageProps {
   params: {
     projectId: string;
-  };
+  },
+  searchParams: {
+    video?: boolean;
+}
 }
 
-const ProjectMessagesPage = async ({ params }: ProjectMessagesPageProps) => {
+const ProjectMessagesPage = async ({ params, searchParams }: ProjectMessagesPageProps) => {
   const user = await currentUser();
 
   if (!user) {
@@ -42,38 +45,42 @@ const ProjectMessagesPage = async ({ params }: ProjectMessagesPageProps) => {
       <div className="">
         <ConversationHeader type="Project Members Chat" />
       </div>
-      <div>
-        {/*             <MediaRoom 
+      {searchParams.video && (
+            <MediaRoom
             chatId={project.id}
             video={false}
             audio={true}
-            /> */}
-        <ScrollArea className="max-h-[420px] h-full">
-        <ChatMessages
-          name={project.name}
-          member={member}
-          type="Project Members Chat"
-          apiUrl="/api/messages"
-          socketUrl="/api/polling/messages"
-          socketQuery={{
-            projectId: params.projectId,
-            memberId: user.id,
-          }}
-          paramKey="projectId"
-          paramValue={project.id}
-          chatId={project.id}
-        />
-        </ScrollArea>
-      </div>
-      <ChatInput
-        type="Project Members Chat"
-        apiUrl="/api/polling/messages"
-        name={project.name}
-        query={{
-          projectId: params.projectId,
-          memberId: user.id,
-        }}
-      />
+            />
+        )}
+        {!searchParams.video && (
+          <>
+            <ScrollArea className="max-h-[420px] h-full">
+            <ChatMessages
+              name={project.name}
+              member={member}
+              type="Project Members Chat"
+              apiUrl="/api/messages"
+              socketUrl="/api/polling/messages"
+              socketQuery={{
+                projectId: params.projectId,
+                memberId: user.id,
+              }}
+              paramKey="projectId"
+              paramValue={project.id}
+              chatId={project.id}
+            />
+            </ScrollArea>
+            <ChatInput
+              type="Project Members Chat"
+              apiUrl="/api/polling/messages"
+              name={project.name}
+              query={{
+                projectId: params.projectId,
+                memberId: user.id,
+              }}
+              />
+          </>
+      )}
     </div>
   );
 };

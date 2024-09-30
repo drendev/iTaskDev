@@ -21,6 +21,9 @@ export const ConversationHeader = ({
                 <>
                     <Hash className="h-5 w-5 mr-2 text-zinc-500"/>
                     {type}
+                    <div className="flex items-center ml-auto">
+                        <ChatVideoButton />
+                    </div>
                 </>
             )}
             {type === "direct" && (

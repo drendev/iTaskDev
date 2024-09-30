@@ -68,6 +68,7 @@ const formSchema = z.object({
   deployment: z.boolean(),
   testing: z.string().min(1, "testing is required"),
   members: z.string().min(1, "Members cannot be empty"),
+  scope: z.string().min(1, "Scope cannot be empty"),
 });
 
 const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
@@ -86,6 +87,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
       deployment: false,
       testing: "low",
       members: "2-3 members",
+      scope: "low",
     },
   });
 
@@ -104,6 +106,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
           deployment: values.deployment,
           testing: values.testing,
           members: values.members,
+          scope: values.scope,
         }
       );
 
@@ -324,6 +327,37 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                       <FormItem className="flex flex-col">
                         <FormLabel>
                           Approximate testing time for the project:
+                        </FormLabel>
+                        <FormControl>
+                          <Select disabled={loading} onValueChange={field.onChange}>
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue
+                                defaultValue="low"
+                                placeholder="Low"
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectItem value="low">Low</SelectItem>
+                                <SelectItem value="moderate">
+                                  Moderate
+                                </SelectItem>
+                                <SelectItem value="high">High</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+
+                    <FormField
+                    control={form.control}
+                    name="scope"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>
+                          How stable are the scope and requirements?
                         </FormLabel>
                         <FormControl>
                           <Select disabled={loading} onValueChange={field.onChange}>

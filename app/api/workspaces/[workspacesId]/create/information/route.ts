@@ -21,6 +21,7 @@ export async function POST(
             testing,
             tasks,
             members,
+            scope
         } = await req.json();
 
         if (!user) {
@@ -38,6 +39,7 @@ export async function POST(
             testing,
             tasks,
             members,
+            scope
         }
        })
         

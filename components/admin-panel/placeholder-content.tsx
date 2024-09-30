@@ -213,10 +213,10 @@ const PlaceholderContent = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div>
-                    <CardTitle>Users</CardTitle>
-                    <CardDescription>Add or manage users</CardDescription>
+                    <CardTitle>Tasks</CardTitle>
+                    <CardDescription>Collaborative tasks progress</CardDescription>
                   </div>
-                  <div className="flex items-center text-sm">Manage</div>
+                  <div className="flex items-center text-sm">View All</div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -230,12 +230,12 @@ const PlaceholderContent = () => {
                     <AvatarFallback>+</AvatarFallback>
                   </Avatar>
                 </div>
-                <div className="flex flex-col items-start space-y-5 text-sm">
-                  <button>Add a user</button>
-                  <button>Delete a user</button>
-                  <button>Update a users name or email</button>
+                <div className="flex flex-col items-start space-y-3 text-sm">
+                  <button>My progress</button>
+                  <button>View tasks calendar</button>
+                  <button>Recent Tasks</button>
                   <button>
-                    Create an alternate email address (email alias)
+                    Task analytics
                   </button>
                 </div>
               </CardContent>
@@ -244,9 +244,9 @@ const PlaceholderContent = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div>
-                    <CardTitle>Product Updates</CardTitle>
+                    <CardTitle>Security</CardTitle>
                     <CardDescription>
-                      Latest updates in iTaskDev
+                      Handle security and privacy
                     </CardDescription>
                   </div>
                   <div className="flex items-center text-sm">View all</div>
@@ -255,11 +255,9 @@ const PlaceholderContent = () => {
               <CardContent>
                 <div className="flex justify-between">
                   <div className="text-sm mr-8">
-                    Implementation of DevIntel AI an SDLC Recommendation feature
-                    to find the best Methodology for your project powered by
-                    NLP.
+                    Learn how we handle your data and how to keep it safe.
                   </div>
-                  <div className="flex text-sm text-gray-500">September 23</div>
+                  <div className="flex text-sm text-gray-500">Data Encryption</div>
                 </div>
               </CardContent>
             </Card>
@@ -298,9 +296,9 @@ const PlaceholderContent = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div>
-                    <CardTitle>Billing</CardTitle>
+                    <CardTitle>Projects</CardTitle>
                     <CardDescription>
-                      Manage subscriptions and billing
+                      Create and manage projects
                     </CardDescription>
                   </div>
                   <div className="flex items-center text-sm">Manage</div>
@@ -308,9 +306,9 @@ const PlaceholderContent = () => {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col items-start text-sm space-y-10">
-                  <button className="mt-5">Manage subscriptions</button>
-                  <button>Payment accounts</button>
-                  <button>Get more services</button>
+                  <button className="mt-5">My own projects</button>
+                  <button>Create project</button>
+                  <button>Project analytics</button>
                 </div>
               </CardContent>
             </Card>

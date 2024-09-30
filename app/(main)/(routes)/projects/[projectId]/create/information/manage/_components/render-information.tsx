@@ -42,6 +42,7 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
         tasks: info.tasks,
         testing: info.testing,
         projectId: info.workspaceId,
+        scope: info.scope,
       });
       router.push(`/projects/${info.workspaceId}/create/sdlc`);
       console.log(response);

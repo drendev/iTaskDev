@@ -59,7 +59,7 @@ export const MediaRoom = ({
         audio={audio}
         >
             <ControlBar controls={{ leave: false}}>
-             </ControlBar>
+            </ControlBar>
         </LiveKitRoom>
     )
 }

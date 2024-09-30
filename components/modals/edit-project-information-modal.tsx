@@ -68,6 +68,7 @@ const formSchema = z.object({
     deployment: z.boolean(),
     testing: z.string().min(1, "testing is required"),
     members: z.string().min(1, "Members cannot be empty"),
+    scope: z.string().min(1, "Scope cannot be empty"),
   });
 
 export const EditProjectInformationModal = () => {
@@ -93,6 +94,7 @@ export const EditProjectInformationModal = () => {
           deployment: info?.deployment,
           testing: info?.testing,
           members: info?.members,
+          scope: info?.scope,
         },
       });
 
@@ -107,6 +109,7 @@ export const EditProjectInformationModal = () => {
                 deployment: info?.deployment,
                 testing: info?.testing,
                 members: info?.members,
+                scope: info?.scope,
             });
         }
     }, [info, form]);
@@ -126,6 +129,7 @@ export const EditProjectInformationModal = () => {
                   deployment: values.deployment,
                   testing: values.testing,
                   members: values.members,
+                  scope: values.scope,
                 }
               );
         
@@ -385,6 +389,37 @@ export const EditProjectInformationModal = () => {
                           </FormItem>
                         )}
                       />
+
+                    <FormField
+                    control={form.control}
+                    name="scope"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>
+                          How stable are the scope and requirements?
+                        </FormLabel>
+                        <FormControl>
+                          <Select disabled={loading} onValueChange={field.onChange}>
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue
+                                defaultValue="low"
+                                placeholder="Low"
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectItem value="low">Low</SelectItem>
+                                <SelectItem value="moderate">
+                                  Moderate
+                                </SelectItem>
+                                <SelectItem value="high">High</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
                       
                       <FormField
                         control={form.control}
