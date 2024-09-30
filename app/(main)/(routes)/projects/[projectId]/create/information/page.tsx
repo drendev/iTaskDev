@@ -57,10 +57,6 @@ interface ProjectInformationPageProps {
 }
 
 const formSchema = z.object({
-  tasks: z
-    .number()
-    .min(1, "Minimum of 1 task")
-    .max(100, "Maximum of 100 tasks"),
   description: z.string().min(12, "Minimum of 12 characters"),
   dueDate: z.date().min(new Date(), "Due date must be in the future"),
   complexFeatures: z.boolean(),
@@ -79,7 +75,6 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      tasks: 1,
       description: "",
       dueDate: new Date(),
       complexFeatures: false,
@@ -98,7 +93,6 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
       const response = await axios.post(
         `/api/workspaces/${params.projectId}/create/information`,
         {
-          tasks: values.tasks,
           description: values.description,
           dueDate: values.dueDate,
           complexFeatures: values.complexFeatures,
@@ -135,33 +129,6 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
             <form className="" onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 space-y-5 md:grid-cols-2">
                 <div className="w-full space-y-3 md:pr-10">
-                  <FormField
-                    control={form.control}
-                    name="tasks"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel> Number of initial Tasks</FormLabel>
-                        <FormControl>
-                          <Input
-                            className="w-full"
-                            disabled={loading}
-                            placeholder="Number of Tasks"
-                            type="number"
-                            {...field}
-                            min={1}
-                            onChange={(e) => {
-                              const value = e.target.value
-                                ? Number(e.target.value)
-                                : "";
-                              field.onChange(value);
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
                   <FormField
                     control={form.control}
                     name="description"

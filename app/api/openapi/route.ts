@@ -14,7 +14,6 @@ export async function POST(req: Request) {
             deployment, 
             clientInvolvement, 
             complexFeatures, 
-            tasks, 
             testing,
             projectId,
             scope
@@ -31,7 +30,7 @@ export async function POST(req: Request) {
                 },
                 {
                 role: "user",
-                content: `Description: ${description} Start of development: ${today} Due Date of project: ${dueDate} Members: ${members} Deployment: ${deployment} Client Involvement: ${clientInvolvement} Complex Features: ${complexFeatures} Tasks: ${tasks} Testing: ${testing} Scope and Requirements stability: ${scope}`,
+                content: `Description: ${description} Start of development: ${today} Due Date of project: ${dueDate} Members: ${members} Deployment: ${deployment} Client Involvement: ${clientInvolvement} Complex Features: ${complexFeatures} Testing: ${testing} Scope and Requirements stability: ${scope}`,
                 },
             ],
         });
