@@ -66,6 +66,13 @@ export const ChatItem = ({
     const params = useParams();
     const router = useRouter();
 
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            content: content,
+        }
+    });
+
     useEffect(() => {
         const handleKeyDown = (event: any) => {
             if (event.key === "Escape" || event.keyCode === 27) {
@@ -77,13 +84,6 @@ export const ChatItem = ({
 
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [])
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            content: content,
-        }
-    });
 
     const onMemberClick = () => {
         if (member.id === currentMember.id){
