@@ -12,12 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import {
   PolarGrid,
   PolarRadiusAxis,
   RadialBar,
   RadialBarChart,
 } from "recharts";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label, Pie, PieChart } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -50,16 +52,22 @@ interface ProjectIdPageProps {
   };
 }
 
+const progressPercentage = 25; // Example: 5% progress
+
 const radialChartData = [
-  { browser: "safari", visitors: 50, fill: "var(--color-safari)" }, // 75% progress
+  {
+    progress: "Progress",
+    visitors: progressPercentage, // Use percentage for progress
+    fill: "var(--color-progress)",
+  },
 ];
 
 const radialChartConfig = {
   visitors: {
     label: "Visitors",
   },
-  safari: {
-    label: "Safari",
+  progress: {
+    label: "Progress",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
@@ -294,36 +302,23 @@ const ProjectIdPage = ({ params }: ProjectIdPageProps) => {
           >
             <RadialBarChart
               data={radialChartData}
-              startAngle={90} // Starts at 12 o'clock
-              endAngle={-270} // Ends at the full circle, clockwise
+              startAngle={90} // Start at the top (12 o'clock)
+              endAngle={90 + (progressPercentage / 100) * 360} // Dynamically set end angle based on progress
               innerRadius={80}
-              outerRadius={140}
+              outerRadius={110}
             >
               <PolarGrid
                 gridType="circle"
                 radialLines={false}
                 stroke="none"
+                className="first:fill-muted last:fill-background"
                 polarRadius={[86, 74]}
               />
-              {/* Base Radial Bar for the full 100% (gray background) */}
               <RadialBar
                 dataKey="visitors"
-                className="opacity-0"
-                cornerRadius={10} // Smooth edges
-                minAngle={15} // Minimum angle for better visualization even for small values
-                data={[
-                  {
-                    browser: "safari",
-                    visitors: 100,
-                    fill: "var(--color-muted)",
-                  },
-                ]} // 100% background
-              />
-              {/* Foreground Radial Bar for actual progress */}
-              <RadialBar
-                dataKey="visitors"
+                background
                 cornerRadius={10}
-                fill="var(--color-safari)" // Set the fill color for the progress bar
+                fill="var(--color-progress)" // Use your custom color
               />
               <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
                 <Label
@@ -341,7 +336,7 @@ const ProjectIdPage = ({ params }: ProjectIdPageProps) => {
                             y={viewBox.cy}
                             className="fill-foreground text-4xl font-bold"
                           >
-                            {radialChartData[0].visitors.toLocaleString()}%
+                            {progressPercentage}%
                           </tspan>
                           <tspan
                             x={viewBox.cx}
@@ -358,6 +353,7 @@ const ProjectIdPage = ({ params }: ProjectIdPageProps) => {
               </PolarRadiusAxis>
             </RadialBarChart>
           </ChartContainer>
+          ;
         </CardContent>
         <CardFooter className="flex justify-between"></CardFooter>
       </Card>
