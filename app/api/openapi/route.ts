@@ -35,51 +35,51 @@ export async function POST(req: Request) {
             ],
         });
 
-        const data = completion.choices[0].message.content;
+    const data = completion.choices[0].message.content;
 
-        if (!data) {
-          return new NextResponse("No Completion Detected!", { status: 400 });
-        }
-
-        const sectionsArray = data.split(/\s*=====+\s*/);
-        const filteredArray: string[] = sectionsArray.filter(
-          (section: string) => section.trim() !== ""
-        );
-
-        if (filteredArray[0] === "Unrelated") {
-          return new NextResponse("Unrelated", { status: 400 });
-        }
-     
-        const updateSdlc = await db.workspace.update({
-          where: {
-            id: projectId,
-          },
-          data: {
-            sdlc: filteredArray[0].toLowerCase(),
-            sdlcAi: {
-              create: [
-                {
-                  timeline: filteredArray[2],
-                  teamSize: filteredArray[3],
-                  complexFeatures: filteredArray[4],
-                  clientInvolvement: filteredArray[5],
-                  scopeAndRequirements: filteredArray[6],
-                  resourceAvailability: filteredArray[7],
-                  qualityAssurance: filteredArray[8],
-                  deployment: filteredArray[9],
-                }
-              ]
-            }
-          }
-        });
-
-        if (!updateSdlc) {
-          return new NextResponse("No Completion Detected!", { status: 400 });
-        }
-        
-        return NextResponse.json(completion.choices[0].message);
-    } catch (error) {
-      console.error(error);
-      return new NextResponse("Internal Error", { status: 500 });
+    if (!data) {
+      return new NextResponse("No Completion Detected!", { status: 400 });
     }
+
+    const sectionsArray = data.split(/\s*=====+\s*/);
+    const filteredArray: string[] = sectionsArray.filter(
+      (section: string) => section.trim() !== ""
+    );
+
+    if (filteredArray[0] === "Unrelated") {
+      return new NextResponse("Unrelated", { status: 400 });
+    }
+
+    const updateSdlc = await db.workspace.update({
+      where: {
+        id: projectId,
+      },
+      data: {
+        sdlc: filteredArray[0].toLowerCase(),
+        sdlcAi: {
+          create: [
+            {
+              timeline: filteredArray[2],
+              teamSize: filteredArray[3],
+              complexFeatures: filteredArray[4],
+              clientInvolvement: filteredArray[5],
+              scopeAndRequirements: filteredArray[6],
+              resourceAvailability: filteredArray[7],
+              qualityAssurance: filteredArray[8],
+              deployment: filteredArray[9],
+            },
+          ],
+        },
+      },
+    });
+
+    if (!updateSdlc) {
+      return new NextResponse("No Completion Detected!", { status: 400 });
+    }
+
+    return NextResponse.json(completion.choices[0].message);
+  } catch (error) {
+    console.error(error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
 }
