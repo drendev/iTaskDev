@@ -5,6 +5,7 @@ import OpenAI from "openai";
 const openai = new OpenAI();
 
 export async function POST(req: Request) {
+    const today = new Date();
     try {
         const { 
             description, 
@@ -29,7 +30,7 @@ export async function POST(req: Request) {
                 },
                 {
                 role: "user",
-                content: `Description: ${description} Due Date: ${dueDate} Members: ${members} Deployment: ${deployment} Client Involvement: ${clientInvolvement} Complex Features: ${complexFeatures} Tasks: ${tasks} Testing: ${testing}`,
+                content: `Description: ${description} Start of development: ${today} Due Date of project: ${dueDate} Members: ${members} Deployment: ${deployment} Client Involvement: ${clientInvolvement} Complex Features: ${complexFeatures} Tasks: ${tasks} Testing: ${testing}`,
                 },
             ],
         });

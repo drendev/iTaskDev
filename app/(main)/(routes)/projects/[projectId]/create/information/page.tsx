@@ -122,7 +122,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
       <Card>
         <CardHeader>
           <ChevronsLeftRightEllipsis size={50} />
-          <CardTitle>Let's set-up your project</CardTitle>
+          <CardTitle>Let&#39;s set-up your project</CardTitle>
           <CardDescription>
             Input your project information and start your software journey
           </CardDescription>

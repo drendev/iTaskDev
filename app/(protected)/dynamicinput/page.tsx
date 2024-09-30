@@ -31,7 +31,7 @@ const DynamicInput = () => {
       <p>Dynamic Input Fields</p>
 
       {inputFields.map((inputField, index) => (
-        <div className="flex w-96 items-center gap-5">
+        <div key={index} className="flex w-96 items-center gap-5">
           <Input
             type="text"
             value={inputField.value}

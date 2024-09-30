@@ -282,7 +282,7 @@ const ProjectIdPage = ({ params }: ProjectIdPageProps) => {
                 <CardHeader>
                   <CardTitle>Account</CardTitle>
                   <CardDescription>
-                    Make changes to your account here. Click save when you're
+                    Make changes to your account here. Click save when you&#39;re
                     done.
                   </CardDescription>
                 </CardHeader>
@@ -297,7 +297,7 @@ const ProjectIdPage = ({ params }: ProjectIdPageProps) => {
                 <CardHeader>
                   <CardTitle>Password</CardTitle>
                   <CardDescription>
-                    Change your password here. After saving, you'll be logged
+                    Change your password here. After saving, you&#39;ll be logged
                     out.
                   </CardDescription>
                 </CardHeader>
@@ -331,7 +331,7 @@ const ProjectIdPage = ({ params }: ProjectIdPageProps) => {
                 <CardHeader>
                   <CardTitle>Account</CardTitle>
                   <CardDescription>
-                    Make changes to your account here. Click save when you're
+                    Make changes to your account here. Click save when you&#39;re
                     done.
                   </CardDescription>
                 </CardHeader>
@@ -346,7 +346,7 @@ const ProjectIdPage = ({ params }: ProjectIdPageProps) => {
                 <CardHeader>
                   <CardTitle>Password</CardTitle>
                   <CardDescription>
-                    Change your password here. After saving, you'll be logged
+                    Change your password here. After saving, you&#39;ll be logged
                     out.
                   </CardDescription>
                 </CardHeader>

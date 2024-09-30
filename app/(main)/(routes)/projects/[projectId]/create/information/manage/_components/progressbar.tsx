@@ -15,7 +15,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
   const [prog, setProg] = useState<number>(16.6);
   useEffect(() => {
     setProg(progress);
-  }, []);
+  }, [progress]);
 
   return (
     <div className="flex flex-col">
