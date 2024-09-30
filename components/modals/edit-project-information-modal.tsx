@@ -57,10 +57,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ScrollArea } from "../ui/scroll-area";
 
 const formSchema = z.object({
-    tasks: z
-      .number()
-      .min(1, "Minimum of 1 task")
-      .max(100, "Maximum of 100 tasks"),
     description: z.string().min(12, "Minimum of 12 characters"),
     dueDate: z.date().min(new Date(), "Due date must be in the future"),
     complexFeatures: z.boolean(),
@@ -86,7 +82,6 @@ export const EditProjectInformationModal = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-          tasks: info?.tasks,
           description: info?.description,
           dueDate: info?.dueDate,
           complexFeatures: info?.complexFeatures,
@@ -101,7 +96,6 @@ export const EditProjectInformationModal = () => {
       useEffect(() => {
         if (info) {
             form.reset({
-                tasks: info?.tasks,
                 description: info?.description,
                 dueDate: info?.dueDate,
                 complexFeatures: info?.complexFeatures,
@@ -121,7 +115,6 @@ export const EditProjectInformationModal = () => {
               await axios.post(
                 `/api/workspaces/${info?.workspaceId}/create/edit`,
                 {
-                  tasks: values.tasks,
                   description: values.description,
                   dueDate: values.dueDate,
                   complexFeatures: values.complexFeatures,
@@ -165,35 +158,6 @@ export const EditProjectInformationModal = () => {
                     >
                       <ScrollArea className="max-h-[420px] h-full">
                       <div className="p-3">
-                      <FormField
-                        control={form.control}
-                        defaultValue={info?.tasks}
-                        name="tasks"
-                        disabled={loading}
-                        render={({ field }) => (
-                          <FormItem className="mb-3">
-                            <FormLabel className="font-semibold"> Number of Tasks : </FormLabel>
-                            <FormControl>
-                              <Input
-                                className="w-96"
-                                disabled={false}
-                                placeholder="Number of Tasks"
-                                type="number"
-                                {...field}
-                                min={1}
-                                onChange={(e) => {
-                                  const value = e.target.value
-                                    ? Number(e.target.value)
-                                    : "";
-                                  field.onChange(value);
-                                }}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-    
                       <FormField
                         control={form.control}
                         name="description"

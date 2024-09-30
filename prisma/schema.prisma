@@ -226,7 +226,6 @@ model ProjectInformation {
   clientInvolvement String @db.Text
   deployment Boolean @default(false)
   testing String @db.Text
-  tasks Int
   members String @db.Text
   scope String @db.Text
 

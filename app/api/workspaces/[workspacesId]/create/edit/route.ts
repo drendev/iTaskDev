@@ -19,7 +19,7 @@ export async function POST(
             clientInvolvement,
             deployment,
             testing,
-            tasks,
+            scope,
             members,
         } = await req.json();
 
@@ -38,8 +38,8 @@ export async function POST(
             clientInvolvement,
             deployment,
             testing,
-            tasks,
             members,
+            scope
         }
        })
         
