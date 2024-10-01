@@ -34,11 +34,10 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
       setLoading(true);
       const response = await axios.post("/api/openapi", {
         description: info.description,
-        dueDate: info.dueDate.toString(),
+        dueDate: info.dueDate ? info.dueDate.toString() : null,
         members: info.members,
         deployment: info.deployment.toString(),
         clientInvolvement: info.clientInvolvement.toString(),
-        complexFeatures: info.complexFeatures.toString(),
         testing: info.testing,
         projectId: info.workspaceId,
         scope: info.scope,
@@ -79,7 +78,7 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
                 <CardTitle className="text-lg">Project Due Date:</CardTitle>
               </CardHeader>
               <CardContent className="text-sm">
-                {info.dueDate.toString()}
+                {info.dueDate ? info.dueDate.toString() : "On-Going"}
               </CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
@@ -88,15 +87,6 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
                 <CardTitle className="text-lg">Project Members:</CardTitle>
               </CardHeader>
               <CardContent className="text-sm">{info.members}</CardContent>
-              <CardFooter className="flex justify-between"></CardFooter>
-            </Card>
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle className="text-lg">Project Deployment:</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm">
-                {info.deployment.toString()}
-              </CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">
@@ -113,18 +103,7 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
             <Card className="w-full">
               <CardHeader>
                 <CardTitle className="text-lg">
-                  Project Complex Features:
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm">
-                {info.complexFeatures.toString()}
-              </CardContent>
-              <CardFooter className="flex justify-between"></CardFooter>
-            </Card>
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle className="text-lg">
-                  Scope and Requirements Stability: 
+                  Scope and Requirements Stability:
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm">{info.scope}</CardContent>
@@ -137,19 +116,30 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
               <CardContent className="text-sm">{info.testing}</CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle className="text-lg">
+                  Resource Availability:
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm">{info.testing}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
           </div>
         </CardContent>
         <CardFooter className="flex justify-end space-x-3">
-          <Button className="w-40" variant="ghost" onClick={() => onOpen("editInformation", { info: info })}>
+          <Button
+            className="w-40"
+            variant="ghost"
+            onClick={() => onOpen("editInformation", { info: info })}
+          >
             Edit Details
           </Button>
           <Button disabled={loading} className="w-40" onClick={onSubmit}>
             {loading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-            <>
-                Proceed
-            </>
+              <>Proceed</>
             )}
           </Button>
         </CardFooter>

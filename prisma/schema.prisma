@@ -220,14 +220,17 @@ model ProjectInformation {
   workspaceId String    @unique
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
-  description String @db.Text
-  dueDate DateTime
-  complexFeatures Boolean @default(false)
-  clientInvolvement String @db.Text
-  deployment Boolean @default(false)
-  testing String @db.Text
-  members String @db.Text
-  scope String @db.Text
+  description       String   @db.Text
+  dueDate           DateTime?
+  clientInvolvement String   @db.Text
+  deployment        Boolean  @default(false)
+  testing           String   @db.Text
+  members           String   @db.Text
+  scope             String   @db.Text
+  reqs              String[]
+  maintenance       String   @db.Text
+  risk              String   @db.Text
+  devtools          String   @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
