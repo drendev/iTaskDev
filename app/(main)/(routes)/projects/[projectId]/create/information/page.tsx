@@ -79,11 +79,14 @@ const requirements = [
 
 const formSchema = z.object({
   description: z.string().min(12, "Minimum of 12 characters"),
-  dueDate: z.date().min(new Date(), "Due date must be in the future"),
-  clientInvolvement: z.string().min(1, "Field is required"),
-  testing: z.string().min(1, "testing is required"),
+  dueDate: z
+    .date()
+    .min(new Date(), "Due date must be in the future")
+    .optional(),
   members: z.string().min(1, "Members cannot be empty"),
+  clientInvolvement: z.string().min(1, "Field is required"),
   scope: z.string().min(1, "Scope cannot be empty"),
+  testing: z.string().min(1, "testing is required"),
   reqs: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "You have to select at least one item.",
   }),
@@ -107,11 +110,11 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       description: "",
-      dueDate: new Date(),
-      clientInvolvement: "Weekly",
-      testing: "Manual Testing",
+      dueDate: undefined,
       members: "2-3 members",
+      clientInvolvement: "Weekly",
       scope: "Very Stable",
+      testing: "Manual Testing",
       reqs: [],
       maintenance: "Ongoing Support",
       risk: "Low",
@@ -127,10 +130,10 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
         {
           description: values.description,
           dueDate: values.dueDate,
-          clientInvolvement: values.clientInvolvement,
-          testing: values.testing,
           members: values.members,
+          clientInvolvement: values.clientInvolvement,
           scope: values.scope,
+          testing: values.testing,
           reqs: values.reqs,
           maintenance: values.maintenance,
           risk: values.risk,

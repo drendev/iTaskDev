@@ -34,13 +34,16 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
       setLoading(true);
       const response = await axios.post("/api/openapi", {
         description: info.description,
-        dueDate: info.dueDate ? info.dueDate.toString() : null,
+        dueDate: info.dueDate ? info.dueDate.toString() : "On-going",
         members: info.members,
-        deployment: info.deployment.toString(),
         clientInvolvement: info.clientInvolvement.toString(),
-        testing: info.testing,
-        projectId: info.workspaceId,
         scope: info.scope,
+        testing: info.testing,
+        reqs: info.reqs,
+        maintenance: info.maintenance,
+        risk: info.risk,
+        devtools: info.devtools,
+        projectId: info.workspaceId,
       });
       router.push(`/projects/${info.workspaceId}/create/sdlc`);
       console.log(response);
@@ -68,7 +71,9 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
           <div className="grid grid-col-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
             <Card className="w-full">
               <CardHeader>
-                <CardTitle className="text-lg">Project Description:</CardTitle>
+                <CardTitle className="text-lg">
+                  Project Scope and Complexity:
+                </CardTitle>
               </CardHeader>
               <CardContent className="text-sm">{info.description}</CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
@@ -119,10 +124,31 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
             <Card className="w-full">
               <CardHeader>
                 <CardTitle className="text-lg">
-                  Resource Availability:
+                  Resources Availability:
                 </CardTitle>
               </CardHeader>
-              <CardContent className="text-sm">{info.testing}</CardContent>
+              <CardContent className="text-sm">{info.reqs}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle className="text-lg">Maintenance:</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm">{info.maintenance}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle className="text-lg">Risk and Uncertainty:</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm">{info.risk}</CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle className="text-lg">Development Tools:</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm">{info.devtools}</CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
           </div>

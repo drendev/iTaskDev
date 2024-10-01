@@ -11,12 +11,14 @@ export async function POST(req: Request) {
       description,
       dueDate,
       members,
-      deployment,
       clientInvolvement,
-      complexFeatures,
-      testing,
-      projectId,
       scope,
+      testing,
+      reqs,
+      maintenance,
+      risk,
+      devtools,
+      projectId,
     } = await req.json();
 
     const completion = await openai.chat.completions.create({
@@ -30,7 +32,7 @@ export async function POST(req: Request) {
         },
         {
           role: "user",
-          content: `Description: ${description} Start of development: ${today} Due Date of project: ${dueDate} Members: ${members} Deployment: ${deployment} Client Involvement: ${clientInvolvement} Complex Features: ${complexFeatures} Quality Assurance and Testing Frequency and Iteration: ${testing} Scope and Requirements stability: ${scope}`,
+          content: `Project Scope and Complexity: ${description} Start of development: ${today} Due Date of project: ${dueDate} Members: ${members}  Client Involvement: ${clientInvolvement} Scope and Requirements stability: ${scope} Quality Assurance and Testing: ${testing} Resource Availability: ${reqs} Maintenance and Post-Deployment Support: ${maintenance} Risk and Uncertainty: ${risk} Development Tools: ${devtools} `,
         },
       ],
     });
