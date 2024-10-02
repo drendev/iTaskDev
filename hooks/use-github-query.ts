@@ -1,5 +1,5 @@
-import qs from 'query-string';
-import { useInfiniteQuery } from '@tanstack/react-query';
+
+import { useQuery } from '@tanstack/react-query';
 
 import axios from 'axios';
 
@@ -15,32 +15,21 @@ export const useGithubQuery = ({
     queryKey,
 }: ChatQueryProps) =>  {
 
-    const fetchCommits = async ({ pageParam = undefined }) => {
+    const fetchCommits = async () => {
 
-        const recentCommits = await axios.get(`https://api.github.com/repos/${owner}/${repo}/commits`);
+        const recentCommits = await axios.get(`https://api.github.com/repos/${owner}/${repo}/commits?per_page=4`);
 
         return recentCommits.data;
     };
 
-    const {
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-        status
-    } = useInfiniteQuery({
+    const { data, status } = useQuery({
         queryKey: [queryKey],
         queryFn: fetchCommits,
-        getNextPageParam: (lastPage) => lastPage?.nextCursor,
-        refetchInterval: 10,
-        initialPageParam: undefined
+        refetchInterval: 1000
     })
 
     return {
         data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
         status,
-      };
+    };
 }

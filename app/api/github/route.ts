@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
     try {
         const { owner, repo } = await req.json();
 
@@ -14,7 +14,6 @@ export async function POST(req: Request) {
         const recentCommits = await axios.get(`https://api.github.com/repos/${owner}/${repo}/commits`);
 
         return NextResponse.json({
-            repository: repoDetails.data,
             commits: recentCommits.data
         })
 
