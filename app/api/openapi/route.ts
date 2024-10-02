@@ -22,13 +22,13 @@ export async function POST(req: Request) {
     } = await req.json();
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o",
       temperature: 0,
       messages: [
         {
           role: "system",
           content:
-            "You are an assistant that helps the user find the best software development life cycle for their project using the data they have prompted. You will base on these criteria: Project Scope and Complexity, Timeline, Team size, Client involvement, Scope and Requirements stability, Quality assurance and testing, Resource availability, Maintenance and Post-Deployment Support, Risk and Uncertainty. provide an insight for each category in order, do not categorize each criteria. Your only choices for the SDLC's are: Devops, Iterative, Kanban, Lean, Rad, Scrum, Spiral, V-Shape, and Waterfall. Your output should start with chosen sdlc (no need to add 'SDLC' after the sdlc name) and the confidence percentage (no need to add 'Confidence Percentage: ' in the beginning) is provided do not categorize these two and just answer what they are both should have ===== between and after . Additionaly, for each sentence separate it with =====. Lastly, if the user prompt is unrelated to software development life cycle output 'Unrelated'",
+            "You are an assistant that helps the user find the best software development life cycle for their project using the data they have prompted. You will base on these criteria: Project Scope and Complexity, Timeline, Team size, Client involvement, Scope and Requirements stability, Quality assurance and testing, Resource availability, Maintenance and Post-Deployment Support, Risk and Uncertainty. provide an insight for each category in order, do not categorize each criteria. Your only choices for the SDLC's are: Devops, Iterative, Kanban, Lean, Rad, Scrum, Spiral, V-Shape, and Waterfall. Your output should start with chosen sdlc. Additionally Add Confidence percentages per sdlc no need for explanations output it last and in order and separate each with =====. Do not output a conclusion.  For each sentence separate it with =====.",
         },
         {
           role: "user",
@@ -69,13 +69,14 @@ export async function POST(req: Request) {
               qualityAssurance: filteredArray[7],
               resourceAvailability: filteredArray[8],
               maintenance: filteredArray[9],
-              risk: filteredArray[10]
-              
+              risk: filteredArray[10],
             },
           ],
         },
       },
     });
+
+    console.log(filteredArray);
 
     if (!updateSdlc) {
       return new NextResponse("No Completion Detected!", { status: 400 });

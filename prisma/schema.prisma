@@ -244,15 +244,16 @@ model ProjectSdlc {
   workspaceId String    @unique
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
-  scopeComplex         String @db.Text
-  timeline             String @db.Text
-  teamSize             String @db.Text
-  clientInvolvement    String @db.Text
-  scopeAndRequirements String @db.Text
-  qualityAssurance     String @db.Text
-  resourceAvailability String @db.Text
-  maintenance          String @db.Text
-  risk                 String @db.Text
+  scopeComplex         String   @db.Text
+  timeline             String   @db.Text
+  teamSize             String   @db.Text
+  clientInvolvement    String   @db.Text
+  scopeAndRequirements String   @db.Text
+  qualityAssurance     String   @db.Text
+  resourceAvailability String   @db.Text
+  maintenance          String   @db.Text
+  risk                 String   @db.Text
+  percentages          String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
