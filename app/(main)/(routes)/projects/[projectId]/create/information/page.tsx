@@ -1,6 +1,5 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -51,6 +50,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import ProgressBar from "./manage/_components/progressbar";
 import { useState } from "react";
+import { Input } from "@/components/ui/input";
 
 interface ProjectInformationPageProps {
   params: {
@@ -254,7 +254,13 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                           How many members will your project have?
                         </FormLabel>
                         <FormControl>
-                          <Select
+                          <Input
+                            type="number"
+                            disabled={loading}
+                            placeholder="Number of members"
+                            {...field}
+                          />
+                          {/* <Select
                             disabled={loading}
                             onValueChange={field.onChange}
                           >
@@ -277,7 +283,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                                 </SelectItem>
                               </SelectGroup>
                             </SelectContent>
-                          </Select>
+                          </Select> */}
                         </FormControl>
                       </FormItem>
                     )}
