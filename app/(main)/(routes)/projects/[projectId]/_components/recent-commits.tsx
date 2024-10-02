@@ -11,7 +11,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useGithubQuery } from "@/hooks/use-github-query";
 import { formatDistanceToNow } from 'date-fns';
-import Image from "next/image";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 interface RecentCommitsCardProps {
@@ -31,7 +30,7 @@ export const RecentCommitsCard = ({
         owner: owner,
         queryKey: `github:${projectId}`
     });
-    console.log(data);
+
     return (
         <Card className="row-span-2">
             <CardHeader>
@@ -45,7 +44,7 @@ export const RecentCommitsCard = ({
                         <CardHeader>
                             <div className="flex justify-between">
                                 <Badge className="bg-blue-500">Commit</Badge>
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-gray-500 line-clamp-1 truncate">
                                     {formatDistanceToNow(new Date(commit.commit.author.date))} ago
                                 </span>
                             </div>
