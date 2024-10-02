@@ -17,7 +17,7 @@ export const useGithubQuery = ({
 
     const fetchCommits = async () => {
 
-        const recentCommits = await axios.get(`https://api.github.com/repos/${owner}/${repo}/commits?per_page=4`);
+        const recentCommits = await axios.get(`https://api.github.com/repos/${owner}/${repo}/commits?per_page=5`);
 
         return recentCommits.data;
     };

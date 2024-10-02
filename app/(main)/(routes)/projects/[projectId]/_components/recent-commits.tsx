@@ -11,6 +11,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useGithubQuery } from "@/hooks/use-github-query";
 import { formatDistanceToNow } from 'date-fns';
+import Image from "next/image";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 interface RecentCommitsCardProps {
     projectId: string;
@@ -29,7 +31,7 @@ export const RecentCommitsCard = ({
         owner: owner,
         queryKey: `github:${projectId}`
     });
-
+    console.log(data);
     return (
         <Card className="row-span-2">
             <CardHeader>
@@ -43,14 +45,21 @@ export const RecentCommitsCard = ({
                         <CardHeader>
                             <div className="flex justify-between">
                                 <Badge className="bg-blue-500">Commit</Badge>
-                                <span className="text-sm text-gray-500">
+                                <span className="text-xs text-gray-500">
                                     {formatDistanceToNow(new Date(commit.commit.author.date))} ago
                                 </span>
                             </div>
                             <div className="flex items-center gap-3">
-                                <CardTitle className="text-lg">{commit.commit.message}</CardTitle>
+                                <CardTitle className="text-xs truncate">{commit.commit.message}</CardTitle>
                             </div>
-                            <CardDescription>
+                            <CardDescription className="text-xs flex items-center">
+                                <Avatar className="w-5 h-5 mr-1">
+                                    <AvatarImage 
+                                    src={commit.author.avatar_url} 
+                                    alt={commit.author.login} 
+                                    />
+                                </Avatar>
+                                
                                 {commit.commit.author.name} - {commit.sha.substring(0, 7)}
                             </CardDescription>
                         </CardHeader>
