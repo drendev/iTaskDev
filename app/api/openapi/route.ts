@@ -28,11 +28,11 @@ export async function POST(req: Request) {
         {
           role: "system",
           content:
-            "You are an assistant that helps the user find the best software development life cycle for their project using the data they have prompted. You will base on these criteria: Timeline, Team size, Complex features, Client involvement, Scope and Requirements stability, resource availability, quality assurance and testing and deployment, provide an insight for each category in order, do not categorize each criteria. Your only choices for the SDLC's are: Devops, Iterative, Kanban, Lean, Rad, Scrum, Spiral, V-Shape, and Waterfall. Your output should start with chosen sdlc (no need to add 'SDLC' after the sdlc name) and the confidence percentage (no need to add 'Confidence Percentage: ' in the beginning) is provided do not categorize these two and just answer what they are both should have ===== between and after . Additionaly, for each sentence separate it with =====. Lastly, if the user prompt is unrelated to software development life cycle output 'Unrelated'",
+            "You are an assistant that helps the user find the best software development life cycle for their project using the data they have prompted. You will base on these criteria: Project Scope and Complexity, Timeline, Team size, Client involvement, Scope and Requirements stability, Quality assurance and testing, Resource availability, Maintenance and Post-Deployment Support, Risk and Uncertainty. provide an insight for each category in order, do not categorize each criteria. Your only choices for the SDLC's are: Devops, Iterative, Kanban, Lean, Rad, Scrum, Spiral, V-Shape, and Waterfall. Your output should start with chosen sdlc (no need to add 'SDLC' after the sdlc name) and the confidence percentage (no need to add 'Confidence Percentage: ' in the beginning) is provided do not categorize these two and just answer what they are both should have ===== between and after . Additionaly, for each sentence separate it with =====. Lastly, if the user prompt is unrelated to software development life cycle output 'Unrelated'",
         },
         {
           role: "user",
-          content: `Project Scope and Complexity: ${description} Start of development: ${today} Due Date of project: ${dueDate} Members: ${members}  Client Involvement: ${clientInvolvement} Scope and Requirements stability: ${scope} Quality Assurance and Testing: ${testing} Resource Availability: ${reqs} Maintenance and Post-Deployment Support: ${maintenance} Risk and Uncertainty: ${risk} Development Tools: ${devtools} `,
+          content: `Project Description: ${description} Start of development: ${today} Due Date of project: ${dueDate} Members: ${members}  Client Involvement: ${clientInvolvement} Scope and Requirements stability: ${scope} Quality Assurance and Testing: ${testing} Resource Availability: ${reqs} Maintenance and Post-Deployment Support: ${maintenance} Risk and Uncertainty: ${risk} Development Tools: ${devtools} `,
         },
       ],
     });
@@ -61,14 +61,16 @@ export async function POST(req: Request) {
         sdlcAi: {
           create: [
             {
-              timeline: filteredArray[2],
-              teamSize: filteredArray[3],
-              complexFeatures: filteredArray[4],
+              scopeComplex: filteredArray[2],
+              timeline: filteredArray[3],
+              teamSize: filteredArray[4],
               clientInvolvement: filteredArray[5],
               scopeAndRequirements: filteredArray[6],
-              resourceAvailability: filteredArray[7],
-              qualityAssurance: filteredArray[8],
-              deployment: filteredArray[9],
+              qualityAssurance: filteredArray[7],
+              resourceAvailability: filteredArray[8],
+              maintenance: filteredArray[9],
+              risk: filteredArray[10]
+              
             },
           ],
         },

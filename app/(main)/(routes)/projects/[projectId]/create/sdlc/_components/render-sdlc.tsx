@@ -25,7 +25,6 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 
-import ProgressBar from "../../information/manage/_components/progressbar";
 
 interface RenderSdlcProps {
   sdlc: string;
@@ -49,7 +48,7 @@ const sdlcTemp = [
   },
   {
     sdlc: "kanban",
-    color: "#text-cyan-500",
+    color: "text-cyan-500",
     colorbg: "bg-cyan-500",
     img: "/sdlc/kanban.png",
     desc: "Kanban SDLC is an agile methodology that emphasizes continuous delivery, visualizing work on a board to manage workflow, limit work in progress, and improve efficiency.",
@@ -156,6 +155,20 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                             <Card className="w-full mt-5">
                               <CardHeader>
                                 <CardTitle className="text-lg">
+                                  Project Scope and Complexity
+                                </CardTitle>
+                                <CardDescription>
+                                  What is the scope of the project?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.scopeComplex}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
                                   Timeline
                                 </CardTitle>
                                 <CardDescription>
@@ -180,20 +193,6 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                                 {info.teamSize}
                               </CardContent>
                               <CardFooter className="flex justify-between"></CardFooter>
-                            </Card>
-                            <Card className="w-full mt-5">
-                              <CardHeader>
-                                <CardTitle className="text-lg">
-                                  Complex Features
-                                </CardTitle>
-                                <CardDescription>
-                                  Does your system involve unfamiliar concepts
-                                  and features (e.g. Aritifical Intelligence)?
-                                </CardDescription>
-                              </CardHeader>
-                              <CardContent className="text-sm">
-                                {info.complexFeatures}
-                              </CardContent>
                             </Card>
 
                             {/*  */}
@@ -230,20 +229,6 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                             <Card className="w-full mt-5">
                               <CardHeader>
                                 <CardTitle className="text-lg">
-                                  Resource Availability
-                                </CardTitle>
-                                <CardDescription>
-                                  Are the resources sufficient for development?
-                                </CardDescription>
-                              </CardHeader>
-                              <CardContent className="text-sm">
-                                {info.resourceAvailability}
-                              </CardContent>
-                              <CardFooter className="flex justify-between"></CardFooter>
-                            </Card>
-                            <Card className="w-full mt-5">
-                              <CardHeader>
-                                <CardTitle className="text-lg">
                                   Quality Assurance and Testing
                                 </CardTitle>
                                 <CardDescription>
@@ -258,14 +243,44 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                             <Card className="w-full mt-5">
                               <CardHeader>
                                 <CardTitle className="text-lg">
-                                  Deployment
+                                  Resource Availability
                                 </CardTitle>
                                 <CardDescription>
-                                  How will the system be developed?
+                                  Are the resources sufficient for development?
                                 </CardDescription>
                               </CardHeader>
                               <CardContent className="text-sm">
-                                {info.deployment}
+                                {info.resourceAvailability}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
+
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Maintenance and Post-Deployment Support
+                                </CardTitle>
+                                <CardDescription>
+                                  How is the system maintained after deployment?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.maintenance}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
+
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Risk and Uncertainty
+                                </CardTitle>
+                                <CardDescription>
+                                  How risky is the project?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.risk}
                               </CardContent>
                               <CardFooter className="flex justify-between"></CardFooter>
                             </Card>
