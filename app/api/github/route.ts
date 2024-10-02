@@ -15,7 +15,7 @@ export async function GET(req: Request) {
 
         return NextResponse.json({
             commits: recentCommits.data
-        })
+        }) 
 
     } catch (error) {
         console.error(error);
