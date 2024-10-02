@@ -1,12 +1,36 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import axios from "axios";
+
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormDescription,
+    FormMessage,
+    FormLabel,
+} from "@/components/ui/form";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+const formSchema = z.object({
+    repo: z.string().min(7),
+});
+
+interface ModifyGithubPageProps {
+    params: {
+        projectId: string;
+    }
+}
 
 const cleanRepoInput = (input: string) => {
     let cleanedInput = input.trim();
 
-    // Check if input contains 'https://github.com/' and remove it
     if (cleanedInput.startsWith('https://github.com/')) {
       cleanedInput = cleanedInput.replace('https://github.com/', '');
     }
@@ -14,72 +38,64 @@ const cleanRepoInput = (input: string) => {
     return cleanedInput;
   };
 
-export default function Home() {
-  const [repoInput, setRepoInput] = useState('');
-  const [repoDetails, setRepoDetails] = useState(null);
-  const [commits, setCommits] = useState([]);
-  const [error, setError] = useState('');
+const ModifyGithubPage = ({
+    params
+}: ModifyGithubPageProps) => {
 
-  const fetchRepoDetails = async () => {
-    if (!repoInput) return;
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+          repo: "",
+        },
+    });
 
-    const cleanedRepoInput = cleanRepoInput(repoInput);
-    const [owner, repo] = cleanedRepoInput.split('/');
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        if (!values.repo) {
+            return;
+        }
 
-    console.log(owner, repo);
+        const cleanedRepoInput = cleanRepoInput(values.repo);
+        const [owner, repo] = cleanedRepoInput.split('/');
 
-    try {
-      const response = await axios.post(`/api/github`, { owner, repo });
+        try {
+           const response = await axios.post(`/api/workspaces/${params.projectId}/create/github`, {
+             owner,
+             repo 
+            });
 
-      console.log(response.data);
-      setError('');
-    } catch (error) {
-      setError('Error fetching repository details or commits');
-      setRepoDetails(null);
-      setCommits([]);
+        } catch (error) {
+            console.log(error)
+        }
     }
-  };
 
-  // Polling every 10 seconds for real-time commits
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (repoDetails) {
-        fetchRepoDetails();
-      }
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, [repoDetails]);
-
-  return (
-    <div>
-      <h1>GitHub Repo Commits Viewer</h1>
-      <input
-        type="text"
-        value={repoInput}
-        onChange={(e) => setRepoInput(e.target.value)}
-        placeholder="Enter GitHub repo (e.g., facebook/react)"
-      />
-      <button onClick={fetchRepoDetails}>Fetch Repo Details</button>
-
-      {error && <p>{error}</p>}
-
-      {repoDetails && (
+    return (
         <div>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <FormField
+                    control={form.control}
+                    name="repo"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel> Github Repository</FormLabel>
+                        <FormControl>
+                          <Input
+                            disabled={false}
+                            placeholder="Repository"
+                            className="resize-none"
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit">
+                    Submit
+                  </Button>
+                </form>
+            </Form>
         </div>
-      )}
-
-      {commits.length > 0 && (
-        <div>
-          <h3>Recent Commits:</h3>
-          <ul>
-            {commits.map((commit, index) => (
-              <li key={index}>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+    )
 }
+
+export default ModifyGithubPage;

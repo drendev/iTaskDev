@@ -70,6 +70,9 @@ model Workspace {
 
   sdlc String? @db.Text
 
+  owner String? @db.Text
+  repo  String? @db.Text
+
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
 
