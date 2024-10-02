@@ -44,7 +44,7 @@ export const RecentCommitsCard = ({
                         <CardHeader>
                             <div className="flex justify-between">
                                 <Badge className="bg-emerald-500">Commit</Badge>
-                                <span className="text-xs text-gray-500 line-clamp-1 truncate">
+                                <span className="text-[0.6rem] text-gray-500 line-clamp-1 truncate flex items-center">
                                     {formatDistanceToNow(new Date(commit.commit.author.date))} ago
                                 </span>
                             </div>
