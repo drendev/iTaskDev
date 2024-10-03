@@ -5,10 +5,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
-import { format, set } from "date-fns";
-import { cn } from "@/lib/utils";
+import ProgressBar from "../information/manage/_components/progressbar";
 
 import {
   Form,
@@ -22,22 +19,6 @@ import {
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { GoX, GoXCircle, GoXCircleFill } from "react-icons/go";
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
 import {
   Card,
@@ -58,8 +39,6 @@ const formSchema = z.object({
   tasks: z.array(
     z.object({
       content: z.string().min(1, "Task cannot be empty"),
-      deadline: z.date().min(new Date(), "Due date must be in the future"),
-      priority: z.string().min(1, "Field is required"),
     })
   ),
 });
@@ -70,7 +49,7 @@ const InformationPage = ({ params }: InformationPageProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      tasks: [{ content: "", deadline: undefined, priority: "" }],
+      tasks: [{ content: "" }],
     },
   });
 
@@ -87,7 +66,7 @@ const InformationPage = ({ params }: InformationPageProps) => {
         { tasks: values.tasks }
       );
       // form.reset();
-      router.refresh();
+      router.push(`/projects/${params.projectId}/create/tasks/manage`);
     } catch (error) {
       console.log(error);
     }
@@ -95,10 +74,11 @@ const InformationPage = ({ params }: InformationPageProps) => {
 
   return (
     <div className="mt-10">
+      <ProgressBar progress={49} />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid grid-cols-4"
+          className="grid grid-cols-4 gap-5"
         >
           {fields.map((field, index) => (
             <Card className="w-[350px]" key={field.id}>
@@ -138,73 +118,6 @@ const InformationPage = ({ params }: InformationPageProps) => {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name={`tasks.${index}.deadline`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-[240px] pl-3 text-left font-normal",
-                                  !field.value && "text-muted-foreground"
-                                )}
-                              >
-                                {field.value ? (
-                                  format(field.value, "PPP")
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              disabled={(date) =>
-                                date < new Date() ||
-                                date > new Date("2027-01-01")
-                              }
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`tasks.${index}.priority`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          value={field.value}
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Priority" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectItem value="Low">Low</SelectItem>
-                              <SelectItem value="Medium">Medium</SelectItem>
-                              <SelectItem value="High">High</SelectItem>
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
               </CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
@@ -212,16 +125,14 @@ const InformationPage = ({ params }: InformationPageProps) => {
           <div className="col-span-4">
             <Button
               type="button"
-              onClick={() =>
-                append({ content: "", deadline: new Date(), priority: "" })
-              }
+              onClick={() => append({ content: "" })}
               className="mt-4"
               size="sm"
             >
               Add More Tasks
             </Button>
 
-            <Button type="submit" size="sm" className="mt-4 text-sm">
+            <Button type="submit" size="sm" className="mt-4 text-sm ml-5">
               Submit Tasks
             </Button>
           </div>

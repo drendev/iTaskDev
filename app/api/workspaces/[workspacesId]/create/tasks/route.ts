@@ -30,16 +30,17 @@ export async function POST(
             {
               role: "system",
               content:
-                "You are an assistant that identifies the difficulty of the task(s) if it is easy, medium, hard that will be provided by the user. Do not explain any further just state if it is easy, medium or hard. ",
+                "You are an assistant that identifies the difficulty of the task(s) if it is easy, medium, hard that will be provided by the user. Do not explain any further just state if it is easy, medium or hard. output 'Unrelated' if it can't be determined ",
             },
             {
               role: "user",
-              content: `Task Content: ${taskData.content} Starting Date: ${today} Deadline: ${taskData.deadline}`,
+              content: `Task Content: ${taskData.content}`,
             },
           ],
         });
 
         const intensity = completion.choices[0].message.content;
+        console.log(intensity)
 
         if (intensity === "Unrelated") {
           return new NextResponse("Unrelated", { status: 400 });
@@ -48,9 +49,6 @@ export async function POST(
         return db.task.create({
           data: {
             content: taskData.content,
-            DateAssigned: today,
-            DateDue: taskData.deadline,
-            Priority: taskData.priority,
             Intensity: intensity,
             projectId: params.workspacesId,
           },
