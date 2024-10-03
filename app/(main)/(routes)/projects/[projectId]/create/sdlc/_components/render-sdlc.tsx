@@ -36,51 +36,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
-
 interface RenderSdlcProps {
   sdlc: string;
   info: ProjectSdlc;
@@ -102,42 +57,42 @@ const sdlcTemp = [
     desc: "Scrum SDLC is an agile framework that organizes development into short, iterative cycles called sprints, focusing on collaboration, flexibility, and continuous delivery of functional software.",
   },
   {
-    sdlc: "Kanban",
+    sdlc: "KANBAN",
     color: "text-cyan-500",
     colorbg: "bg-cyan-500",
     img: "/sdlc/kanban.png",
     desc: "Kanban SDLC is an agile methodology that emphasizes continuous delivery, visualizing work on a board to manage workflow, limit work in progress, and improve efficiency.",
   },
   {
-    sdlc: "Spiral",
+    sdlc: "SPIRAL",
     color: "text-rose-500",
     colorbg: "bg-rose-500",
     img: "/sdlc/spiral.png",
     desc: "The Spiral SDLC is an iterative software development model that combines elements of both design and prototyping, emphasizing risk analysis and repeating phases in spirals for continuous refinement.",
   },
   {
-    sdlc: "V-shape",
+    sdlc: "V-SHAPE",
     color: "text-pink-500",
     colorbg: "bg-pink-500",
     img: "/sdlc/vshape.png",
     desc: "The V-Shape SDLC is a sequential development model where each development phase is paired with a corresponding testing phase, emphasizing early testing and validation through a V-shaped process.",
   },
   {
-    sdlc: "Lean",
+    sdlc: "LEAN",
     color: "text-red-500",
     colorbg: "bg-red-500",
     img: "/sdlc/lean.png",
     desc: "Lean SDLC is a development methodology focused on maximizing value by eliminating waste, improving efficiency, and delivering software quickly with continuous feedback and improvement.",
   },
   {
-    sdlc: "Devops",
+    sdlc: "DEVOPS",
     color: "text-fuchsia-500",
     colorbg: "bg-fuchsia-500",
     img: "/sdlc/devops.png",
     desc: "DevOps SDLC is a collaborative methodology that integrates development and operations teams to automate, streamline, and continuously improve the software development and deployment process, ensuring faster and more reliable releases.",
   },
   {
-    sdlc: "Iterative",
+    sdlc: "ITERATIVE",
     color: "text-lime-500",
     colorbg: "bg-lime-500",
     img: "/sdlc/iterative.png",
@@ -153,11 +108,34 @@ const sdlcTemp = [
 ];
 
 export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
+  function extractMethodsAndPercentages(
+    inputArray: string[]
+  ): { method: string; percentage: string }[] {
+    const result: { method: string; percentage: string }[] = [];
+
+    // Define the regex pattern to match method and percentage
+    const regex = /(\w+):\s*(\d+%)/;
+
+    // Iterate through the input array
+    inputArray.forEach((item) => {
+      const match = item.match(regex);
+      if (match) {
+        const method = match[1]; // Method name
+        const percentage = match[2]; // Percentage
+        result.push({ method, percentage }); // Push the object to the result array
+      }
+    });
+
+    return result;
+  }
+
+  const methodsArray = extractMethodsAndPercentages(info.percentages);
+
   return (
     <>
       {sdlcTemp.map((method, index) => {
         // Conditional rendering if sdlc matches the method's sdlc field
-        if (sdlc.toLowerCase() === method.sdlc.toLowerCase()) {
+        if (sdlc.toLowerCase().includes(method.sdlc.toLowerCase())) {
           return (
             <div key={index}>
               <Card className="w-full mt-5">
@@ -189,12 +167,11 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                           height={500}
                           className="items-center justify-center mx-auto my-5 w-72"
                         />
-                        <div className="flex justify-between mt-20">
                           <Dialog>
                             <DialogTrigger asChild>
                               <Button
                                 variant="default"
-                                className={`${method.colorbg}`}
+                                className={`flex items-center justify-center mt-10 mx-auto ${method.colorbg}`}
                               >
                                 Show Details
                               </Button>
@@ -202,7 +179,7 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                             <DialogContent className="overflow-y-scroll lg:min-w-[800px] lg:h-[500px] py-10">
                               <DialogHeader>
                                 <DialogTitle className="text-2xl">
-                                  {sdlc.toUpperCase()}
+                                  {method.sdlc}
                                 </DialogTitle>
                                 <DialogDescription>
                                   {method.desc}
@@ -353,66 +330,7 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                             </DialogContent>
                           </Dialog>
 
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button variant="outline">See Statistics</Button>
-                            </DialogTrigger>
-                            <DialogContent className="sm:max-w-[425px]">
-                              <DialogHeader>
-                                <DialogTitle>Edit profile</DialogTitle>
-                                <DialogDescription>
-                                  <Table>
-                                    <TableCaption>
-                                      A list of your recent invoices.
-                                    </TableCaption>
-                                    <TableHeader>
-                                      <TableRow>
-                                        <TableHead className="w-[100px]">
-                                          Invoice
-                                        </TableHead>
-                                        <TableHead>Status</TableHead>
-                                        <TableHead>Method</TableHead>
-                                        <TableHead className="text-right">
-                                          Amount
-                                        </TableHead>
-                                      </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                      {invoices.map((invoice) => (
-                                        <TableRow key={invoice.invoice}>
-                                          <TableCell className="font-medium">
-                                            {invoice.invoice}
-                                          </TableCell>
-                                          <TableCell>
-                                            {invoice.paymentStatus}
-                                          </TableCell>
-                                          <TableCell>
-                                            {invoice.paymentMethod}
-                                          </TableCell>
-                                          <TableCell className="text-right">
-                                            {invoice.totalAmount}
-                                          </TableCell>
-                                        </TableRow>
-                                      ))}
-                                    </TableBody>
-                                    <TableFooter>
-                                      <TableRow>
-                                        <TableCell colSpan={3}>Total</TableCell>
-                                        <TableCell className="text-right">
-                                          $2,500.00
-                                        </TableCell>
-                                      </TableRow>
-                                    </TableFooter>
-                                  </Table>
-                                </DialogDescription>
-                              </DialogHeader>
-
-                              <DialogFooter>
-                                <Button type="submit">Save changes</Button>
-                              </DialogFooter>
-                            </DialogContent>
-                          </Dialog>
-                        </div>
+                      
                       </CardContent>
                     </Card>
 

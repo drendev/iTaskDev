@@ -28,11 +28,11 @@ export async function POST(req: Request) {
         {
           role: "system",
           content:
-            "You are an assistant that helps the user find the best software development life cycle for their project using the data they have prompted. You will base on these criteria: Project Scope and Complexity, Timeline, Team size, Client involvement, Scope and Requirements stability, Quality assurance and testing, Resource availability, Maintenance and Post-Deployment Support, Risk and Uncertainty. provide an insight for each category in order, do not categorize each criteria. Your only choices for the SDLC's are: Devops, Iterative, Kanban, Lean, Rad, Scrum, Spiral, V-Shape, and Waterfall. Your output should start with chosen sdlc. Additionally Add Confidence percentages per sdlc no need for explanations output it last and in order and separate each with =====. Do not output a conclusion.  For each sentence separate it with =====.",
+            "You are an assistant that identifies the difficulty of the task(s) if it is easy, moderate, hard that will be provided by the user",
         },
         {
           role: "user",
-          content: `Project Description: ${description} Start of development: ${today} Due Date of project: ${dueDate} Members: ${members}  Client Involvement: ${clientInvolvement} Scope and Requirements stability: ${scope} Quality Assurance and Testing: ${testing} Resource Availability: ${reqs} Maintenance and Post-Deployment Support: ${maintenance} Risk and Uncertainty: ${risk} Development Tools: ${devtools} `,
+          content: ``,
         },
       ],
     });
@@ -61,15 +61,26 @@ export async function POST(req: Request) {
         sdlcAi: {
           create: [
             {
-              scopeComplex: filteredArray[2],
-              timeline: filteredArray[3],
-              teamSize: filteredArray[4],
-              clientInvolvement: filteredArray[5],
-              scopeAndRequirements: filteredArray[6],
-              qualityAssurance: filteredArray[7],
-              resourceAvailability: filteredArray[8],
-              maintenance: filteredArray[9],
-              risk: filteredArray[10],
+              scopeComplex: filteredArray[1],
+              timeline: filteredArray[2],
+              teamSize: filteredArray[3],
+              clientInvolvement: filteredArray[4],
+              scopeAndRequirements: filteredArray[5],
+              qualityAssurance: filteredArray[6],
+              resourceAvailability: filteredArray[7],
+              maintenance: filteredArray[8],
+              risk: filteredArray[9],
+              percentages: [
+                filteredArray[10],
+                filteredArray[11],
+                filteredArray[12],
+                filteredArray[13],
+                filteredArray[14],
+                filteredArray[15],
+                filteredArray[16],
+                filteredArray[17],
+                filteredArray[18],
+              ],
             },
           ],
         },

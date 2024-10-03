@@ -195,8 +195,8 @@ model Task {
   DateDue       DateTime?
   DateCompleted DateTime?
 
-  Intensity Int?
-  Priority  Int?
+  Intensity String? @db.Text
+  Priority  String? @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
