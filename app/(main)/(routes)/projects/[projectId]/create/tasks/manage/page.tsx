@@ -29,7 +29,7 @@ const ManageInformationPage = async ({ params }: ManageTasksPageProps) => {
 
   return (
     <div className="m-4">
-      <ProgressBar progress={49} />
+      <ProgressBar progress={65} />
       <RenderTasks info={taskInformation} />
     </div>
   );

@@ -83,7 +83,13 @@ const formSchema = z.object({
     .date()
     .min(new Date(), "Due date must be in the future")
     .optional(),
-  members: z.number().min(1, "Members cannot be empty").max(100, "Maximun of 100 members"),
+  members: z.preprocess(
+    (value) => Number(value),
+    z
+      .number()
+      .min(1, "Members cannot be empty")
+      .max(100, "Maximum of 100 members")
+  ),
   clientInvolvement: z.string().min(1, "Field is required"),
   scope: z.string().min(1, "Scope cannot be empty"),
   testing: z.string().min(1, "testing is required"),
@@ -258,35 +264,10 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                             type="number"
                             min={1}
                             max={100}
-                            maxLength={2}
                             disabled={loading}
                             placeholder="Number of members"
                             {...field}
                           />
-                          {/* <Select
-                            disabled={loading}
-                            onValueChange={field.onChange}
-                          >
-                            <SelectTrigger className="w-[180px]">
-                              <SelectValue placeholder="2-3 Members" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                <SelectItem value="2-3 members">
-                                  2 - 3 members
-                                </SelectItem>
-                                <SelectItem value="4-5 members">
-                                  4 - 5 members
-                                </SelectItem>
-                                <SelectItem value="6-7 members">
-                                  6 - 7 members
-                                </SelectItem>
-                                <SelectItem value="8-9 members">
-                                  8 - 9 members
-                                </SelectItem>
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select> */}
                         </FormControl>
                       </FormItem>
                     )}

@@ -23,7 +23,7 @@ const tabs = [
     ),
     name: "AI",
     feature: "Powered by NLP",
-    description: "Automate your projet management.",
+    description: "Automate your project management.",
     more: (
       <Link
         href="#ai"

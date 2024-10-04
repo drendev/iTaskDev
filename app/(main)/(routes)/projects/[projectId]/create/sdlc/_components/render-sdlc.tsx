@@ -114,32 +114,11 @@ export const RenderSdlc = ({ sdlc, info, projectId }: RenderSdlcProps) => {
   const router = useRouter();
 
   const [loading, setLoading] = useState<boolean>(false);
-  
-  function extractMethodsAndPercentages(
-    inputArray: string[]
-  ): { method: string; percentage: string }[] {
-    const result: { method: string; percentage: string }[] = [];
-
-    // Define the regex pattern to match method and percentage
-    const regex = /(\w+):\s*(\d+%)/;
-
-    // Iterate through the input array
-    inputArray.forEach((item) => {
-      const match = item.match(regex);
-      if (match) {
-        const method = match[1]; // Method name
-        const percentage = match[2]; // Percentage
-        result.push({ method, percentage }); // Push the object to the result array
-      }
-    });
-
-    return result;
-  }
 
   const onClick = async () => {
     router.push(`/projects/${projectId}/create/tasks`);
     setLoading(true);
-  }
+  };
 
   return (
     <>
@@ -177,170 +156,166 @@ export const RenderSdlc = ({ sdlc, info, projectId }: RenderSdlcProps) => {
                           height={500}
                           className="items-center justify-center mx-auto my-5 w-72"
                         />
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button
-                                variant="default"
-                                className={`flex items-center justify-center mt-10 mx-auto ${method.colorbg}`}
-                              >
-                                Show Details
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent className="overflow-y-scroll lg:min-w-[800px] lg:h-[500px] py-10">
-                              <DialogHeader>
-                                <DialogTitle className="text-2xl">
-                                  {method.sdlc}
-                                </DialogTitle>
-                                <DialogDescription>
-                                  {method.desc}
-                                </DialogDescription>
-                              </DialogHeader>
-                              <Card className="w-full mt-5">
-                                <CardHeader>
-                                  <CardTitle className="text-lg">
-                                    Project Scope and Complexity
-                                  </CardTitle>
-                                  <CardDescription>
-                                    What is the scope of the project?
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="text-sm">
-                                  {info.scopeComplex}
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Card>
-                              <Card className="w-full mt-5">
-                                <CardHeader>
-                                  <CardTitle className="text-lg">
-                                    Timeline
-                                  </CardTitle>
-                                  <CardDescription>
-                                    What is the timeframe of the development?
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="text-sm">
-                                  {info.timeline}
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Card>
-                              <Card className="w-full mt-5">
-                                <CardHeader>
-                                  <CardTitle className="text-lg">
-                                    Team Size
-                                  </CardTitle>
-                                  <CardDescription>
-                                    How many members are in the team?
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="text-sm">
-                                  {info.teamSize}
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Card>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              variant="default"
+                              className={`flex items-center justify-center mt-10 mx-auto ${method.colorbg}`}
+                            >
+                              Show Details
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="overflow-y-scroll lg:min-w-[800px] lg:h-[500px] py-10">
+                            <DialogHeader>
+                              <DialogTitle className="text-2xl">
+                                {method.sdlc}
+                              </DialogTitle>
+                              <DialogDescription>
+                                {method.desc}
+                              </DialogDescription>
+                            </DialogHeader>
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Project Scope and Complexity
+                                </CardTitle>
+                                <CardDescription>
+                                  What is the scope of the project?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.scopeComplex}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Timeline
+                                </CardTitle>
+                                <CardDescription>
+                                  What is the timeframe of the development?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.timeline}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Team Size
+                                </CardTitle>
+                                <CardDescription>
+                                  How many members are in the team?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.teamSize}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
 
-                              {/*  */}
-                              <Card className="w-full mt-5">
-                                <CardHeader>
-                                  <CardTitle className="text-lg">
-                                    Client Involvement
-                                  </CardTitle>
-                                  <CardDescription>
-                                    How often does the client check the
-                                    development progress?
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="text-sm">
-                                  {info.clientInvolvement}
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Card>
-                              <Card className="w-full mt-5">
-                                <CardHeader>
-                                  <CardTitle className="text-lg">
-                                    Scope and Requirements Stability
-                                  </CardTitle>
-                                  <CardDescription>
-                                    How fixed are the scopes and requirements
-                                    that was planned in the preparation phase?
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="text-sm">
-                                  {info.scopeAndRequirements}
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Card>
-                              <Card className="w-full mt-5">
-                                <CardHeader>
-                                  <CardTitle className="text-lg">
-                                    Quality Assurance and Testing
-                                  </CardTitle>
-                                  <CardDescription>
-                                    How often are the system tested?
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="text-sm">
-                                  {info.qualityAssurance}
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Card>
-                              <Card className="w-full mt-5">
-                                <CardHeader>
-                                  <CardTitle className="text-lg">
-                                    Resource Availability
-                                  </CardTitle>
-                                  <CardDescription>
-                                    Are the resources sufficient for
-                                    development?
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="text-sm">
-                                  {info.resourceAvailability}
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Card>
+                            {/*  */}
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Client Involvement
+                                </CardTitle>
+                                <CardDescription>
+                                  How often does the client check the
+                                  development progress?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.clientInvolvement}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Scope and Requirements Stability
+                                </CardTitle>
+                                <CardDescription>
+                                  How fixed are the scopes and requirements that
+                                  was planned in the preparation phase?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.scopeAndRequirements}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Quality Assurance and Testing
+                                </CardTitle>
+                                <CardDescription>
+                                  How often are the system tested?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.qualityAssurance}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Resource Availability
+                                </CardTitle>
+                                <CardDescription>
+                                  Are the resources sufficient for development?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.resourceAvailability}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
 
-                              <Card className="w-full mt-5">
-                                <CardHeader>
-                                  <CardTitle className="text-lg">
-                                    Maintenance and Post-Deployment Support
-                                  </CardTitle>
-                                  <CardDescription>
-                                    How is the system maintained after
-                                    deployment?
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="text-sm">
-                                  {info.maintenance}
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Card>
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Maintenance and Post-Deployment Support
+                                </CardTitle>
+                                <CardDescription>
+                                  How is the system maintained after deployment?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.maintenance}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
 
-                              <Card className="w-full mt-5">
-                                <CardHeader>
-                                  <CardTitle className="text-lg">
-                                    Risk and Uncertainty
-                                  </CardTitle>
-                                  <CardDescription>
-                                    How risky is the project?
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="text-sm">
-                                  {info.risk}
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Card>
+                            <Card className="w-full mt-5">
+                              <CardHeader>
+                                <CardTitle className="text-lg">
+                                  Risk and Uncertainty
+                                </CardTitle>
+                                <CardDescription>
+                                  How risky is the project?
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="text-sm">
+                                {info.risk}
+                              </CardContent>
+                              <CardFooter className="flex justify-between"></CardFooter>
+                            </Card>
 
-                              <DialogFooter>
-                                <DialogClose asChild>
-                                  <Button type="button" variant="default">
-                                    Close
-                                  </Button>
-                                </DialogClose>
-                              </DialogFooter>
-                            </DialogContent>
-                          </Dialog>
-
-                      
+                            <DialogFooter>
+                              <DialogClose asChild>
+                                <Button type="button" variant="default">
+                                  Close
+                                </Button>
+                              </DialogClose>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
                       </CardContent>
                     </Card>
 
@@ -349,13 +324,13 @@ export const RenderSdlc = ({ sdlc, info, projectId }: RenderSdlcProps) => {
                 </CardContent>
                 <CardFooter className="flex justify-between mt-3">
                   <div></div>
-                  <Button onClick={onClick} disabled={loading} className="mt-10 w-40">
-                  {loading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>Proceed</>
-                  )}
-                </Button>
+                  <Button
+                    onClick={onClick}
+                    disabled={loading}
+                    className="mt-10 w-40"
+                  >
+                    Proceed
+                  </Button>
                 </CardFooter>
               </Card>
             </div>

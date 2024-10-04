@@ -26,7 +26,7 @@ const sections = [
       </div>
     ),
     description:
-      "Capture ideas, gather feedback from teammates, and ask AI to add the finishing touches.",
+      "Create ideas, gather feedback from teammates, and set-up your project to success",
     image: "/samples/iso1.png",
     fig1img: (
       <Image
@@ -46,8 +46,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig1title: "Building blocks",
-    fig1desc: "100+ content types to communicate any idea.",
+    fig1title: "Turn your ideas to reality",
+    fig1desc: "Plan out your concept with the help of iTaskDev workspaces",
     fig2img: (
       <Image
         src="/samples/laptop.gif"
@@ -66,8 +66,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig2title: "Building blocks",
-    fig2desc: "100+ content types to communicate any idea.",
+    fig2title: "Code with structure",
+    fig2desc: "Start out your project with a recommended SDLC carefully analyzed with the power of NLP",
     fig3img: (
       <Image
         src="/samples/list.gif"

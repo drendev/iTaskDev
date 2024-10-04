@@ -28,6 +28,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+import { Input } from "../ui/input";
+
 import {
   Select,
   SelectContent,
@@ -60,7 +62,13 @@ const formSchema = z.object({
     .date()
     .min(new Date(), "Due date must be in the future")
     .optional(),
-  members: z.string().min(1, "Members cannot be empty"),
+  members: z.preprocess(
+    (value) => Number(value),
+    z
+      .number()
+      .min(1, "Members cannot be empty")
+      .max(100, "Maximum of 100 members")
+  ),
   clientInvolvement: z.string().min(1, "Field is required"),
   scope: z.string().min(1, "Scope cannot be empty"),
   testing: z.string().min(1, "testing is required"),
@@ -129,7 +137,7 @@ export const EditProjectInformationModal = () => {
     if (info) {
       form.reset({
         description: info?.description,
-        dueDate: info?.dueDate,
+        dueDate: undefined,
         members: info?.members,
         clientInvolvement: info?.clientInvolvement,
         scope: info?.scope,
@@ -145,9 +153,10 @@ export const EditProjectInformationModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
+      console.log(values.reqs);
       await axios.post(`/api/workspaces/${info?.workspaceId}/create/edit`, {
         description: values.description,
-        dueDate: values.dueDate,
+        dueDate: values.dueDate ? values.dueDate : null,
         members: values.members,
         clientInvolvement: values.clientInvolvement,
         scope: values.scope,
@@ -277,30 +286,14 @@ export const EditProjectInformationModal = () => {
                         How many members will your project have?
                       </FormLabel>
                       <FormControl>
-                        <Select
+                        <Input
+                          type="number"
+                          min={1}
+                          max={100}
                           disabled={loading}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="2-3 Members" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectItem value="2-3 members">
-                                2 - 3 members
-                              </SelectItem>
-                              <SelectItem value="4-5 members">
-                                4 - 5 members
-                              </SelectItem>
-                              <SelectItem value="6-7 members">
-                                6 - 7 members
-                              </SelectItem>
-                              <SelectItem value="8-9 members">
-                                8 - 9 members
-                              </SelectItem>
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
+                          placeholder="Number of members"
+                          {...field}
+                        />
                       </FormControl>
                     </FormItem>
                   )}
@@ -309,27 +302,32 @@ export const EditProjectInformationModal = () => {
                 <FormField
                   control={form.control}
                   name="clientInvolvement"
-                  disabled={loading}
-                  defaultValue={info?.clientInvolvement}
                   render={({ field }) => (
-                    <FormItem className="flex flex-col mb-3">
-                      <FormLabel className="font-semibold">
+                    <FormItem className="flex flex-col">
+                      <FormLabel>
                         How often is the client involved with the development?
                       </FormLabel>
                       <FormControl>
                         <Select
                           disabled={loading}
                           onValueChange={field.onChange}
-                          value={field.value}
                         >
                           <SelectTrigger className="w-[180px]">
-                            <SelectValue defaultValue="low" placeholder="Low" />
+                            <SelectValue
+                              defaultValue="Weekly"
+                              placeholder="Weekly"
+                            />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="low">Low</SelectItem>
-                              <SelectItem value="moderate">Moderate</SelectItem>
-                              <SelectItem value="high">High</SelectItem>
+                              <SelectItem value="Weekly">Weekly</SelectItem>
+                              <SelectItem value="Bi-Weekly">
+                                Bi-Weekly
+                              </SelectItem>
+                              <SelectItem value="Monthly">Monthly</SelectItem>
+                              <SelectItem value="At Major Milestones">
+                                At Major Milestones
+                              </SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -382,30 +380,36 @@ export const EditProjectInformationModal = () => {
                 <FormField
                   control={form.control}
                   name="testing"
-                  disabled={loading}
-                  defaultValue={info?.testing}
                   render={({ field }) => (
-                    <FormItem className="flex flex-col mb-3">
-                      <FormLabel className="font-semibold">
+                    <FormItem className="flex flex-col">
+                      <FormLabel>
                         Approximate testing time for the project:
                       </FormLabel>
                       <FormControl>
                         <Select
                           disabled={loading}
                           onValueChange={field.onChange}
-                          value={field.value}
                         >
                           <SelectTrigger className="w-[180px]">
                             <SelectValue
-                              defaultValue={info?.testing}
-                              placeholder="Low"
-                            ></SelectValue>
+                              defaultValue="Manual Testing"
+                              placeholder="Manual Testing"
+                            />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="low">Low</SelectItem>
-                              <SelectItem value="moderate">Moderate</SelectItem>
-                              <SelectItem value="high">High</SelectItem>
+                              <SelectItem value="Manual Testing">
+                                Manual Testing
+                              </SelectItem>
+                              <SelectItem value="Automated Testing">
+                                Automated Testing
+                              </SelectItem>
+                              <SelectItem value="Both Manual and Automated">
+                                Both Manual and Automated
+                              </SelectItem>
+                              <SelectItem value="No Formal QA Process">
+                                No Formal QA Process
+                              </SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -413,7 +417,9 @@ export const EditProjectInformationModal = () => {
                     </FormItem>
                   )}
                 />
+              </div>
 
+              <div className="space-y-3">
                 <FormField
                   control={form.control}
                   name="reqs"
