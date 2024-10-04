@@ -83,7 +83,7 @@ const formSchema = z.object({
     .date()
     .min(new Date(), "Due date must be in the future")
     .optional(),
-  members: z.string().min(1, "Members cannot be empty"),
+  members: z.number().min(1, "Members cannot be empty").max(100, "Maximun of 100 members"),
   clientInvolvement: z.string().min(1, "Field is required"),
   scope: z.string().min(1, "Scope cannot be empty"),
   testing: z.string().min(1, "testing is required"),
@@ -111,7 +111,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
     defaultValues: {
       description: "",
       dueDate: undefined,
-      members: "2-3 members",
+      members: 1,
       clientInvolvement: "Weekly",
       scope: "Very Stable",
       testing: "Manual Testing",
@@ -256,6 +256,9 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                         <FormControl>
                           <Input
                             type="number"
+                            min={1}
+                            max={100}
+                            maxLength={2}
                             disabled={loading}
                             placeholder="Number of members"
                             {...field}

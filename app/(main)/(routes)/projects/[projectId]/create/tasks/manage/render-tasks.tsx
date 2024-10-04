@@ -5,7 +5,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ClipboardCheck, Loader2 } from "lucide-react";
-import ProgressBar from "../../information/manage/_components/progressbar";
 
 import {
   Card,
@@ -15,8 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useModal } from "@/hooks/use-modal-store";
-import { useState } from "react";
+
 import { Badge } from "@/components/ui/badge";
 
 interface RenderInformationProps {

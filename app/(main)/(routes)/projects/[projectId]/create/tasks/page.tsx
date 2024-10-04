@@ -59,7 +59,6 @@ const InformationPage = ({ params }: InformationPageProps) => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("sumokpa");
     try {
       const response = await axios.post(
         `/api/workspaces/${params.projectId}/create/tasks`,

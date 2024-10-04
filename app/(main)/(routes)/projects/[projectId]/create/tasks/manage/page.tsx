@@ -23,8 +23,6 @@ const ManageInformationPage = async ({ params }: ManageTasksPageProps) => {
     },
   });
 
-  setTimeout(() => console.log(taskInformation), 10000);
-
   if (!taskInformation) {
     return redirect("/unauthorized");
   }

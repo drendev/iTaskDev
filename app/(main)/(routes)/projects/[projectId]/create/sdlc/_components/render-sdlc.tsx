@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { RefreshCcw } from "lucide-react";
+import { Loader2, RefreshCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -35,10 +35,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface RenderSdlcProps {
   sdlc: string;
   info: ProjectSdlc;
+  projectId: string;
 }
 
 const sdlcTemp = [
@@ -107,7 +110,11 @@ const sdlcTemp = [
   },
 ];
 
-export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
+export const RenderSdlc = ({ sdlc, info, projectId }: RenderSdlcProps) => {
+  const router = useRouter();
+
+  const [loading, setLoading] = useState<boolean>(false);
+  
   function extractMethodsAndPercentages(
     inputArray: string[]
   ): { method: string; percentage: string }[] {
@@ -129,7 +136,10 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
     return result;
   }
 
-  const methodsArray = extractMethodsAndPercentages(info.percentages);
+  const onClick = async () => {
+    router.push(`/projects/${projectId}/create/tasks`);
+    setLoading(true);
+  }
 
   return (
     <>
@@ -339,7 +349,13 @@ export const RenderSdlc = ({ sdlc, info }: RenderSdlcProps) => {
                 </CardContent>
                 <CardFooter className="flex justify-between mt-3">
                   <div></div>
-                  <Button type="submit">Proceed</Button>
+                  <Button onClick={onClick} disabled={loading} className="mt-10 w-40">
+                  {loading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <>Proceed</>
+                  )}
+                </Button>
                 </CardFooter>
               </Card>
             </div>

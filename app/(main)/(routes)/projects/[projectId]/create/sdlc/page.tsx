@@ -53,6 +53,7 @@ const RecommendSDLCPage = async ({
             <RenderSdlc
             sdlc={recommendedSdlc}
             info={sdlcWithInformation}
+            projectId={params.projectId}
             />
         </div>
     )
