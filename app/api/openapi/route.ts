@@ -76,8 +76,6 @@ export async function POST(req: Request) {
       },
     });
 
-    console.log(filteredArray);
-
     if (!updateSdlc) {
       return new NextResponse("No Completion Detected!", { status: 400 });
     }
