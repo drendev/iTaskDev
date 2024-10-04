@@ -22,7 +22,7 @@ import { useState } from "react";
 interface RenderInformationProps {
   info: ProjectInformation;
 }
-
+ 
 export const RenderInformation = ({ info }: RenderInformationProps) => {
   const router = useRouter();
   const { onOpen } = useModal();
@@ -32,7 +32,7 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
   const onSubmit = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/openapi", {
+      const response = await axios.post("/api/openai/sdlcreco", {
         description: info.description,
         dueDate: info.dueDate ? info.dueDate.toString() : "On-going",
         members: info.members,

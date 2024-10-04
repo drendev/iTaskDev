@@ -5,21 +5,34 @@ import { useForm, useFieldArray } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import ProgressBar from "../information/manage/_components/progressbar";
 
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
-  FormItem
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { GoX, GoXCircle, GoXCircleFill } from "react-icons/go";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 interface InformationPageProps {
   params: {
     projectId: string;
-  }
+  };
 }
 
 const formSchema = z.object({
@@ -30,9 +43,7 @@ const formSchema = z.object({
   ),
 });
 
-const InformationPage = ({
-  params,
-}: InformationPageProps) => {
+const InformationPage = ({ params }: InformationPageProps) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,71 +54,88 @@ const InformationPage = ({
   });
 
   const { fields, append, remove } = useFieldArray({
-    name: "tasks", 
+    name: "tasks",
     control: form.control,
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("sumokpa");
     try {
       const response = await axios.post(
         `/api/workspaces/${params.projectId}/create/tasks`,
-        { content: values.tasks }
+        { tasks: values.tasks }
       );
-      form.reset();
-      router.refresh();
+      // form.reset();
+      router.push(`/projects/${params.projectId}/create/tasks/manage`);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="m-4">
+    <div className="mt-10">
+      <ProgressBar progress={49} />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid grid-cols-4 gap-5"
+        >
           {fields.map((field, index) => (
-            <FormField
-              key={field.id}
-              control={form.control}
-              name={`tasks.${index}.content`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <div className="flex w-96 items-center gap-5">
-                      <Input
-                        disabled={false}
-                        placeholder={`Task ${index + 1}`}
-                        {...field}
-                        required
-                        autoComplete="off"
-                        className="mb-2"
-                      />
-                      <GoXCircle
-                        onClick={() => {
-                            if (fields.length > 1) {
-                            remove(index);
-                            }
-                        }}
-                        className={fields.length > 1 ? "w-6 h-6 cursor-pointer flex items-center justify-center" : "fill-zinc-400 w-6 h-6 cursor-not-allowed"}
+            <Card className="w-[350px]" key={field.id}>
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  Task
+                  <GoXCircle
+                    onClick={() => {
+                      if (fields.length > 1) {
+                        remove(index);
+                      }
+                    }}
+                    className={
+                      fields.length > 1
+                        ? "w-6 h-6 cursor-pointer flex items-center justify-center"
+                        : "fill-zinc-400 w-6 h-6 cursor-not-allowed"
+                    }
+                  />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <FormField
+                  control={form.control}
+                  name={`tasks.${index}.content`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          disabled={false}
+                          placeholder={`Task ${index + 1}`}
+                          {...field}
+                          required
+                          autoComplete="off"
+                          className="mb-2"
                         />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+              <CardFooter className="flex justify-between"></CardFooter>
+            </Card>
           ))}
+          <div className="col-span-4">
+            <Button
+              type="button"
+              onClick={() => append({ content: "" })}
+              className="mt-4"
+              size="sm"
+            >
+              Add More Tasks
+            </Button>
 
-          <Button
-            type="button"
-            onClick={() => append({ content: "" })}
-            className="mt-4"
-            size="sm"
-          >
-            Add More Tasks
-          </Button>
-
-          <Button type="submit" size="sm" className="mt-4 text-sm">
-            Submit Tasks
-          </Button>
+            <Button type="submit" size="sm" className="mt-4 text-sm ml-5">
+              Submit Tasks
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
