@@ -236,7 +236,7 @@ export const MembersFormPage = ({
                 )
             )}
 
-            <Button>
+            <Button >
                 Proceed
             </Button>
         </>
