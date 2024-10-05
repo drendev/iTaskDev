@@ -12,10 +12,11 @@ export default function DemoLayout({
   return (
     <div>
       <AdminPanelLayout>
-        <ToastHandler />
-        <Toaster />
         <Modals />
-        <ContentLayout>{children}</ContentLayout>
+        <ContentLayout>
+          {children}
+        <ToastHandler />
+        </ContentLayout>
       </AdminPanelLayout>
     </div>
   );

@@ -477,7 +477,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
                                   Limited Support
                                 </SelectItem>
                                 <SelectItem value="No Support Planned">
-                                  No Support Planned"
+                                  No Support Planned
                                 </SelectItem>
                               </SelectGroup>
                             </SelectContent>
