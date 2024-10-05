@@ -189,7 +189,6 @@ model Task {
   members TaskMember[]
 
   projectId   String
-  workspaceId String    @unique
   workspace   Workspace @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   DateAssigned  DateTime?
