@@ -14,17 +14,12 @@ export default async function App() {
 
   const project = await db.workspace.findMany({
     where: {
-      userId: user.id,
-      OR: [
-        {
-          members: {
-            some: {
-              userId: user.id,
-            }
-          }
+      members: {
+        some: {
+          userId: user.id
         }
-      ]
-    },
+      }
+    }
   })
 
   return (
