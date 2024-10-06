@@ -91,7 +91,7 @@ export const CalendarBeta: React.FC = () => {
             <ul className="space-y-4">
               {currentEvents.length <= 0 && (
                 <div className="italic text-center text-gray-400">
-                  Its look like all tasks are completed
+                  It looks like all tasks are completed
                 </div>
               )}
   

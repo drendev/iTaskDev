@@ -2,9 +2,10 @@
 
 import qs from "query-string";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Video, VideoOff} from "lucide-react";
-
+import { Video, VideoOff } from "lucide-react";
 import { ActionTooltip } from "@/components/action-tooltip";
+import { cn } from "@/lib/utils";
+
 
 export const ChatVideoButton = () => {
     const pathname = usePathname();
@@ -29,8 +30,13 @@ export const ChatVideoButton = () => {
     return (
         <ActionTooltip side="bottom" label={tooltipLabel}>
             <button onClick={onClick} className="hover:opacity-75 transition mr-4">
-                <Icon className="h-6 w-6 text-zinc-500" />
+                <Icon
+                    className={cn(
+                        "h-6 w-6",
+                        isVideo ? "text-red-500" : "text-zinc-500"
+                    )}
+                />
             </button>
         </ActionTooltip>
-    )
-}
+    );
+};
