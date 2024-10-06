@@ -94,16 +94,12 @@ const Scrum: React.FC<SDLCProps> = ({ changeSlide }) => {
               onLoad={() => setSdlcLoaded(true)}
             />
             <div className="mt-10">
-              The Waterfall Model was the first Process Model to be introduced.
-              It is also referred to as a linear-sequential life cycle model. It
-              is very simple to understand and use. In a waterfall model, each
-              phase must be completed before the next phase can begin and there
-              is no overlapping in the phases. The Waterfall model is the
-              earliest SDLC approach that was used for software development. The
-              waterfall Model illustrates the software development process in a
-              linear sequential flow. This means that any phase in the
-              development process begins only if the previous phase is complete.
-              In this waterfall model, the phases do not overlap.
+              Scrum is an agile framework used to manage and execute software
+              development projects. It emphasizes iterative development,
+              frequent collaboration, and flexibility, delivering work in
+              time-boxed iterations called sprints. Scrum is widely adopted for
+              projects requiring adaptability to changing requirements and
+              client feedback.
             </div>
           </div>
         </div>
@@ -256,22 +252,17 @@ const Scrum: React.FC<SDLCProps> = ({ changeSlide }) => {
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
-          <div className="flex flex-col md:flex items-center justify-center w-full">
+          <div className="flex flex-col md:flex items-center w-full">
+            <div className="mt-10 text-2xl justify-start">Roles </div>
             <div className="mt-10">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Product Owner: Represents the stakeholders and the business.
+              Responsible for managing the Product Backlog and defining the
+              vision for the product.
+            </div>
+            <div className="mt-5">
+              Product Owner: Represents the stakeholders and the business.
+              Responsible for managing the Product Backlog and defining the
+              vision for the product.
             </div>
 
             <div className="flex justify-between my-10 w-full">

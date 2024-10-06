@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button";
 const LastAction = () => {
   return (
     <div className="flex flex-col items-center mt-10">
-      <div className="font-medium 2xl:w-1/3 xl:w-1/2 md:w-2/3 lg:px-0 lg:mt-10 lg:text-6xl px-8 text-2xl xl:text-5xl flex justify-center text-center my-5">
-        Start your software project now with iTaskDev.
+      <div className="font-serif font-medium px-8 flex justify-center text-center my-5 text-3xl">
+        “The best way to predict the future is to create it.”
+      </div>
+      <div className="font-serif font-medium px-8 mb-5 flex justify-center text-center text-xl">
+        - Abraham Lincoln
       </div>
       <Image
         src="/samples/tea.gif"
