@@ -1,4 +1,5 @@
 import { MemberList } from "@/components/project-navigation/member-list";
+import { ProjectHeaderLayout } from "@/components/project-navigation/project-main-header";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
@@ -34,7 +35,7 @@ const ProjectIdLayout = async ({
 
     return (
         <div className="h-full">
-            <MemberList projectId={params.projectId} />
+            <ProjectHeaderLayout project={project} />
             {children}
         </div>
     )

@@ -6,6 +6,7 @@ import { TaskPerMonthCard } from "./_components/task-per-month";
 import { currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { MemberList } from "@/components/project-navigation/member-list";
 
 interface ProjectIdPageProps {
   params: {
@@ -40,10 +41,24 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
    if (!repo || !owner) {
     return // TODO
    }
+
+   const project = await db.workspace.findUnique({
+    where: {
+        id: params.projectId,
+        members: {
+            some: {
+                userId: user.id
+            }
+          }
+      }
+  })
+
   
   return (
+    <>
+    <MemberList projectId={params.projectId} />
     <div className="grid grid-cols-4 mt-6 gap-5">
-
+      
       <ProjectTasksCard 
       projectId={params.projectId} 
       />
@@ -66,6 +81,7 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
       />
 
     </div>
+    </>
   );
 };
 

@@ -41,10 +41,9 @@ const ProjectMessagesPage = async ({ params, searchParams }: ProjectMessagesPage
   }
 
   return (
-    <div className="flex flex-col h-[500px] ">
-      <div className="">
+    <>
+    <div className="flex flex-col h-[500px]">
         <ConversationHeader type="Project Members Chat" />
-      </div>
       {searchParams.video && (
             <MediaRoom
             chatId={project.id}
@@ -82,6 +81,7 @@ const ProjectMessagesPage = async ({ params, searchParams }: ProjectMessagesPage
           </>
       )}
     </div>
+    </>
   );
 };
 

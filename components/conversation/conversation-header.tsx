@@ -20,10 +20,7 @@ export const ConversationHeader = ({
             {type === "Project Members Chat" && (
                 <>
                     <Hash className="h-5 w-5 mr-2 text-zinc-500"/>
-                    {type}
-                    <div className="flex items-center ml-auto">
-                        <ChatVideoButton />
-                    </div>
+                    <p>{type}</p>
                 </>
             )}
             {type === "direct" && (
@@ -38,9 +35,7 @@ export const ConversationHeader = ({
                 </>
             )}
             <div className="ml-auto flex items-center">
-                {type === "direct" && (
                     <ChatVideoButton />
-                )}
             </div>
         </div>
     )
