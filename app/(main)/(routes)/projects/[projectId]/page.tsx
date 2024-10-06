@@ -21,6 +21,46 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
     redirect('/auth/login');
    }
 
+   const projectOwner = await db.workspace.findUnique({
+    where: {
+      id: params.projectId,
+    }
+   });
+
+   // project details
+   const projectDetails = await db.projectInformation.findUnique({
+    where: {
+      workspaceId: params.projectId
+    }
+   });
+
+   if (!projectDetails) {
+    if (projectOwner?.userId !== user.id) {
+      redirect(`/projects/${params.projectId}/error`)
+    }
+
+     redirect(`/projects/${params.projectId}/create/information`);
+   }
+
+   // project sdlc
+   const projectSdlc = await db.workspace.findUnique({
+    where: {
+      id: params.projectId
+    },
+    select: {
+      sdlc: true
+    }
+   })
+
+   if (!projectSdlc) {
+      if (projectOwner?.userId !== user.id) {
+        redirect(`/projects/${params.projectId}/error`)
+      }
+
+      redirect(`/projects/${params.projectId}/create/information/manage`);
+   }
+
+   // project repository
    const github = await db.workspace.findUnique({
     where: {
       id: params.projectId,
@@ -32,14 +72,22 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
    })
 
    if (!github) {
-     return // TODO
+    if (projectOwner?.userId !== user.id) {
+      redirect(`/projects/${params.projectId}/error`)
+    }
+
+    redirect(`/projects/${params.projectId}/create/github`);
    }
 
    const repo = github?.repo;
    const owner = github?.owner;
 
    if (!repo || !owner) {
-    return // TODO
+    if (projectOwner?.userId !== user.id) {
+      redirect(`/projects/${params.projectId}/error`)
+    }
+    
+    redirect(`/projects/${params.projectId}/create/github`);
    }
 
    const project = await db.workspace.findUnique({

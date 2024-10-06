@@ -62,7 +62,7 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "/tasks",
           label: "Tasks",
-          active: pathname.includes("/tags"),
+          active: pathname.includes("/tasks"),
           icon: ClipboardCheck,
           submenus: [],
         },

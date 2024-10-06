@@ -46,7 +46,7 @@ export const MembersModal = () => {
     const isModalOpen = isOpen && type === "members";
 
     const directMessage = (memberId: string) => {
-        router.push(`/projects/${workspace.id}/conversations/${memberId}`);
+        router.push(`/messages/${memberId}`);
     }
 
     const getInitials = (fullName: string): string => {
@@ -96,7 +96,7 @@ export const MembersModal = () => {
                                             <MoreVertical className="w-4 h-4 text-zinc-500"/>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent side="left">
-                                            <DropdownMenuItem onClick={() => {directMessage(member.id)}}>
+                                            <DropdownMenuItem onClick={() => {directMessage(member.user.id)}}>
                                             <GoComment className="w-4 h-4 mr-2"/>
                                                 Direct Message
                                             </DropdownMenuItem>
