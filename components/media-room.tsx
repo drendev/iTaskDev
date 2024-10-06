@@ -58,8 +58,7 @@ export const MediaRoom = ({
         video={video}
         audio={audio}
         >
-            <ControlBar controls={{ leave: false}}>
-            </ControlBar>
+            <VideoConference />
         </LiveKitRoom>
     )
 }

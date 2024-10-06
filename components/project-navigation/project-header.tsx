@@ -53,7 +53,7 @@ export const ProjectHeader = ({
 
   return (
     <div>
-      <div className="text-lg md:text-xl lg:text-3xl my-10">{project.name}</div>
+      <div className="flex justify-between">
       <div className={`flex space-x-2 ${isSmallScreen ? "flex-col" : ""}`}>
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none" asChild>
@@ -96,21 +96,6 @@ export const ProjectHeader = ({
                 >
                   <GoPerson className="w-4 h-4 mr-2" />
                   Manage Members
-                </DropdownMenuItem>
-
-                <DropdownMenuItem
-                  onClick={() => onOpen("editProject", { workspace: project })}
-                >
-                  <GoPencil className="w-4 h-4 mr-2" />
-                  Edit Project
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() =>
-                    onOpen("deleteProject", { workspace: project })
-                  }
-                >
-                  <GoTrash className="w-4 h-4 mr-2" />
-                  Delete Project
                 </DropdownMenuItem>
               </>
             )}
@@ -169,14 +154,15 @@ export const ProjectHeader = ({
             )}
           </DropdownMenuContent>
         </DropdownMenu>
-        <Link href={`/projects/${project.id}/messages`}>
-          <Button variant="ghost" className="items-center gap-2">
-            <MessageCircle />
-            Chat Beta
-          </Button>
-        </Link>
       </div>
-      <Separator className="mt-5" />
+      <Link href={`/projects/${project.id}/messages`} className="font-semibold">
+        <Button className="items-center gap-2">
+          <MessageCircle />
+          Project Chat
+        </Button>
+      </Link>
+      </div>
+      <Separator className="mt-3" />
     </div>
   );
 };

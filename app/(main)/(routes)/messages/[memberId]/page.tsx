@@ -48,7 +48,7 @@ const MemberIdPage = async ({
     const otherMember = userOne.id === user.id ? userTwo : userOne;
 
     return (
-        <div className="flex flex-col h-ful">
+        <div className="flex flex-col h-full">
             <ConversationHeader
             imageUrl={otherMember.image}
             name={otherMember.name}
