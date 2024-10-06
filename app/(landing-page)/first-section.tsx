@@ -67,7 +67,7 @@ const sections = [
       />
     ),
     fig2title: "Code with structure",
-    fig2desc: "Start out your project with a recommended SDLC carefully analyzed with the power of NLP",
+    fig2desc: "Create your project systematically with the proper SDLC",
     fig3img: (
       <Image
         src="/samples/list.gif"
@@ -86,8 +86,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig3title: "Building blocks",
-    fig3desc: "100+ content types to communicate any idea.",
+    fig3title: "Check out your checkboxes",
+    fig3desc: "Organize and complete your own tasks and as a team",
     id: "projects",
   },
   {
@@ -99,11 +99,11 @@ const sections = [
     ),
     header: (
       <div className="text-6xl">
-        Plan your <br /> next endeavor.
+       Achieve Teamwork.
       </div>
     ),
     description:
-      "Capture ideas, gather feedback from teammates, and ask AI to add the finishing touches.",
+      "Brainstorm, strategize, and enhance team productivity for successful project outcomes ",
     image: "/samples/iso1.png",
     fig1img: (
       <Image
@@ -123,8 +123,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig1title: "Building blocks",
-    fig1desc: "100+ content types to communicate any idea.",
+    fig1title: "Chats",
+    fig1desc: "Create group chats for your team or message someone directly",
     fig2img: (
       <Image
         src="/samples/video-conference.gif"
@@ -143,8 +143,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig2title: "Building blocks",
-    fig2desc: "100+ content types to communicate any idea.",
+    fig2title: "Online Meetings",
+    fig2desc: "Present your ideas virtually with your team with real-time online conferences",
     fig3img: (
       <Image
         src="/samples/customer-service.gif"
@@ -163,8 +163,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig3title: "Building blocks",
-    fig3desc: "100+ content types to communicate any idea.",
+    fig3title: "Phone Calls",
+    fig3desc: "Dial your colleagues and work out your next objectives",
     id: "communication",
   },
   {
@@ -176,11 +176,11 @@ const sections = [
     ),
     header: (
       <div className="text-6xl">
-        Plan your <br /> next endeavor.
+        Optimize your timeframe.
       </div>
     ),
     description:
-      "Capture ideas, gather feedback from teammates, and ask AI to add the finishing touches.",
+      "Make sure time is not wasted with iTaskDev's interactive calendar",
     image: "/samples/iso1.png",
     fig1img: (
       <Image
@@ -200,8 +200,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig1title: "Building blocks",
-    fig1desc: "100+ content types to communicate any idea.",
+    fig1title: "Manage your deadlines",
+    fig1desc: "Accomplish your objectives on time",
     fig2img: (
       <Image
         src="/samples/task.gif"
@@ -220,8 +220,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig2title: "Building blocks",
-    fig2desc: "100+ content types to communicate any idea.",
+    fig2title: "Oversee project progress",
+    fig2desc: "Monitor finished parts with Github API",
     fig3img: (
       <Image
         src="/samples/strategy.gif"
@@ -240,8 +240,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig3title: "Building blocks",
-    fig3desc: "100+ content types to communicate any idea.",
+    fig3title: "Strategize",
+    fig3desc: "Set-up your team to success with a iTaskDev's visual presentation of dates",
     id: "calendar",
   },
   {
@@ -253,11 +253,11 @@ const sections = [
     ),
     header: (
       <div className="text-6xl">
-        Plan your <br /> next endeavor.
+        Get a magical boost.
       </div>
     ),
     description:
-      "Capture ideas, gather feedback from teammates, and ask AI to add the finishing touches.",
+      "Make your work easier with the power of Artifical Intelligence",
     image: "/samples/iso1.png",
     fig1img: (
       <Image
@@ -277,8 +277,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig1title: "Building blocks",
-    fig1desc: "100+ content types to communicate any idea.",
+    fig1title: "Automatic task allocation",
+    fig1desc: "Let AI assign the best tasks for the right member",
     fig2img: (
       <Image
         src="/samples/artificial-intelligence.gif"
@@ -297,8 +297,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig2title: "Building blocks",
-    fig2desc: "100+ content types to communicate any idea.",
+    fig2title: "SDLC Recommendation",
+    fig2desc: "Get the best methodology for your software development project",
     fig3img: (
       <Image
         src="/samples/working-day.gif"
@@ -317,8 +317,8 @@ const sections = [
         className="w-20 h-20 mr-5"
       />
     ),
-    fig3title: "Building blocks",
-    fig3desc: "100+ content types to communicate any idea.",
+    fig3title: "Power-up your progress",
+    fig3desc: "iTaskDev AI can help you weigh task intensities to optimize project planning",
     id: "ai",
   },
 ];
@@ -406,20 +406,20 @@ const FirstSection = () => {
           </div>
         </div>
 
-        <div className="flex space-x-32 mx-auto h-56">
+        <div className="flex space-x-10 mx-auto h-56">
           <div>
             {section.fig1imglg}
-            <p className="text-sm">{section.fig1title}</p>
+            <p className="text-sm w-32">{section.fig1title}</p>
             <div className="w-32 text-xs text-gray-400">{section.fig1desc}</div>
           </div>
           <div>
             {section.fig2imglg}
-            <p className="text-sm">{section.fig2title}</p>
+            <p className="text-sm w-32">{section.fig2title}</p>
             <div className="w-32 text-xs text-gray-400">{section.fig2desc}</div>
           </div>
           <div>
             {section.fig3imglg}
-            <p className="text-sm">{section.fig3title}</p>
+            <p className="text-sm w-32">{section.fig3title}</p>
             <div className="w-32 text-xs text-gray-400">{section.fig3desc}</div>
           </div>
         </div>
