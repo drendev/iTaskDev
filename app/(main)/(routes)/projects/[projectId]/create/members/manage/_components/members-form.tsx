@@ -257,7 +257,7 @@ export const MembersFormPage = ({
                     ))}
                   {status === "success" && data?.members.length > 0
                     ? data.members.map((member: any) => (
-                        <TableRow>
+                        <TableRow key={member.id}>
                           <TableCell>
                             <div
                               key={member.id}
