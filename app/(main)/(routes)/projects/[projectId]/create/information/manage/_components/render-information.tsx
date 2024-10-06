@@ -15,8 +15,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useModal } from "@/hooks/use-modal-store";
-import { ProjectWithInformation } from "@/types";
-import { Info } from "lucide-react";
 import { useState } from "react";
 
 interface RenderInformationProps {

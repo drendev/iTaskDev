@@ -6,47 +6,34 @@ import { currentUser } from "@/lib/auth";
 
 export async function POST(
   req: Request,
-  { params }: { params: { workspacesId: string } }
+  { params }: { params: { projectId: string } }
 ) {
   try {
     const user = await currentUser();
+    const tasks = await req.json();
 
-    const {
-      description,
-      dueDate,
-      members,
-      clientInvolvement,
-      scope,
-      testing,
-      reqs,
-      maintenance,
-      risk,
-      devtools,
-    } = await req.json();
+    console.log(tasks);
 
     if (!user) {
       return new NextResponse("User is required", { status: 400 });
     }
 
-    const projectInformation = await db.projectInformation.update({
-      where: {
-        workspaceId: params.workspacesId,
-      },
-      data: {
-        description,
-        dueDate,
-        members,
-        clientInvolvement,
-        scope,
-        testing,
-        reqs,
-        maintenance,
-        risk,
-        devtools,
-      },
-    });
+    // Use Promise.all correctly
+    const taskRes = await Promise.all(
+      tasks.tasks.map(async (task: any) => {
+        return await db.task.update({
+          where: {
+            projectId: params.projectId,
+            id: task.id,
+          },
+          data: {
+            Intensity: task.intensity,
+          },
+        });
+      })
+    );
 
-    return NextResponse.json(projectInformation);
+    return NextResponse.json(taskRes);
   } catch (error) {
     console.log("[WORKSPACE_POST]", error);
     return new NextResponse("Internal Error", { status: 500 });
