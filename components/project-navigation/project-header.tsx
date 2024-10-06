@@ -155,7 +155,7 @@ export const ProjectHeader = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <Link href={`/projects/${project.id}/messages`} className="font-semibold">
+      <Link href={`/projects/${project.id}/groupchat`} className="font-semibold">
         <Button className="items-center gap-2">
           <MessageCircle />
           Project Chat

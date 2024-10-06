@@ -87,3 +87,6 @@ html {
   background-size: 10px 10px;
   cursor: pointer;
 }
+.lk-disconnect-button {
+  display: none !important;
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AudioConference, ControlBar, LiveKitRoom, RoomName, VideoConference } from "@livekit/components-react";
+import { LiveKitRoom, VideoConference } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { Loader2 } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
