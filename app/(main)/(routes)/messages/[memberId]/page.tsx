@@ -3,6 +3,7 @@ import { ChatMessages } from "@/components/conversation/chat-messages";
 import { ConversationHeader } from "@/components/conversation/conversation-header";
 import { DirectMessages } from "@/components/conversation/direct-messages";
 import { MediaRoom } from "@/components/media-room";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { currentUser } from "@/lib/auth";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { db } from "@/lib/db";
@@ -48,7 +49,7 @@ const MemberIdPage = async ({
     const otherMember = userOne.id === user.id ? userTwo : userOne;
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-[500px]">
             <ConversationHeader
             imageUrl={otherMember.image}
             name={otherMember.name}
@@ -63,6 +64,7 @@ const MemberIdPage = async ({
         )}
         {!searchParams.video && (
             <>
+            <ScrollArea className="max-h-[420px] h-full">
                 <DirectMessages
                 user={currentUserInfo}
                 name={otherMember.name as string}
@@ -86,6 +88,7 @@ const MemberIdPage = async ({
                 memberId: user.id
                 }}
                 />
+            </ScrollArea>
             </>
         )}
         
