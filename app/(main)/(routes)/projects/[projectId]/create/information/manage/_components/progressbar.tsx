@@ -94,7 +94,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
               prog > 96 ? "text-black" : "text-gray-400"
             }`}
           >
-            Step 6: Tasks assignment
+            Step 6: Github Repository
           </span>
         </div>
       )}
