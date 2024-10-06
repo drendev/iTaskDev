@@ -86,7 +86,7 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
     if (projectOwner?.userId !== user.id) {
       redirect(`/projects/${params.projectId}/error`)
     }
-    
+
     redirect(`/projects/${params.projectId}/create/github`);
    }
 
@@ -112,9 +112,7 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
       />
 
       {/*  */}
-      <ProjectOverviewCard 
-      projectId={params.projectId} 
-      />
+      
       {/* Recent Commit Card */}
 
       <RecentCommitsCard

@@ -77,10 +77,12 @@ completed: {
 
 interface ProjectOverviewCardProps {
     projectId: string;
+    tasks: number;
 }
 
 export const ProjectOverviewCard = ({
     projectId,
+    tasks
 }: ProjectOverviewCardProps) => {
     const totalTasks = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.tasks, 0);
@@ -125,7 +127,7 @@ export const ProjectOverviewCard = ({
                                     y={viewBox.cy}
                                     className="fill-foreground text-3xl font-bold"
                                 >
-                                    {totalTasks.toLocaleString()}
+                                    {tasks}
                                 </tspan>
                                 <tspan
                                     x={viewBox.cx}

@@ -18,6 +18,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { useTasksQuery } from "@/hooks/use-tasks-query";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { Loader2 } from "lucide-react";
+import { ProjectOverviewCard } from "./project-overview";
 
 export const ProjectTasksCard = ({
     projectId,
@@ -30,11 +32,42 @@ export const ProjectTasksCard = ({
     const user = useCurrentUser();
 
     if (status === "pending") {
-        return <p>Loading...</p>;
+        return (
+            <>
+            <Card className="row-span-2">
+                <CardHeader>
+                    <CardTitle>Project Tasks</CardTitle>
+                </CardHeader>
+                <CardContent className="flex items-center justify-center h-full">
+                <Loader2 className="mr-2 h-8 w-8 animate-spin"/>
+                </CardContent>
+            </Card>
+            <Card className="">
+                <CardHeader>
+                <CardTitle>Projects Overview</CardTitle>
+                </CardHeader>
+                <CardContent className="flex items-center justify-center h-[250px]">
+                <Loader2 className="mr-2 h-8 w-8 animate-spin"/>
+                </CardContent>
+            </Card>
+            <Card className="">
+                <CardHeader>
+                    <CardTitle>Project Progress</CardTitle>
+                </CardHeader>
+                <CardContent className="flex items-center justify-center h-[250px]">
+                <Loader2 className="mr-2 h-8 w-8 animate-spin"/>
+                </CardContent>
+            </Card>
+            </>
+        );
     }
 
     if (status === "error") {
-        return <p>Failed to load tasks</p>;
+        return (
+            <div className="flex justify-center items-center h-full">
+                <p>Failed to load tasks</p>
+            </div>
+        );
     }
 
     return (
@@ -52,29 +85,27 @@ export const ProjectTasksCard = ({
 
                         {/* Upcoming Tasks */}
                         <TabsContent value="upcoming" className="space-y-5">
-                            {data.tasks
-                                .slice(0, 5)
-                                .map((task: any) => (
-                                    <Card key={task.id}>
-                                        <CardHeader>
-                                            <div className="flex justify-between items-center">
-                                                <CardTitle className="text-lg">
-                                                    {task.Intensity}
-                                                </CardTitle>
-                                                <Checkbox />
-                                            </div>
-                                            <CardDescription>
-                                                {task.content}
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent className="space-y-2"></CardContent>
-                                    </Card>
-                                ))}
+                            {data.tasks.slice(0, 5).map((task: any) => (
+                                <Card key={task.id}>
+                                    <CardHeader>
+                                        <div className="flex justify-between items-center">
+                                            <CardTitle className="text-lg">
+                                                {task.Intensity}
+                                            </CardTitle>
+                                            <Checkbox />
+                                        </div>
+                                        <CardDescription>
+                                            {task.content}
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="space-y-2"></CardContent>
+                                </Card>
+                            ))}
                         </TabsContent>
 
                         {/* My Tasks */}
                         <TabsContent value="my-tasks" className="space-y-5">
-                        {/* {data.tasks.length > 0 ? (
+                            {/* {data.tasks.length > 0 ? (
                             data.tasks
                                 .filter((task: any) =>
                                     task.members.some((member: any) => member.memberId === user?.id)
@@ -104,6 +135,10 @@ export const ProjectTasksCard = ({
                 </CardContent>
                 <CardFooter className="flex justify-between"></CardFooter>
             </Card>
+            <ProjectOverviewCard
+            projectId={projectId}
+            tasks={data.tasks.length}
+            />
         </>
     );
 };
