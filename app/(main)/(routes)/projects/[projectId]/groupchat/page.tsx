@@ -42,7 +42,7 @@ const ProjectMessagesPage = async ({ params, searchParams }: ProjectMessagesPage
 
   return (
     <>
-    <div className="flex flex-col h-[500px]">
+    <div className="flex flex-col h-[580px]">
         <ConversationHeader type="Project Members Chat" />
       {searchParams.video && (
             <MediaRoom
@@ -53,7 +53,7 @@ const ProjectMessagesPage = async ({ params, searchParams }: ProjectMessagesPage
         )}
         {!searchParams.video && (
           <>
-            <ScrollArea className="max-h-[420px] h-full">
+            <ScrollArea className="max-h-[520px] h-full">
             <ChatMessages
               name={project.name}
               member={member}
