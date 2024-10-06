@@ -116,94 +116,92 @@ export const RenderTasks = ({ info }: RenderInformationProps) => {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form
-              className="grid grid-cols-4 gap-3"
-              onSubmit={form.handleSubmit(onSubmit)}
-            >
-              {info.map((task, index) => (
-                <Card key={index} className="w-full">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-3">
-                      Task
-                      {edit ? (
-                        <div>
-                          <FormField
-                            control={form.control}
-                            name={`tasks.${index}.intensity`}
-                            render={({ field }) => (
-                              <FormItem className="flex flex-col">
-                                <Popover>
-                                  <PopoverTrigger className="flex items-center">
-                                    <FormControl>
-                                      <Badge className="gap-3">
-                                        {field.value}
-                                        <Pen size={10} />
-                                      </Badge>
-                                    </FormControl>
-                                  </PopoverTrigger>
-                                  <PopoverContent className="w-[350px]">
-                                    <Button
-                                      variant={"ghost"}
-                                      onClick={() => {
-                                        field.onChange("Easy"); // Updates the form value
-                                      }}
-                                    >
-                                      <Badge className="gap-3">
-                                        Easy
-                                        <Pen size={10} />
-                                      </Badge>
-                                    </Button>
-                                    <Button
-                                      variant={"ghost"}
-                                      onClick={() => {
-                                        field.onChange("Medium"); // Updates the form value
-                                      }}
-                                    >
-                                      <Badge className="gap-3">
-                                        Medium
-                                        <Pen size={10} />
-                                      </Badge>
-                                    </Button>
-                                    <Button
-                                      variant={"ghost"}
-                                      onClick={() => {
-                                        field.onChange("Hard"); // Updates the form value
-                                      }}
-                                    >
-                                      <Badge className="gap-3">
-                                        Hard
-                                        <Pen size={10} />
-                                      </Badge>
-                                    </Button>
-                                  </PopoverContent>
-                                </Popover>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      ) : (
-                        <Badge>{task.Intensity}</Badge>
-                      )}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-sm">
-                    <p>{task.content}</p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between"></CardFooter>
-                </Card>
-              ))}
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                {info.map((task, index) => (
+                  <Card key={index} className="w-full">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-3">
+                        Task
+                        {edit ? (
+                          <div>
+                            <FormField
+                              control={form.control}
+                              name={`tasks.${index}.intensity`}
+                              render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                  <Popover>
+                                    <PopoverTrigger className="flex items-center">
+                                      <FormControl>
+                                        <Badge className="gap-3">
+                                          {field.value}
+                                          <Pen size={10} />
+                                        </Badge>
+                                      </FormControl>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-[350px]">
+                                      <Button
+                                        variant={"ghost"}
+                                        onClick={() => {
+                                          field.onChange("Easy"); // Updates the form value
+                                        }}
+                                      >
+                                        <Badge className="gap-3">
+                                          Easy
+                                          <Pen size={10} />
+                                        </Badge>
+                                      </Button>
+                                      <Button
+                                        variant={"ghost"}
+                                        onClick={() => {
+                                          field.onChange("Medium"); // Updates the form value
+                                        }}
+                                      >
+                                        <Badge className="gap-3">
+                                          Medium
+                                          <Pen size={10} />
+                                        </Badge>
+                                      </Button>
+                                      <Button
+                                        variant={"ghost"}
+                                        onClick={() => {
+                                          field.onChange("Hard"); // Updates the form value
+                                        }}
+                                      >
+                                        <Badge className="gap-3">
+                                          Hard
+                                          <Pen size={10} />
+                                        </Badge>
+                                      </Button>
+                                    </PopoverContent>
+                                  </Popover>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        ) : (
+                          <Badge>{task.Intensity}</Badge>
+                        )}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-sm">
+                      <p>{task.content}</p>
+                    </CardContent>
+                    <CardFooter className="flex justify-between"></CardFooter>
+                  </Card>
+                ))}
+              </div>
               {edit ? (
-                <div className="col-span-4 text-right">
+                <div className="col-span-4 sm:mx-auto text-right space-x-5 mt-10">
                   <Button
-                    className="w-40"
                     variant={"secondary"}
                     onClick={resetForm} // Reset to default values
                     type="button"
                   >
                     Cancel
                   </Button>
-                  <Button disabled={loading} className="w-40" type="submit">
+                  <Button disabled={loading} type="submit">
                     {loading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
@@ -212,9 +210,8 @@ export const RenderTasks = ({ info }: RenderInformationProps) => {
                   </Button>{" "}
                 </div>
               ) : (
-                <div className="col-span-4 text-right">
+                <div className="col-span-4 sm:mx-auto text-right space-x-5 mt-10">
                   <Button
-                    className="w-40"
                     variant={"secondary"}
                     onClick={editDetails}
                     type="button"
@@ -222,7 +219,14 @@ export const RenderTasks = ({ info }: RenderInformationProps) => {
                     Edit Details
                   </Button>
 
-                  <Button className="w-40" type="button">
+                  <Button
+                    type="button"
+                    onClick={() =>
+                      router.push(
+                        `/projects/${info[0].projectId}/create/members`
+                      )
+                    }
+                  >
                     Proceed
                   </Button>
                 </div>
