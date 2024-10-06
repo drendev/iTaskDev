@@ -4,7 +4,7 @@ import { Member, ProjectChat, User, DirectMessage } from "@prisma/client";
 import { ChatWelcome } from "./chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { Loader2, ServerCrash } from "lucide-react";
-import { Fragment, useRef, ElementRef } from "react";
+import { Fragment, useRef, ElementRef, useEffect } from "react";
 import { ChatItem } from "./chat-item";
 import { format } from "date-fns";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
@@ -64,7 +64,13 @@ export const DirectMessages = ({
         loadMore: fetchNextPage,
         shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
         count: data?.pages?.[0]?.items?.length ?? 0,
-    })
+    });
+
+    useEffect(() => {
+        if (bottomRef.current) {
+            bottomRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [data]);
 
     if (status === "pending") {
         return (
@@ -86,21 +92,21 @@ export const DirectMessages = ({
 
     return (
         <div ref={chatRef} className="flex-1 flex flex-col py-4 overflow-y-auto">
-            {!hasNextPage && <div className="flex-1"/>}
+            {!hasNextPage && <div className="flex-1" />}
             {!hasNextPage && (
-            <ChatWelcome
-            type={type}
-            name={name}
-            />
+                <ChatWelcome
+                    type={type}
+                    name={name}
+                />
             )}
             {hasNextPage && (
                 <div className="flex justify-center">
                     {isFetchingNextPage ? (
-                        <Loader2 className="h-6 w-6 text-zinc-500 animate-spin my-4"/>
+                        <Loader2 className="h-6 w-6 text-zinc-500 animate-spin my-4" />
                     ) : (
                         <button
-                        onClick={() => fetchNextPage()}
-                        className="text-zinc-500 hover:text-zinc-600 text-xs my-4 transition"
+                            onClick={() => fetchNextPage()}
+                            className="text-zinc-500 hover:text-zinc-600 text-xs my-4 transition"
                         >
                             Load previous messages
                         </button>
@@ -111,21 +117,19 @@ export const DirectMessages = ({
                 {data?.pages?.map((group, i) => (
                     <Fragment key={i}>
                         {group.items.map((message: MessageWithUser) => (
-            
                             <DirectChatItem
-                            id={message.id}
-                            key={message.id}
-                            user={user}
-                            content={message.content}
-                            fileUrl={message.fileUrl}
-                            deleted={message.deleted}
-                            timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                            isUpdated={message.updatedAt !== message.createdAt}
-                            socketUrl={socketUrl}
-                            socketQuery={socketQuery}
+                                id={message.id}
+                                key={message.id}
+                                user={user}
+                                content={message.content}
+                                fileUrl={message.fileUrl}
+                                deleted={message.deleted}
+                                timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+                                isUpdated={message.updatedAt !== message.createdAt}
+                                socketUrl={socketUrl}
+                                socketQuery={socketQuery}
                             />
                         ))}
-                        
                     </Fragment>
                 ))}
             </div>

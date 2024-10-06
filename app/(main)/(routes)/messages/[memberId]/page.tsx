@@ -49,7 +49,7 @@ const MemberIdPage = async ({
     const otherMember = userOne.id === user.id ? userTwo : userOne;
 
     return (
-        <div className="flex flex-col h-[500px]">
+        <div className="flex flex-col h-[580px] my-5">
             <ConversationHeader
             imageUrl={otherMember.image}
             name={otherMember.name}
@@ -64,7 +64,7 @@ const MemberIdPage = async ({
         )}
         {!searchParams.video && (
             <>
-            <ScrollArea className="max-h-[420px] h-full">
+            <ScrollArea className="max-h-[580px] h-full">
                 <DirectMessages
                 user={currentUserInfo}
                 name={otherMember.name as string}
@@ -79,6 +79,7 @@ const MemberIdPage = async ({
                     conversationId: conversation.id
                 }}
                 />
+                </ScrollArea>
                 <ChatInput
                 name={otherMember.name as string}
                 type="direct"
@@ -88,7 +89,7 @@ const MemberIdPage = async ({
                 memberId: user.id
                 }}
                 />
-            </ScrollArea>
+
             </>
         )}
         

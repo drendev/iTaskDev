@@ -243,7 +243,7 @@ const ProjectList = ({
               <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>SDLC</TableHead>
-                {!isSmallScreen && <TableHead>Opened by you</TableHead>}
+                {!isSmallScreen && <TableHead></TableHead>}
               </TableRow>
             </TableHeader>
             <TableBody>

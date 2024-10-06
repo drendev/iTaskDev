@@ -128,16 +128,28 @@ export const ChatItem = ({
     const isImage = !isPDF && fileUrl
 
     return (
-        <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
-            <div className="group flex gap-x-2 items-start w-full">
-                <div
-                onClick={onMemberClick}
-                className="cursor-pointer hover:drop-shadow-md transition"
-                >
-                    <UserAvatar
-                    src={member.user.image || ""}
-                    />
-                </div>
+        <div 
+            className={cn(
+                "relative group flex items-center p-4 transition w-full",
+                isOwner ? "justify-end" : "justify-start"
+            )}
+        >
+            <div 
+                className={cn(
+                    "group flex gap-x-2 items-start",
+                    isOwner ? "bg-slate-200 rounded-lg p-3 max-w-md" : "bg-gray-100 rounded-lg p-3 max-w-md"
+                )}
+            >
+                {!isOwner && (
+                    <div
+                        onClick={onMemberClick}
+                        className="cursor-pointer hover:drop-shadow-md transition"
+                    >
+                        <UserAvatar
+                            src={member.user.image || ""}
+                        />
+                    </div>
+                )}
                 <div className="flex flex-col w-full">
                     <div className="flex items-center gap-x-2"> 
                         <div className="flex items-center">
@@ -208,7 +220,7 @@ export const ChatItem = ({
                                             <div className="relative w-full">
                                                 <Input
                                                 disabled={isLoading}
-                                                className="p-2 bg-zinc-200/90 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600"
+                                                className="p-2 bg-zinc-100/90 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600"
                                                 placeholder="Edited Message"
                                                 {...field}
                                                 required
