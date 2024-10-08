@@ -329,7 +329,11 @@ export const RenderSdlc = ({ sdlc, info, projectId }: RenderSdlcProps) => {
                     disabled={loading}
                     className="mt-10 w-40"
                   >
-                    Proceed
+                    {loading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <>Proceed</>
+                    )}
                   </Button>
                 </CardFooter>
               </Card>

@@ -34,21 +34,21 @@ export async function POST(
             },
             {
               role: "user",
-              content: `Task Content: ${taskData.content}`,
+              content: `Task Content: ${taskData.content} Task Deadline: ${taskData.dueDate}`,
             },
           ],
         });
 
-        const intensity = completion.choices[0].message.content;
-        console.log(intensity)
+        let intensity = completion.choices[0].message.content;
 
         if (intensity === "Unrelated") {
-          return new NextResponse("Unrelated", { status: 400 });
+          intensity = null;
         }
 
         return db.task.create({
           data: {
             content: taskData.content,
+            DateDue: taskData.dueDate,
             Intensity: intensity,
             projectId: params.workspacesId,
           },

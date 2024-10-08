@@ -20,7 +20,7 @@ import { useState } from "react";
 interface RenderInformationProps {
   info: ProjectInformation;
 }
- 
+
 export const RenderInformation = ({ info }: RenderInformationProps) => {
   const router = useRouter();
   const { onOpen } = useModal();
@@ -125,7 +125,11 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
                   Resources Availability:
                 </CardTitle>
               </CardHeader>
-              <CardContent className="text-sm">{info.reqs}</CardContent>
+              <CardContent className="text-sm">
+                {info.reqs.map((req, index) => (
+                  <div>{req}</div>
+                ))}
+              </CardContent>
               <CardFooter className="flex justify-between"></CardFooter>
             </Card>
             <Card className="w-full">

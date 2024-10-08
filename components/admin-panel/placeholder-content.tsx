@@ -16,13 +16,16 @@ import Image from "next/image";
 import { PiArrowsLeftRightThin } from "react-icons/pi";
 import { useMediaQuery } from "react-responsive";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { Workspace } from "@prisma/client";
+
+interface ProjectListProps {
+  project: Workspace[];
+}
 
 const PlaceholderContent = () => {
   const user = useCurrentUser();
-
-  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-  const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 992 });
-  const isLargeScreen = useMediaQuery({ minWidth: 993, maxWidth: 1550 });
 
   return (
     <div className="w-full p-5">
@@ -47,29 +50,14 @@ const PlaceholderContent = () => {
             <div className="flex justify-between">
               <div>
                 <CardTitle>Projects</CardTitle>
-                <CardDescription>Add or manage users</CardDescription>
+                <CardDescription>Prioritized Projects</CardDescription>
               </div>
-              <div className="flex items-center text-sm">Manage</div>
+              <Button variant={"ghost"} className="flex items-center text-sm">
+                <Link href="/projects">View all</Link>
+              </Button>
             </div>
           </CardHeader>
-          <CardContent>
-            <div className="flex gap-3 mb-5">
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <Avatar>
-                <AvatarImage />
-                <AvatarFallback>+</AvatarFallback>
-              </Avatar>
-            </div>
-            <div className="flex flex-col items-start space-y-5 text-sm">
-              <button>Add a user</button>
-              <button>Delete a user</button>
-              <button>Update a users name or email</button>
-              <button>Create an alternate email address (email alias)</button>
-            </div>
-          </CardContent>
+          <CardContent></CardContent>
         </Card>
         <Card>
           <CardHeader>
@@ -146,10 +134,7 @@ const PlaceholderContent = () => {
               <div className="flex items-center text-sm">Overview</div>
             </div>
           </CardHeader>
-          <CardContent>
-            <p className="text-gray-500 text-sm">Primary domain</p>
-            <p className="text-xl">itask.dev</p>
-          </CardContent>
+          <CardContent></CardContent>
         </Card>
 
         <Card>
