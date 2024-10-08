@@ -3,16 +3,8 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
-  ChevronDown,
   AlignJustify,
   Grid2X2,
-  Code,
-  Scroll,
-  FileCode,
-  Cherry,
-  Cloudy,
-  Ellipsis,
-  TestTube,
   Rocket,
 } from "lucide-react";
 import {
@@ -55,109 +47,6 @@ interface ProjectListProps {
   project: Workspace[];
 }
 
-const test = [
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <Code className="p-2 rounded-lg bg-amber-500 w-10 h-10 text-white" />
-        iTaskDev Beta
-      </Link>
-    ),
-    SDLC: "Scrum",
-    openTest: "9 minutes ago",
-  },
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <Scroll className="p-2 rounded-lg bg-blue-500 w-10 h-10 text-white" />
-        SpeakWiz
-      </Link>
-    ),
-    SDLC: "Waterfall",
-    openTest: "1 day ago",
-  },
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <FileCode className="p-2 rounded-lg bg-cyan-500 w-10 h-10 text-white" />
-        DevLine
-      </Link>
-    ),
-    SDLC: "Kanban",
-    openTest: "2 days ago",
-  },
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <Cherry className="p-2 rounded-lg bg-pink-500 w-10 h-10 text-white" />
-        CherryTop
-      </Link>
-    ),
-    SDLC: "V-Shape",
-    openTest: "5 days ago",
-  },
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <Cloudy className="p-2 rounded-lg bg-fuchsia-500 w-10 h-10 text-white" />
-        iCloud
-      </Link>
-    ),
-    SDLC: "DevOps",
-    openTest: "10 days ago",
-  },
-
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <Cloudy className="p-2 rounded-lg bg-fuchsia-500 w-10 h-10 text-white" />
-        iCloud
-      </Link>
-    ),
-    SDLC: "DevOps",
-    openTest: "10 days ago",
-  },
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <Cloudy className="p-2 rounded-lg bg-fuchsia-500 w-10 h-10 text-white" />
-        iCloud
-      </Link>
-    ),
-    SDLC: "DevOps",
-    openTest: "10 days ago",
-  },
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <Cloudy className="p-2 rounded-lg bg-fuchsia-500 w-10 h-10 text-white" />
-        iCloud
-      </Link>
-    ),
-    SDLC: "DevOps",
-    openTest: "10 days ago",
-  },
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <Cloudy className="p-2 rounded-lg bg-fuchsia-500 w-10 h-10 text-white" />
-        iCloud
-      </Link>
-    ),
-    SDLC: "DevOps",
-    openTest: "10 days ago",
-  },
-  {
-    project: (
-      <Link href="#" className="hover:underline flex items-center gap-3">
-        <Cloudy className="p-2 rounded-lg bg-fuchsia-500 w-10 h-10 text-white" />
-        iCloud
-      </Link>
-    ),
-    SDLC: "DevOps",
-    openTest: "10 days ago",
-  },
-];
 
 const ProjectList = ({
   project,
@@ -275,7 +164,7 @@ const ProjectList = ({
         </div>
       )}
       <PaginationSection
-        totalPosts={test.length}
+        totalPosts={project.length}
         postsPerPage={postsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

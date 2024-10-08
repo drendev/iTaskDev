@@ -67,29 +67,10 @@ export function getMenuList(pathname: string): Group[] {
           submenus: [],
         },
         {
-          href: "/tags",
+          href: "/discover",
           label: "Discover",
-          active: pathname.includes("/tags"),
+          active: pathname.includes("/discover"),
           icon: Telescope,
-          submenus: [],
-        },
-      ],
-    },
-    {
-      groupLabel: "Settings",
-      menus: [
-        {
-          href: "/users",
-          label: "Security",
-          active: pathname.includes("/users"),
-          icon: Shield,
-          submenus: [],
-        },
-        {
-          href: "/account",
-          label: "Account",
-          active: pathname.includes("/account"),
-          icon: Settings,
           submenus: [],
         },
       ],

@@ -10,6 +10,13 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { CircleAlert } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import {
   Form,
@@ -98,6 +105,11 @@ export const RenderTasks = ({ info }: RenderInformationProps) => {
     }
   };
 
+  const redir = async () => {
+    setLoading(true);
+    router.push(`/projects/${info[0].projectId}/create/members`);
+  };
+
   useEffect(() => {
     resetForm();
   }, [info]);
@@ -124,7 +136,7 @@ export const RenderTasks = ({ info }: RenderInformationProps) => {
                       <CardTitle className="flex items-center gap-3">
                         Task
                         {edit ? (
-                          <div>
+                          <div className="flex items-center gap-3">
                             <FormField
                               control={form.control}
                               name={`tasks.${index}.intensity`}
@@ -134,7 +146,9 @@ export const RenderTasks = ({ info }: RenderInformationProps) => {
                                     <PopoverTrigger className="flex items-center">
                                       <FormControl>
                                         <Badge className="gap-3">
-                                          {field.value}
+                                          {field.value == null
+                                            ? "Select"
+                                            : field.value}
                                           <Pen size={10} />
                                         </Badge>
                                       </FormControl>
@@ -181,12 +195,39 @@ export const RenderTasks = ({ info }: RenderInformationProps) => {
                             />
                           </div>
                         ) : (
-                          <Badge>{task.Intensity}</Badge>
+                          <>
+                            <Badge>
+                              {task.Intensity == null
+                                ? "Select"
+                                : task.Intensity}
+                            </Badge>
+                          </>
+                        )}
+                        {task.Intensity == null && (
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger type="button">
+                                <CircleAlert
+                                  className="text-red-400 hover:opacity-50"
+                                  size={20}
+                                />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p className="text-sm font-normal">
+                                  Can't identify task intensity
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
                         )}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="text-sm">
                       <p>{task.content}</p>
+                      <p className="mt-3 font-semibold text-base">Deadline: </p>
+                      <p className="text-zinc-500">
+                        {task.DateDue?.toString()}
+                      </p>
                     </CardContent>
                     <CardFooter className="flex justify-between"></CardFooter>
                   </Card>
@@ -221,13 +262,14 @@ export const RenderTasks = ({ info }: RenderInformationProps) => {
 
                   <Button
                     type="button"
-                    onClick={() =>
-                      router.push(
-                        `/projects/${info[0].projectId}/create/members`
-                      )
-                    }
+                    disabled={loading}
+                    onClick={() => redir()}
                   >
-                    Proceed
+                    {loading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <>Proceed</>
+                    )}
                   </Button>
                 </div>
               )}

@@ -6,6 +6,11 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import ProgressBar from "../information/manage/_components/progressbar";
+import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 import {
   Form,
@@ -29,6 +34,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+
 interface InformationPageProps {
   params: {
     projectId: string;
@@ -39,17 +51,20 @@ const formSchema = z.object({
   tasks: z.array(
     z.object({
       content: z.string().min(1, "Task cannot be empty"),
+      dueDate: z.date().min(new Date(), "Due date must be in the future"),
     })
   ),
 });
 
 const InformationPage = ({ params }: InformationPageProps) => {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      tasks: [{ content: "" }],
+      tasks: [{ content: "", dueDate: new Date() }],
     },
   });
 
@@ -60,12 +75,14 @@ const InformationPage = ({ params }: InformationPageProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      setLoading(true);
       const response = await axios.post(
         `/api/workspaces/${params.projectId}/create/tasks`,
         { tasks: values.tasks }
       );
       // form.reset();
       router.push(`/projects/${params.projectId}/create/tasks/manage`);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -121,6 +138,54 @@ const InformationPage = ({ params }: InformationPageProps) => {
                           </FormItem>
                         )}
                       />
+
+                      <FormField
+                        control={form.control}
+                        name={`tasks.${index}.dueDate`}
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel className="mt-3">Deadline:</FormLabel>
+
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                      "w-[240px] pl-3 text-left font-normal",
+                                      !field.value && "text-muted-foreground"
+                                    )}
+                                  >
+                                    {field.value ? (
+                                      format(field.value, "PPP")
+                                    ) : (
+                                      <span>Pick a date</span>
+                                    )}
+                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent
+                                className="w-auto p-0"
+                                align="start"
+                              >
+                                <Calendar
+                                  mode="single"
+                                  selected={field.value}
+                                  onSelect={field.onChange}
+                                  disabled={(date) =>
+                                    date < new Date() ||
+                                    date > new Date("2027-01-01")
+                                  }
+                                  initialFocus
+                                />
+                              </PopoverContent>
+                            </Popover>
+
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </CardContent>
                     <CardFooter className="flex justify-between"></CardFooter>
                   </Card>
@@ -129,15 +194,24 @@ const InformationPage = ({ params }: InformationPageProps) => {
               <div className="col-span-4">
                 <Button
                   type="button"
-                  onClick={() => append({ content: "" })}
+                  onClick={() => append({ content: "", dueDate: new Date() })}
                   className="mt-4"
                   size="sm"
                 >
                   Add More Tasks
                 </Button>
 
-                <Button type="submit" size="sm" className="mt-4 text-sm ml-5">
-                  Submit Tasks
+                <Button
+                  disabled={loading}
+                  type="submit"
+                  size="sm"
+                  className="mt-4 text-sm ml-5"
+                >
+                  {loading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <>Proceed</>
+                  )}
                 </Button>
               </div>
             </form>

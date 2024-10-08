@@ -59,6 +59,7 @@ export const MembersFormPage = ({
 }: MembersFormPageProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [buttLoad, setButtLoad] = useState<boolean>(false);
   const [copied, setCopied] = useState(false);
   const [project, setProject] = useState(initialProject);
   const [loadingId, setLoadingId] = useState("");
@@ -159,6 +160,11 @@ export const MembersFormPage = ({
       setLoadingId("");
       setIsLoading(false);
     }
+  };
+
+  const redir = async () => {
+    setButtLoad(true);
+    router.push(`/projects/${projectId}/create/github`);
   };
 
   return (
@@ -377,11 +383,14 @@ export const MembersFormPage = ({
           <div className="flex justify-end text-right">
             <Button
               className="mt-5"
-              onClick={() =>
-                router.push(`/projects/${projectId}/create/github`)
-              }
+              disabled={buttLoad}
+              onClick={() => redir()}
             >
-              Proceed
+              {buttLoad ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <>Proceed</>
+              )}
             </Button>
           </div>
         </CardContent>

@@ -32,7 +32,7 @@ export const RecentCommitsCard = ({
     });
 
     return (
-        <Card className="row-span-2">
+        <Card className="row-span-2"> 
             <CardHeader>
                 <CardTitle>Recent Github Commits</CardTitle>
             </CardHeader>
