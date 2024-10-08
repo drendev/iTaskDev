@@ -104,7 +104,7 @@ model Member {
   workspaceId String
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
-  workLoad Int?
+  workLoad String?
 
   chat  ProjectChat[]
   tasks TaskMember[]

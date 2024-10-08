@@ -275,7 +275,7 @@ export const MembersFormPage = ({
                           No members found
                         </div>
                       )}
-                </TableBody>
+                </TableBody> 
               </Table>
             </div>
             <div className="p-5">

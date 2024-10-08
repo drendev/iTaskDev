@@ -1,7 +1,7 @@
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
-import { MembersFormPage } from "./manage/_components/members-form";
+import { MembersFormPage } from "./_components/members-form";
 import ProgressBar from "../information/manage/_components/progressbar";
 import { useRouter } from "next/navigation";
 
