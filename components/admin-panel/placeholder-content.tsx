@@ -14,18 +14,66 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import { PiArrowsLeftRightThin } from "react-icons/pi";
-import { useMediaQuery } from "react-responsive";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { Workspace } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
-interface ProjectListProps {
+interface Workspace {
+  workspace: {
+    id: string;
+    name: string;
+    sdlc: string | null;
+  };
+}
+
+interface ProjectByTasks {
   project: Workspace[];
 }
 
-const PlaceholderContent = () => {
+const sdlcColors = [
+  {
+    sdlc: "waterfall",
+    block: <div className="flex p-1 bg-blue-400" />,
+  },
+  {
+    sdlc: "scrum",
+    block: <div className="flex p-1 bg-amber-400" />,
+  },
+  {
+    sdlc: "kanban",
+    block: <div className="flex p-1 bg-cyan-400" />,
+  },
+  {
+    sdlc: "devops",
+    block: <div className="flex p-1 bg-fuchsia-400" />,
+  },
+  {
+    sdlc: "v-shape",
+    block: <div className="flex p-1 bg-pink-400" />,
+  },
+  {
+    sdlc: "spiral",
+    block: <div className="flex p-1 bg-rose-400" />,
+  },
+  {
+    sdlc: "rad",
+    block: <div className="flex p-1 bg-teal-400" />,
+  },
+  {
+    sdlc: "lean",
+    block: <div className="flex p-1 bg-red-400" />,
+  },
+  {
+    sdlc: "iterative",
+    block: <div className="flex p-1 bg-lime-400" />,
+  },
+];
+
+const PlaceholderContent = ({ project }: ProjectByTasks) => {
   const user = useCurrentUser();
+
+  const router = useRouter();
 
   return (
     <div className="w-full p-5">
@@ -50,14 +98,41 @@ const PlaceholderContent = () => {
             <div className="flex justify-between">
               <div>
                 <CardTitle>Projects</CardTitle>
-                <CardDescription>Prioritized Projects</CardDescription>
+                <CardDescription>
+                  Projects with nearest deadlines
+                </CardDescription>
               </div>
               <Button variant={"ghost"} className="flex items-center text-sm">
                 <Link href="/projects">View all</Link>
               </Button>
             </div>
           </CardHeader>
-          <CardContent></CardContent>
+          <CardContent>
+            {project.map((proj, index) => (
+              <button
+                onClick={() => router.push(`/projects/${proj.workspace.id}`)}
+                className="w-full"
+              >
+                <Card className="mb-5 mr-5 hover:bg-zinc-100 flex" key={index}>
+                  <div className="flex">
+                    {sdlcColors.map((color, index) => {
+                      if (color.sdlc === proj.workspace.sdlc) {
+                        return <>{color.block}</>;
+                      }
+                      return null;
+                    })}
+                    <div>
+                      <CardHeader>
+                        <CardTitle className="flex justify-between items-center text-lg">
+                          {proj.workspace.name}
+                        </CardTitle>
+                      </CardHeader>
+                    </div>
+                  </div>
+                </Card>
+              </button>
+            ))}
+          </CardContent>
         </Card>
         <Card>
           <CardHeader>
