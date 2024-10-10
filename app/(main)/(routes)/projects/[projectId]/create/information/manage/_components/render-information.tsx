@@ -21,6 +21,8 @@ interface RenderInformationProps {
   info: ProjectInformation;
 }
 
+
+
 export const RenderInformation = ({ info }: RenderInformationProps) => {
   const router = useRouter();
   const { onOpen } = useModal();

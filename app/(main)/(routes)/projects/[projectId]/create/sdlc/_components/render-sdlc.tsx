@@ -116,7 +116,7 @@ export const RenderSdlc = ({ sdlc, info, projectId }: RenderSdlcProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const onClick = async () => {
-    router.push(`/projects/${projectId}/create/tasks`);
+    router.push(`/projects/${projectId}/create/members`);
     setLoading(true);
   };
 

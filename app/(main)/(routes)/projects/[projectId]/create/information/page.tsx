@@ -48,7 +48,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import ProgressBar from "./manage/_components/progressbar";
+import ProgressBar from "../_components/progressbar";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 
@@ -158,7 +158,7 @@ const ProjectInformationPage = ({ params }: ProjectInformationPageProps) => {
 
   return (
     <div className="m-4">
-      <ProgressBar progress={16.6} />
+      <ProgressBar progress={25} />
       <Card>
         <CardHeader>
           <ChevronsLeftRightEllipsis size={50} />

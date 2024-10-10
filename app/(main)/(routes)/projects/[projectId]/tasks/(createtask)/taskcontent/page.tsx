@@ -1,16 +1,19 @@
 import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { RenderTasks } from "./render-tasks";
-import ProgressBar from "../../_components/progressbar";
+import TaskContent from "./_components/render-tasks-content-form";
 
-interface ManageTasksPageProps {
+interface TaskContentPageProps {
   params: {
     projectId: string;
   };
 }
 
-const ManageInformationPage = async ({ params }: ManageTasksPageProps) => {
+export interface CreatedTaskId {
+  id: string[];
+}
+
+const TaskContentPage = async ({ params }: TaskContentPageProps) => {
   const user = await currentUser();
 
   if (!user) {
@@ -27,12 +30,9 @@ const ManageInformationPage = async ({ params }: ManageTasksPageProps) => {
     return redirect("/unauthorized");
   }
 
-  return (
-    <div className="m-4">
-      <ProgressBar progress={65} />
-      <RenderTasks info={taskInformation} />
-    </div>
-  );
+  return <div className="m-4">
+    <TaskContent projectId={params.projectId}/>
+  </div>;
 };
 
-export default ManageInformationPage;
+export default TaskContentPage;

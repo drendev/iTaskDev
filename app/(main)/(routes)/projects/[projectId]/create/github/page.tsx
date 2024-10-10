@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import * as z from "zod";
 import axios from "axios";
-import ProgressBar from "../information/manage/_components/progressbar";
+import ProgressBar from "../_components/progressbar";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";

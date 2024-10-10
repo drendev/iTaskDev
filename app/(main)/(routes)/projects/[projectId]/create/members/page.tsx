@@ -2,7 +2,7 @@ import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { MembersFormPage } from "./_components/members-form";
-import ProgressBar from "../information/manage/_components/progressbar";
+import ProgressBar from "../_components/progressbar";
 import { useRouter } from "next/navigation";
 
 interface MembersPageProps {
@@ -38,7 +38,7 @@ const MembersPage = async ({ params }: MembersPageProps) => {
 
   return (
     <div>
-      <ProgressBar progress={82} />
+      <ProgressBar progress={75} />
       <MembersFormPage project={project} projectId={params.projectId} />
     </div>
   );

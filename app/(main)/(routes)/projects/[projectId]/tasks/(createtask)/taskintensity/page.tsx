@@ -1,16 +1,15 @@
 import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { RenderTasks } from "./render-tasks";
-import ProgressBar from "../../_components/progressbar";
+import { TasksIntensity } from "./_components/render-tasks-intensity";
 
-interface ManageTasksPageProps {
+interface TaskIntensityProps {
   params: {
     projectId: string;
   };
 }
 
-const ManageInformationPage = async ({ params }: ManageTasksPageProps) => {
+const TaskIntensityPage = async ({ params }: TaskIntensityProps) => {
   const user = await currentUser();
 
   if (!user) {
@@ -29,10 +28,9 @@ const ManageInformationPage = async ({ params }: ManageTasksPageProps) => {
 
   return (
     <div className="m-4">
-      <ProgressBar progress={65} />
-      <RenderTasks info={taskInformation} />
+      <TasksIntensity info={taskInformation} />
     </div>
   );
 };
 
-export default ManageInformationPage;
+export default TaskIntensityPage;

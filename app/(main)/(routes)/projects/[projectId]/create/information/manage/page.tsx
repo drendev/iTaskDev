@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { RenderInformation } from "./_components/render-information";
-import ProgressBar from "./_components/progressbar";
+import ProgressBar from "../../_components/progressbar";
 
 interface ManageInformationPageProps {
   params: {
@@ -30,10 +30,9 @@ const ManageInformationPage = async ({
   }
 
   return (
-    <div className='m-4'>
+    <div className="m-4">
       <ProgressBar progress={16.6} />
-      <RenderInformation
-      info={projectInformation} />
+      <RenderInformation info={projectInformation} />
     </div>
   );
 };

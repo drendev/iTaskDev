@@ -5,7 +5,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import ProgressBar from "../information/manage/_components/progressbar";
+import ProgressBar from "../_components/progressbar";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
