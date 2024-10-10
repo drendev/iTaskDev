@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
 import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
+import { Task } from "@prisma/client";
 
 export async function POST(
   req: Request,
@@ -11,6 +12,8 @@ export async function POST(
   try {
     const user = await currentUser();
     const tasks = await req.json();
+
+    const CreatedTasksUpdated: Task[] = [];
 
     console.log(tasks);
 
@@ -21,7 +24,7 @@ export async function POST(
     // Use Promise.all correctly
     const taskRes = await Promise.all(
       tasks.tasks.map(async (task: any) => {
-        return await db.task.update({
+        const updatedIntensity = await db.task.update({
           where: {
             projectId: params.projectId,
             id: task.id,
@@ -30,10 +33,14 @@ export async function POST(
             Intensity: task.intensity,
           },
         });
+
+        CreatedTasksUpdated.push(updatedIntensity);
       })
     );
 
-    return NextResponse.json(taskRes);
+
+
+    return NextResponse.json(CreatedTasksUpdated);
   } catch (error) {
     console.log("[WORKSPACE_POST]", error);
     return new NextResponse("Internal Error", { status: 500 });

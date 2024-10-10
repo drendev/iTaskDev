@@ -29,7 +29,7 @@ export async function POST(
       return new NextResponse("User is required", { status: 400 });
     }
 
-    const projectInforation = await db.projectInformation.create({
+    const projectInformation = await db.projectInformation.create({
       data: {
         workspaceId: params.workspacesId,
         description,
@@ -46,7 +46,7 @@ export async function POST(
       },
     });
 
-    return NextResponse.json(projectInforation);
+    return NextResponse.json(projectInformation);
   } catch (error) {
     console.log("[WORKSPACE_POST]", error);
     return new NextResponse("Internal Error", { status: 500 });

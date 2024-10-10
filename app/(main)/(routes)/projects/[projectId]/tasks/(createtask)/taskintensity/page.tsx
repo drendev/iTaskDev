@@ -16,19 +16,11 @@ const TaskIntensityPage = async ({ params }: TaskIntensityProps) => {
     return redirect("/");
   }
 
-  const taskInformation = await db.task.findMany({
-    where: {
-      projectId: params.projectId,
-    },
-  });
-
-  if (!taskInformation) {
-    return redirect("/unauthorized");
-  }
+  
 
   return (
     <div className="m-4">
-      <TasksIntensity info={taskInformation} />
+      <TasksIntensity />
     </div>
   );
 };

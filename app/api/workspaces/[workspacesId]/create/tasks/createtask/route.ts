@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
+import { Task } from "@prisma/client";
 
 import OpenAI from "openai";
 
@@ -21,6 +22,8 @@ export async function POST(
 
     const today = new Date();
 
+    const CreatedTasks: Task[] = [];
+
     const tasks = await Promise.all(
       content.tasks.map(async (taskData: any) => {
         const completion = await openai.chat.completions.create({
@@ -34,7 +37,7 @@ export async function POST(
             },
             {
               role: "user",
-              content: `Task Content: ${taskData.content} Task Deadline: ${taskData.dueDate}`,
+              content: `Task Content: ${taskData.content} Task Start Date: ${today} Task Deadline: ${taskData.dueDate}`,
             },
           ],
         });
@@ -45,7 +48,7 @@ export async function POST(
           intensity = null;
         }
 
-        return db.task.create({
+        const createdTask = await db.task.create({
           data: {
             content: taskData.content,
             DateDue: taskData.dueDate,
@@ -53,10 +56,14 @@ export async function POST(
             projectId: params.workspacesId,
           },
         });
+
+        CreatedTasks.push(createdTask);
       })
     );
 
-    return NextResponse.json(tasks);
+    console.log(CreatedTasks);
+
+    return NextResponse.json(CreatedTasks);
   } catch (error) {
     console.log("[CREATE TASK ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
