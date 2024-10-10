@@ -13,6 +13,7 @@ import { format } from "date-fns";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { useCreateTaskStore } from "../../store";
 
 import {
   Popover,
@@ -80,6 +81,7 @@ const TaskContent = ({ projectId }: TaskContentProps) => {
           tasks: values.tasks,
         }
       );
+      useCreateTaskStore.setState({ id: response.data });
       router.push(`/projects/${projectId}/tasks/taskintensity`);
     } catch (error) {
       console.log(error);

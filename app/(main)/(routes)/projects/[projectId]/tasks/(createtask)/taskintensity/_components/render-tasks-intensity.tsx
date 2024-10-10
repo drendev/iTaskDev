@@ -43,9 +43,7 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 
-interface TaskIntensityProps {
-  info: Task[];
-}
+import { useCreateTaskStore } from "../../store";
 
 const formSchema = z.object({
   tasks: z.array(
@@ -56,21 +54,22 @@ const formSchema = z.object({
   ),
 });
 
-export const TasksIntensity = ({ info }: TaskIntensityProps) => {
+export const TasksIntensity = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
+  const id = useCreateTaskStore((state) => state.id);
 
   const editDetails = () => {
     setEdit(!edit);
   };
 
-  const projectId = info[0].projectId;
+  const projectId = id?.[0]?.projectId;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      tasks: info.map((task) => ({
+      tasks: id?.map((task) => ({
         id: task.id,
         intensity: task.Intensity ?? undefined,
       })),
@@ -80,7 +79,7 @@ export const TasksIntensity = ({ info }: TaskIntensityProps) => {
   // This function will reset the form to its default values
   const resetForm = () => {
     form.reset({
-      tasks: info.map((task) => ({
+      tasks: id?.map((task) => ({
         id: task.id,
         intensity: task.Intensity ?? undefined,
       })),
@@ -91,9 +90,14 @@ export const TasksIntensity = ({ info }: TaskIntensityProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      await axios.post(`/api/workspaces/${projectId}/create/edittask`, {
-        tasks: values.tasks,
-      });
+      const response = await axios.post(
+        `/api/workspaces/${projectId}/create/tasks/edittask`,
+        {
+          tasks: values.tasks,
+        }
+      );
+      useCreateTaskStore.setState({ id: response.data });
+
       form.reset();
       router.refresh();
       setEdit(false);
@@ -107,12 +111,19 @@ export const TasksIntensity = ({ info }: TaskIntensityProps) => {
 
   const redir = async () => {
     setLoading(true);
-    router.push(`/projects/${info[0].projectId}/create/members`);
+    // const res = await axios.post("/api/openai/autoassign", {
+    //   CreatedTask: id
+    // });
+    router.push(`/projects/${projectId}/tasks/taskassign`);
   };
 
   useEffect(() => {
     resetForm();
-  }, [info]);
+  }, [id]);
+
+  useEffect(() => {
+    console.log(id);
+  }, []);
 
   return (
     <div className="flex flex-col">
@@ -130,7 +141,7 @@ export const TasksIntensity = ({ info }: TaskIntensityProps) => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                {info.map((task, index) => (
+                {id?.map((task, index) => (
                   <Card key={index} className="w-full">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3">
