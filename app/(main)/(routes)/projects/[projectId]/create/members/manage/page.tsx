@@ -1,6 +1,7 @@
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
+import { ManageMembersWorkloadForm } from "../_components/manage-member-form";
 
 interface ManageMembersWorkloadProps {
     params: {
@@ -29,11 +30,39 @@ const ManageMembersWorkload = async ({
                 }
             }
         }
-    })
+    });
+
+    if (!projectMembers) {
+        redirect("/unauthorized");
+    }
+
+/*     const getTasks = await db.member.findMany({
+        where: {
+            workspaceId: params.projectId
+        },
+        include: {
+            tasks: {
+                include: {
+                    task: true,
+                    member: {
+                        include: {
+                            user: true
+                        }
+                    }
+                }
+            },
+        },
+    });
+
+    const taskspermember = getTasks.map((member) => {
+        member.tasks.map((task) => {
+            task.task.content
+        })
+    }); */
 
     return (
         <>
-            
+            <ManageMembersWorkloadForm members={projectMembers} />
         </>
     )
 }
