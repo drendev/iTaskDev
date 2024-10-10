@@ -1,30 +1,24 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import { useForm, useFieldArray } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import ProgressBar from "../information/manage/_components/progressbar";
-import { Calendar } from "@/components/ui/calendar";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
-
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { GoXCircle } from "react-icons/go";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Card,
   CardContent,
@@ -35,17 +29,33 @@ import {
 } from "@/components/ui/card";
 
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
-interface InformationPageProps {
-  params: {
-    projectId: string;
-  };
-}
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const formSchema = z.object({
   tasks: z.array(
@@ -56,10 +66,8 @@ const formSchema = z.object({
   ),
 });
 
-const InformationPage = ({ params }: InformationPageProps) => {
+const TaskList = () => {
   const [loading, setLoading] = useState<boolean>(false);
-
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -76,12 +84,10 @@ const InformationPage = ({ params }: InformationPageProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      const response = await axios.post(
-        `/api/workspaces/${params.projectId}/create/tasks`,
-        { tasks: values.tasks }
-      );
+      const response = await axios.post(`/api/workspaces/-/create/tasks`, {
+        tasks: values.tasks,
+      });
       // form.reset();
-      router.push(`/projects/${params.projectId}/create/tasks/manage`);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -89,14 +95,15 @@ const InformationPage = ({ params }: InformationPageProps) => {
   };
 
   return (
-    <div className="mt-10">
-      <ProgressBar progress={49} />
-      <Card>
-        <CardHeader>
-          <CardTitle>Add Tasks</CardTitle>
-          <CardDescription>Add initial tasks for your project</CardDescription>
-        </CardHeader>
-        <CardContent>
+    <div>
+      {/* Header */}
+      {/* CREATE TASK */}
+      <Dialog>
+        <DialogTrigger>
+          <Button>Add Task</Button>
+        </DialogTrigger>
+        <DialogContent className="overflow-y-scroll lg:min-w-[1200px] h-[500px]">
+          <DialogHeader>Add Task</DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -191,35 +198,81 @@ const InformationPage = ({ params }: InformationPageProps) => {
                   </Card>
                 ))}
               </div>
-              <div className="col-span-4">
-                <Button
-                  type="button"
-                  onClick={() => append({ content: "", dueDate: new Date() })}
-                  className="mt-4"
-                  size="sm"
-                >
-                  Add More Tasks
-                </Button>
+              <CardFooter className=" bg-white sticky bottom-[-30px] mt-10">
+                <div>
+                  <Button
+                    type="button"
+                    onClick={() => append({ content: "", dueDate: new Date() })}
+                    className="mt-4"
+                    size="sm"
+                  >
+                    Add More Tasks
+                  </Button>
 
-                <Button
-                  disabled={loading}
-                  type="submit"
-                  size="sm"
-                  className="mt-4 text-sm ml-5"
-                >
-                  {loading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>Proceed</>
-                  )}
-                </Button>
-              </div>
+                  <Button
+                    disabled={loading}
+                    type="submit"
+                    size="sm"
+                    className="mt-4 text-sm ml-5"
+                  >
+                    {loading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <>Proceed</>
+                    )}
+                  </Button>
+                </div>
+              </CardFooter>
             </form>
           </Form>
-        </CardContent>
-      </Card>
+        </DialogContent>
+      </Dialog>
+
+      {/* TWO CARDS */}
+      {/* Task List */}
+      {/* Assigned to you */}
+      <div className="grid grid-cols-6">
+        <Card className="col-span-2">
+          <CardHeader>
+            <CardTitle>Assigned to You</CardTitle>
+          </CardHeader>
+          <CardContent></CardContent>
+          <CardFooter></CardFooter>
+        </Card>
+        {/* All Tasks sorted chronologically with deadline */}
+        <Card className="col-span-4">
+          <CardHeader>
+            <CardTitle>All tasks</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Content</TableHead>
+                  <TableHead>Intensity</TableHead>
+                  <TableHead>Assigned</TableHead>
+                  <TableHead className="text-right">Deadline</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="break-all">
+                    afdawfdwagklifhjdwalgifgwliafdhklwafdglhedaggljglewguhguilewguileauilaewgdiulaweiguduiagwugiwaedguiawed
+                  </TableCell>
+                  <TableCell>Hard</TableCell>
+                  <TableCell>Credit Card</TableCell>
+                  <TableCell className="text-right">$250.00</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </CardContent>
+          <CardFooter></CardFooter>
+        </Card>
+      </div>
+
+      {/*  */}
     </div>
   );
 };
 
-export default InformationPage;
+export default TaskList;

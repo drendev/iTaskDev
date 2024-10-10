@@ -2,18 +2,7 @@
 
 export const publicRoutes = [
   "/",
-  "/sdlc/devops",
-  "/sdlc/iterative",
-  "/sdlc/lean",
-  "/sdlc/scrum",
-  "/sdlc/spiral",
-  "/sdlc/vshape",
-  "/sdlc/waterfall",
   "/sdlc",
-  "/azuretest",
-  "/api/ner",
-  "/openai",
-  "/api/openapi",
   "/pages/api/socket/io",
   "/api/uploadthing",
 ];
