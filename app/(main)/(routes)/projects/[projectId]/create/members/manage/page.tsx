@@ -18,29 +18,12 @@ const ManageMembersWorkload = async ({
         redirect("/auth/login");
     }
 
-    const projectMembers = await db.workspace.findUnique({
-        where: {
-            id: params.projectId,
-            userId: user.id
-        },
-        include: {
-            members: {
-                include: {
-                    user: true
-                }
-            }
-        }
-    });
-
-    if (!projectMembers) {
-        redirect("/unauthorized");
-    }
-
-/*     const getTasks = await db.member.findMany({
+    const getTasks = await db.member.findMany({
         where: {
             workspaceId: params.projectId
         },
         include: {
+            user: true,
             tasks: {
                 include: {
                     task: true,
@@ -54,15 +37,17 @@ const ManageMembersWorkload = async ({
         },
     });
 
-    const taskspermember = getTasks.map((member) => {
-        member.tasks.map((task) => {
-            task.task.content
-        })
-    }); */
-
+    const taskPerMember = getTasks.map((member) => {
+        return {
+            memberName: member.user.name,
+            tasks: member.tasks.map((taskEntry) => taskEntry.task.content),
+            tasksMember: member.tasks.map((taskMembers) => taskMembers.member.user)
+        };
+    });
+    
     return (
         <>
-            <ManageMembersWorkloadForm members={projectMembers} />
+{/*             <ManageMembersWorkloadForm members={projectMembers} /> */}
         </>
     )
 }
