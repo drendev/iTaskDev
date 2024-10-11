@@ -24,7 +24,10 @@ export async function POST(
                 const { taskId, members } = task;
 
                 return db.task.update({
-                    where: { id: taskId },
+                    where: {
+                        id: taskId,
+                        projectId: params.workspacesId,
+                    },
                     data: {
                         members: {
                             createMany: {
