@@ -111,9 +111,11 @@ export const TasksIntensity = () => {
 
   const redir = async () => {
     setLoading(true);
-    // const res = await axios.post("/api/openai/autoassign", {
-    //   CreatedTask: id
-    // });
+    const res = await axios.post("/api/openai/autoassign", {
+      CreatedTask: id,
+    });
+
+    useCreateTaskStore.setState({ assigned: res.data });
     router.push(`/projects/${projectId}/tasks/taskassign`);
   };
 

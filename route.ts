@@ -5,6 +5,7 @@ export const publicRoutes = [
   "/sdlc",
   "/pages/api/socket/io",
   "/api/uploadthing",
+  "/api/workspaces",
 ];
 
 // An array of routes for authentication

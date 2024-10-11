@@ -188,8 +188,8 @@ model Task {
 
   members TaskMember[]
 
-  projectId   String
-  workspace   Workspace @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+  workspace Workspace @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   DateAssigned  DateTime?
   DateDue       DateTime?
@@ -197,6 +197,7 @@ model Task {
 
   Intensity String? @db.Text
   Priority  String? @db.Text
+  Status    String? @default("Pending") @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
