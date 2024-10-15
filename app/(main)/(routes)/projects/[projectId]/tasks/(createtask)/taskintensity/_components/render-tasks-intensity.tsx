@@ -123,10 +123,6 @@ export const TasksIntensity = () => {
     resetForm();
   }, [id]);
 
-  useEffect(() => {
-    console.log(id);
-  }, []);
-
   return (
     <div className="flex flex-col">
       <Card className="w-full">

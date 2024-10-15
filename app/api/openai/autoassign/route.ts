@@ -29,19 +29,6 @@ export async function POST(req: Request) {
         },
       },
     });
-    // const taskPerMember = getTasks.map((member) => {
-    //   return {
-    //     memberId: member.id,
-    //     memberName: member.user.name,
-    //     tasks: member.tasks.map(
-    //       (taskEntry) => taskEntry.task.content + taskEntry.task.Intensity
-    //     ),
-
-    //     tasksMember: member.tasks.map(
-    //       (taskMembers) => taskMembers.member.user.name
-    //     ),
-    //   };
-    // });
 
     const tasksString = CreatedTask.map(
       (task: Task, index: number) =>
@@ -69,7 +56,7 @@ export async function POST(req: Request) {
         {
           role: "system",
           content:
-            "You are an assistant that assigns tasks that will be given by the user that also has its task intensity rating and its deadline. Output the most fitting members that you will assign on the tasks prompted depending on each member's workload. You can assign more than one member in a task if necessary. Just output the members that will be assigned no need for explanations.",
+            "You are an assistant that assigns tasks that will be given by the user that also has its task intensity rating and its deadline. Output the most fitting members that you will assign on the tasks prompted depending on each member's workload. You can assign more than one member in a task if it is difficult. Just output the members that will be assigned no need for explanations.",
         },
         {
           role: "user",
@@ -86,6 +73,8 @@ export async function POST(req: Request) {
     });
 
     const data = completion.choices[0].message.content;
+
+    console.log("GPT Data: ", data);
 
     // Regular expression to match UUIDs
 
@@ -110,8 +99,6 @@ export async function POST(req: Request) {
         members: memberUUIDs[index],
       };
     });
-
-    console.log("CreatedTaskassigned: ", CreatedTasksAssigned);
 
     const assignTasks = await Promise.all(
       CreatedTasksAssigned.map(async (task: any) => {

@@ -7,6 +7,7 @@ import AssignedToYouCard from "@/components/task-list/assignedtoyoucard";
 import TasksListHeader from "@/components/task-list/taskslistheader";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import UserTasks from "./_components/user-tasks";
 
 interface TasksListsPageProps {
   params: {
@@ -21,15 +22,48 @@ const TaskList = async ({ params }: TasksListsPageProps) => {
     return redirect("/");
   }
 
-  // const taskInformation = await db.task.findMany({
-  //   where: {
-  //     projectId: params.projectId,
-  //   },
-  // });
+  const taskAssigned = await db.task.findMany({
+    where: {
+      projectId: params.projectId,
+      members: {
+        some: {
+          member: {
+            userId: user.id,
+          },
+        },
+      },
+    },
+    include: {
+      members: {
+        include: {
+          member: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      },
+    },
+  });
 
-  // if (!taskInformation) {
-  //   return redirect("/unauthorized");
-  // }
+  const info = taskAssigned.map((task) => {
+    return {
+      taskId: task.id,
+      taskContent: task.content,
+      taskIntensity: task.Intensity,
+      taskDateDue: task.DateDue,
+      taskStatus: task.Status,
+      taskMembers: task.members.map((member) => {
+        return {
+          memberId: member.member.userId,
+          memberUsername: member.member.user.name,
+          memberAvatar: member.member.user.image,
+        };
+      }),
+    };
+  });
+
+  console.log(info);
 
   return (
     <div>
@@ -42,8 +76,8 @@ const TaskList = async ({ params }: TasksListsPageProps) => {
       {/* TWO CARDS */}
       {/* Task List */}
       {/* Assigned to you */}
-      <div className="grid grid-cols-6">
-        {/* All Tasks sorted chronologically with deadline */}
+      <div className="grid mt-5">
+        <UserTasks tasks={info} projectId={params.projectId} />
       </div>
 
       {/*  */}
