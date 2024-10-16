@@ -29,69 +29,78 @@ import {
 
 import { Label, Pie, PieChart } from "recharts";
 
-const progressPercentage = 25;
-
-const radialChartData = [
-  {
-    progress: "Progress",
-    visitors: progressPercentage, // Use percentage for progress
-    fill: "var(--color-progress)",
-  },
-];
-
-const radialChartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  progress: {
-    label: "Progress",
-    color: "hsl(var(--chart-2))",
-  },
-} satisfies ChartConfig;
-
-const chartData = [
-  { status: "notstarted", tasks: 275, fill: "var(--color-notstarted)" },
-  { status: "inprogress", tasks: 200, fill: "var(--color-inprogress)" },
-  { status: "completed", tasks: 287, fill: "var(--color-completed)" },
-];
-
-const chartConfig = {
-  tasks: {
-    label: "Tasks",
-  },
-  notstarted: {
-    label: "Not Started",
-    color: "hsl(var(--chart-3))",
-  },
-  inprogress: {
-    label: "In Progress",
-    color: "hsl(var(--chart-1))",
-  },
-  completed: {
-    label: "Completed",
-    color: "hsl(var(--chart-2))",
-  },
-} satisfies ChartConfig;
+interface ChartStatistics {
+  pendingTotal: number;
+  doneTotal: number;
+  progressPercentage: number;
+  totalTasks: number;
+}
 
 interface ProjectOverviewCardProps {
   projectId: string;
-  tasks: number;
+  tasks: ChartStatistics;
 }
 
 export const ProjectOverviewCard = ({
   projectId,
   tasks,
 }: ProjectOverviewCardProps) => {
-  const totalTasks = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.tasks, 0);
-  }, []);
+  // Project Overview
 
-  const percentage = 66;
+  const radialChartConfig = {
+    visitors: {
+      label: "Visitors",
+    },
+    progress: {
+      label: "Progress",
+      color: "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig;
+
+  const chartData = [
+    {
+      status: "pending",
+      tasks: tasks.pendingTotal,
+      fill: "var(--color-pending)",
+    },
+    {
+      status: "completed",
+      tasks: tasks.doneTotal,
+      fill: "var(--color-completed)",
+    },
+  ];
+
+  const chartConfig = {
+    tasks: {
+      label: "Tasks",
+    },
+    pending: {
+      label: "Pending",
+      color: "hsl(var(--chart-3))",
+    },
+    completed: {
+      label: "Completed",
+      color: "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig;
+
+  // Progress Chart
+
+  const progressPercentage = parseFloat(tasks.progressPercentage.toFixed(2));
+
+  const radialChartData = [
+    {
+      progress: "Progress",
+      visitors: progressPercentage, // Use percentage for progress
+      fill: "var(--color-progress)",
+    },
+  ];
+
   return (
     <>
       <Card className="">
         <CardHeader>
-          <CardTitle>Projects Overview</CardTitle>
+          <CardTitle>Tasks Overview</CardTitle>
         </CardHeader>
         <CardContent>
           <ChartContainer
@@ -125,7 +134,7 @@ export const ProjectOverviewCard = ({
                             y={viewBox.cy}
                             className="fill-foreground text-3xl font-bold"
                           >
-                            {tasks}
+                            {tasks.totalTasks}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
