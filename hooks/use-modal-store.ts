@@ -1,11 +1,12 @@
-import { ProjectInformation, Workspace } from "@prisma/client";
+import { ProjectInformation, Task, Workspace } from "@prisma/client";
 import { create } from "zustand";
 
-export type ModalType = "createProject" | "invite" | "pending" | "members" | "editProject" | "leaveProject" | "deleteProject" | "messageFile" | "deleteMessage" | "editInformation";
+export type ModalType = "createProject" | "invite" | "pending" | "members" | "editProject" | "leaveProject" | "deleteProject" | "messageFile" | "deleteMessage" | "editInformation" | "viewTask";
 
 interface ModalData {
     workspace?: Workspace;
     info?: ProjectInformation;
+    task?: Task;
     apiUrl?: string;
     query?: Record<string, any>;
 }

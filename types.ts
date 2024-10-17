@@ -1,5 +1,5 @@
 
-import { Workspace, Member, PendingMember, User, Task, ProjectInformation, ProjectSdlc, MemberRole } from '@prisma/client'
+import { Workspace, Member, PendingMember, User, Task, ProjectInformation, ProjectSdlc, MemberRole, TaskMember } from '@prisma/client'
 
 export type ProjectWithMembers = Workspace & {
     members: (Member & { user: User})[]
@@ -42,4 +42,12 @@ export type Commit = {
         }
     };
     message: string;
+}
+
+// Task with Members
+
+export type Tasks = Task & {
+    members: {
+        member: Member & { user: User }
+    }[]
 }
