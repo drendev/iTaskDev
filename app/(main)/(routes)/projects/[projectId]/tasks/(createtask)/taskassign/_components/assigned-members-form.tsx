@@ -60,6 +60,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SquarePen, Plus, Minus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+import { Loader2 } from "lucide-react";
+
 interface MemberInfo {
   username: string;
   avatar: string;
@@ -90,6 +92,7 @@ const formSchema = z.object({
 const AssignedMembersForm = () => {
   const assigned = useCreateTaskStore((state) => state.assigned);
   const id = useCreateTaskStore((state) => state.id);
+  const [submitLoad, setSubmitLoad] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -133,6 +136,7 @@ const AssignedMembersForm = () => {
   }, []);
 
   const onFinish = () => {
+    setSubmitLoad(true);
     router.push(`/projects/${id?.[0]?.projectId}/tasks`);
   };
 
@@ -305,8 +309,16 @@ const AssignedMembersForm = () => {
           </Table>
         </CardContent>
         <CardFooter className="flex gap-3 text-right">
-          <Button onClick={() => onFinish()} className="text-right">
-            Proceed
+          <Button
+            disabled={submitLoad}
+            onClick={() => onFinish()}
+            className="text-right"
+          >
+            {submitLoad ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <>Proceed</>
+            )}
           </Button>
         </CardFooter>
       </Card>

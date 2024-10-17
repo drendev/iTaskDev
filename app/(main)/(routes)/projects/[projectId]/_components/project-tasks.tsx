@@ -9,6 +9,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 interface RecentCommitsCardProps {
   projectId: string;
 }
@@ -20,6 +27,9 @@ import { useTasksQuery } from "@/hooks/use-tasks-query";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { Loader2 } from "lucide-react";
 import { ProjectOverviewCard } from "./project-overview";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { TasksIntensity } from "../tasks/(createtask)/taskintensity/_components/render-tasks-intensity";
 
 export const ProjectTasksCard = ({ projectId }: RecentCommitsCardProps) => {
   const { data, status } = useTasksQuery({
@@ -68,6 +78,41 @@ export const ProjectTasksCard = ({ projectId }: RecentCommitsCardProps) => {
     );
   }
 
+  const pendingTasks = data.tasks
+    .filter((task: any) => task.Status === "Pending")
+    .map((task: any) => {
+      return {
+        taskContent: task.content,
+        taskIntensity: task.Intensity,
+        taskDateDue: task.DateDue,
+        taskMembers: task.members.map((member: any) => {
+          return {
+            memberId: member.member.user.id,
+            memberUsername: member.member.user.name,
+            memberImage: member.member.user.image,
+          };
+        }),
+      };
+    });
+
+  const userTasks = pendingTasks.filter((task: any) =>
+    task.taskMembers.some((member: any) => member.memberId === user?.id)
+  );
+
+  const chartTasksStats = {
+    pendingTotal: pendingTasks.length,
+    doneTotal: data.tasks.length - pendingTasks.length,
+    progressPercentage:
+      ((data.tasks.length - pendingTasks.length) / data.tasks.length) * 100,
+    totalTasks: data.tasks.length,
+  };
+
+  console.log(chartTasksStats);
+
+  console.log("Total Tasks", data.tasks.length);
+
+  console.log("Filtered users", userTasks);
+
   return (
     <>
       <Card className="row-span-2">
@@ -75,65 +120,83 @@ export const ProjectTasksCard = ({ projectId }: RecentCommitsCardProps) => {
           <CardTitle>Project Tasks</CardTitle>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="upcoming">
+          <Tabs defaultValue="projecttasks">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-              <TabsTrigger value="my-tasks">My Tasks</TabsTrigger>
+              <TabsTrigger value="projecttasks">Project Tasks</TabsTrigger>
+              <TabsTrigger value="mytasks">My Tasks</TabsTrigger>
             </TabsList>
 
             {/* Upcoming Tasks */}
-            <TabsContent value="upcoming" className="space-y-5">
-              {data.tasks.slice(0, 5).map((task: any) => (
-                <Card key={task.id}>
+            <TabsContent value="projecttasks" className="space-y-5">
+              {pendingTasks.slice(0, 5).map((task: any, index: number) => (
+                <Card key={index}>
                   <CardHeader>
                     <div className="flex justify-between items-center">
-                      <CardTitle className="text-lg">
-                        {task.Intensity}
+                      <CardTitle className="text-lg flex items-center gap-3">
+                        {task.taskMembers.map((member: any) => (
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <Avatar>
+                                  <AvatarImage
+                                    src={member.memberImage}
+                                  ></AvatarImage>
+                                </Avatar>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                {member.memberUsername}
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        ))}
+
+                        <Badge>{task.taskIntensity}</Badge>
                       </CardTitle>
-                      <Checkbox />
                     </div>
-                    <CardDescription>{task.content}</CardDescription>
+                    <CardDescription>{task.taskContent}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-2"></CardContent>
                 </Card>
               ))}
             </TabsContent>
+            <TabsContent value="mytasks" className="space-y-5">
+              {userTasks.slice(0, 5).map((task: any, index: number) => (
+                <Card key={index}>
+                  <CardHeader>
+                    <div className="flex justify-between items-center">
+                      <CardTitle className="text-lg flex items-center gap-3">
+                        {task.taskMembers.map((member: any) => (
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <Avatar>
+                                  <AvatarImage
+                                    src={member.memberImage}
+                                  ></AvatarImage>
+                                </Avatar>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                {member.memberUsername}
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        ))}
 
-            {/* My Tasks */}
-            <TabsContent value="my-tasks" className="space-y-5">
-              {/* {data.tasks.length > 0 ? (
-                            data.tasks
-                                .filter((task: any) =>
-                                    task.members.some((member: any) => member.memberId === user?.id)
-                                )
-                                .slice(0, 5)
-                                .map((task: any) => (
-                                    <Card key={task.id}>
-                                        <CardHeader>
-                                            <div className="flex justify-between items-center">
-                                                <CardTitle className="text-lg">
-                                                    {task.Intensity}
-                                                </CardTitle>
-                                            </div>
-                                            <CardDescription>
-                                                {task.content}
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent className="space-y-2"></CardContent>
-                                    </Card>
-                                ))
-                            ) : (
-                                <p className=" text-gray-400">No tasks assigned to you</p>
-                            )} */}
-              <p className="text-gray-400 mt-10 text-center flex">
-                No tasks assigned.
-              </p>
+                        <Badge>{task.taskIntensity}</Badge>
+                      </CardTitle>
+                    </div>
+                    <CardDescription>{task.taskContent}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2"></CardContent>
+                </Card>
+              ))}
             </TabsContent>
           </Tabs>
         </CardContent>
+
         <CardFooter className="flex justify-between"></CardFooter>
       </Card>
-      <ProjectOverviewCard projectId={projectId} tasks={data.tasks.length} />
+      <ProjectOverviewCard projectId={projectId} tasks={chartTasksStats} />
     </>
   );
 };
