@@ -164,11 +164,11 @@ const HeroSection = () => {
             </div>
           </div>
         ) : (
-          <div className="flex xl:space-x- items-center justify-between hover:cursor-pointer gap-4 w-4/5 xl:w-3/4 2xl:w-[55%]">
+          <div className="flex items-center justify-between hover:cursor-pointer gap-4 w-4/5 xl:w-3/4 2xl:w-[55%]">
             {tabs.map((tab) => (
               <motion.div
                 key={tab.name}
-                className={`xl:flex justify-center space-x-4 xl:pt-4 sm:my-10 xl:py-0 w-60 h-36
+                className={`xl:flex justify-center xl:pt-4 sm:my-10 xl:py-0 w-60 h-36
                 ${
                   activeTab === tab
                     ? "border rounded-xl pt-2 bg-white"
@@ -223,13 +223,15 @@ const HeroSection = () => {
         {/* display content based on the active tab on medium size screens and bigger */}
         <div>
           {activeTab && (
-            <Image
-              src={activeTab.image}
-              alt="Hero"
-              width={1000}
-              height={1000}
-              className="w-full border p-5 rounded-xl shadow-md bg-[#f6f5f4]"
-            />
+            <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
+              <Image
+                src={activeTab.image}
+                alt="Hero"
+                width={1000}
+                height={1000}
+                className="w-full  border p-20 md:p-8 xl:p-40 rounded-xl shadow-md bg-[#f6f5f4]"
+              />
+            </div>
           )}
         </div>
       </div>
