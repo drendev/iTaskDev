@@ -229,7 +229,7 @@ const HeroSection = () => {
                 alt="Hero"
                 width={1000}
                 height={1000}
-                className="w-full  border p-20 md:p-8 xl:p-40 rounded-xl shadow-md bg-[#f6f5f4]"
+                className=" border p-5 rounded-xl shadow-md bg-[#f6f5f4]"
               />
             </div>
           )}
