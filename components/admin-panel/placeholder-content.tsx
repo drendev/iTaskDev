@@ -285,9 +285,8 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
                     <CardContent className="flex gap-3">
                       {sdlcData.map((color, index) => {
                         if (color.sdlc === task.projectSDLC) {
-                          return <SdlcBlock color={color.color} />;
+                          return <SdlcBlock key={index} color={color.color} />;
                         }
-                        return null;
                       })}
                       <p className="text-xs">{task.projectName}</p>
                     </CardContent>

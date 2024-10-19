@@ -135,8 +135,8 @@ const Iterative: React.FC<SDLCProps> = ({ changeSlide }) => {
               diagram, and so on, to gain explicit knowledge of the program
               design and to help them progress with development. Based on their
               investigation, developers provide viable solutions. Furthermore,
-              the project's scale and criticality are crucial factors in
-              deciding the complexity of the design for the project.s
+              the project&apos;s scale and criticality are crucial factors in
+              deciding the complexity of the design for the project
             </p>
 
             <h1 className="mt-10 text-xl font-semibold">Implementation</h1>
@@ -144,13 +144,13 @@ const Iterative: React.FC<SDLCProps> = ({ changeSlide }) => {
             <p className="mt-10 text-justify">
               At this point in the project, according to the iterative model,
               the actual coding of the system begins. This stage will be
-              influenced by the Design Stage's analysis and design. All needs,
-              planning, and design plans have been carried out. The chosen
-              design will be implemented by the developer using predefined
-              coding and metrics standards. They must implement a unit test at
-              each stage of code development and should strive to produce a
-              fully functional, testable system for that iteration. The
-              complexity of work and time spent on this iteration will vary
+              influenced by the Design Stage&apos;s analysis and design. All
+              needs, planning, and design plans have been carried out. The
+              chosen design will be implemented by the developer using
+              predefined coding and metrics standards. They must implement a
+              unit test at each stage of code development and should strive to
+              produce a fully functional, testable system for that iteration.
+              The complexity of work and time spent on this iteration will vary
               depending on the project.
             </p>
 
@@ -164,8 +164,8 @@ const Iterative: React.FC<SDLCProps> = ({ changeSlide }) => {
               multi-site testing, disaster recovery testing, and so on. The
               tester can create new test cases or reuse those from previous
               releases, but testing is a key priority because any failures would
-              affect the software's specification, affecting the business. We
-              can also check in with the project stakeholders to perform some
+              affect the software&apos;s specification, affecting the business.
+              We can also check in with the project stakeholders to perform some
               tests and get their input. A developer or tester must guarantee
               that correcting one bug does not result in the appearance of new
               bugs in the system.
