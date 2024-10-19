@@ -10,6 +10,10 @@ import {
 } from "@/components/ui/card";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
+import { useTasksQuery } from "@/hooks/use-tasks-query";
+
+import { Loader2 } from "lucide-react";
+
 import {
   ChartConfig,
   ChartContainer,
@@ -24,24 +28,72 @@ interface TaskPerMonthCardProps {
 }
 
 export const TaskPerMonthCard = ({ projectId }: TaskPerMonthCardProps) => {
+  const { data, status } = useTasksQuery({
+    queryKey: `tasks:${projectId}`,
+    projectId: projectId,
+  });
+
+  if (status === "pending") {
+    return (
+      <Card className="col-span-2">
+        <CardHeader>
+          <CardTitle>Project Tasks</CardTitle>
+        </CardHeader>
+        <CardContent className="flex items-center justify-center h-full">
+          <Loader2 className="mr-2 h-8 w-8 animate-spin" />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const barChartStats = months.reduce((acc, month, index) => {
+    acc[month] = data.tasks.filter((task: any) => {
+      const dateCompleted = task.DateCompleted
+        ? new Date(task.DateCompleted)
+        : null;
+      return (
+        dateCompleted instanceof Date &&
+        !isNaN(dateCompleted.getTime()) &&
+        dateCompleted.getMonth() + 1 === index + 1
+      );
+    }).length;
+    return acc;
+  }, {} as Record<string, number>);
+
+  console.log("BarChartStats", barChartStats);
   const barChartData = [
-    { month: "January", desktop: 186 },
-    { month: "February", desktop: 305 },
-    { month: "March", desktop: 237 },
-    { month: "April", desktop: 73 },
-    { month: "May", desktop: 209 },
-    { month: "June", desktop: 214 },
-    { month: "July", desktop: 214 },
-    { month: "August", desktop: 214 },
-    { month: "September", desktop: 214 },
-    { month: "October", desktop: 214 },
-    { month: "November", desktop: 214 },
-    { month: "December", desktop: 214 },
+    { month: "January", tasks: barChartStats.January },
+    { month: "February", tasks: barChartStats.February },
+    { month: "March", tasks: barChartStats.March },
+    { month: "April", tasks: barChartStats.April },
+    { month: "May", tasks: barChartStats.May },
+    { month: "June", tasks: barChartStats.June },
+    { month: "July", tasks: barChartStats.July },
+    { month: "August", tasks: barChartStats.August },
+    { month: "September", tasks: barChartStats.September },
+    { month: "October", tasks: barChartStats.October },
+    { month: "November", tasks: barChartStats.November },
+    { month: "December", tasks: barChartStats.December },
   ];
 
   const barChartConfig = {
-    desktop: {
-      label: "Desktop",
+    tasks: {
+      label: "Tasks",
       color: "hsl(var(--chart-1))",
     },
   } satisfies ChartConfig;
@@ -62,7 +114,7 @@ export const TaskPerMonthCard = ({ projectId }: TaskPerMonthCardProps) => {
                 left: -20,
               }}
             >
-              <XAxis type="number" dataKey="desktop" hide />
+              <XAxis type="number" dataKey="tasks" hide />
               <YAxis
                 dataKey="month"
                 type="category"
@@ -75,7 +127,7 @@ export const TaskPerMonthCard = ({ projectId }: TaskPerMonthCardProps) => {
                 cursor={false}
                 content={<ChartTooltipContent hideLabel />}
               />
-              <Bar dataKey="desktop" fill="var(--color-desktop)" radius={5} />
+              <Bar dataKey="tasks" fill="var(--color-tasks)" radius={5} />
             </BarChart>
           </ChartContainer>
         </CardContent>

@@ -18,8 +18,22 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Task } from "@prisma/client";
+import { Badge } from "../ui/badge";
+import { CircleCheck } from "lucide-react";
+
+import { TrendingUp } from "lucide-react";
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
 interface Workspace {
+  dueDate: Date | null;
   workspace: {
     id: string;
     name: string;
@@ -27,53 +41,134 @@ interface Workspace {
   };
 }
 
-interface ProjectByTasks {
-  project: Workspace[];
+interface Tasks {
+  taskContent: string;
+  taskDateCompleted: Date | null;
+  taskStatus: string | null;
+  projectName: string;
+  projectSDLC: string | null;
 }
 
-const sdlcColors = [
-  {
-    sdlc: "waterfall",
-    block: <div className="flex p-1 bg-blue-400" />,
-  },
-  {
-    sdlc: "scrum",
-    block: <div className="flex p-1 bg-amber-400" />,
-  },
-  {
-    sdlc: "kanban",
-    block: <div className="flex p-1 bg-cyan-400" />,
-  },
-  {
-    sdlc: "devops",
-    block: <div className="flex p-1 bg-fuchsia-400" />,
-  },
-  {
-    sdlc: "v-shape",
-    block: <div className="flex p-1 bg-pink-400" />,
-  },
-  {
-    sdlc: "spiral",
-    block: <div className="flex p-1 bg-rose-400" />,
-  },
-  {
-    sdlc: "rad",
-    block: <div className="flex p-1 bg-teal-400" />,
-  },
-  {
-    sdlc: "lean",
-    block: <div className="flex p-1 bg-red-400" />,
-  },
-  {
-    sdlc: "iterative",
-    block: <div className="flex p-1 bg-lime-400" />,
-  },
+interface ProjectProgressTasks {
+  status: string | null;
+}
+
+interface ProjectProgress {
+  projectName: string;
+  projectSDLC: string | null;
+  taskStatus: ProjectProgressTasks[];
+}
+
+interface ProjectByTasks {
+  project: Workspace[];
+  tasks: Tasks[];
+  progress: ProjectProgress[];
+}
+
+const sdlcData: { sdlc: string; color: string }[] = [
+  { sdlc: "waterfall", color: "bg-blue-400" },
+  { sdlc: "scrum", color: "bg-amber-400" },
+  { sdlc: "kanban", color: "bg-cyan-400" },
+  { sdlc: "devops", color: "bg-fuchsia-400" },
+  { sdlc: "v-shape", color: "bg-pink-400" },
+  { sdlc: "spiral", color: "bg-rose-400" },
+  { sdlc: "rad", color: "bg-teal-400" },
+  { sdlc: "lean", color: "bg-red-400" },
+  { sdlc: "iterative", color: "bg-lime-400" },
 ];
 
-const PlaceholderContent = ({ project }: ProjectByTasks) => {
+const SdlcBlock = ({ color }: { color: string }) => (
+  <div className={`flex p-1 ${color}`} />
+);
+
+const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
   const user = useCurrentUser();
 
   const router = useRouter();
+
+  // Recently Done Tasks
+  const doneTasks = tasks.filter((task) => task.taskStatus === "Done");
+
+  //  Tasks done per month
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const barChartStats = months.reduce((acc, month, index) => {
+    acc[month] = tasks.filter((task: any) => {
+      const dateCompleted = task.taskDateCompleted
+        ? new Date(task.taskDateCompleted)
+        : null;
+      return (
+        dateCompleted instanceof Date &&
+        !isNaN(dateCompleted.getTime()) &&
+        dateCompleted.getMonth() + 1 === index + 1
+      );
+    }).length;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const chartData = [
+    { month: "January", tasks: barChartStats.January },
+    { month: "February", tasks: barChartStats.February },
+    { month: "March", tasks: barChartStats.March },
+    { month: "April", tasks: barChartStats.April },
+    { month: "May", tasks: barChartStats.May },
+    { month: "June", tasks: barChartStats.June },
+    { month: "July", tasks: barChartStats.July },
+    { month: "August", tasks: barChartStats.August },
+    { month: "September", tasks: barChartStats.September },
+    { month: "October", tasks: barChartStats.October },
+    { month: "November", tasks: barChartStats.November },
+    { month: "December", tasks: barChartStats.December },
+  ];
+  const chartConfig = {
+    tasks: {
+      label: "Tasks",
+      color: "hsl(var(--chart-1))",
+    },
+  } satisfies ChartConfig;
+
+  // Projects with most progress
+
+  const progressCalculate = progress.map((project) => {
+    return {
+      projectName: project.projectName,
+      projectSDLC: project.projectSDLC,
+      progress: parseFloat(
+        (
+          (project.taskStatus.filter((task) => task.status === "Done").length /
+            project.taskStatus.length) *
+          100
+        ).toFixed(2)
+      ),
+    };
+  });
+
+  const compare = (a: any, b: any) => {
+    if (a.progress > b.progress) {
+      return -1;
+    }
+    if (a.progress < b.progress) {
+      return 1;
+    }
+    return 0;
+  };
+
+  progressCalculate.sort(compare);
+
+  console.log("ProgressCalculate: ", progressCalculate);
 
   return (
     <div className="w-full p-5">
@@ -92,8 +187,8 @@ const PlaceholderContent = ({ project }: ProjectByTasks) => {
       </div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <Card>
+      <div className="grid grid-cols-6 gap-3">
+        <Card className="col-span-4">
           <CardHeader>
             <div className="flex justify-between">
               <div>
@@ -113,19 +208,32 @@ const PlaceholderContent = ({ project }: ProjectByTasks) => {
                 onClick={() => router.push(`/projects/${proj.workspace.id}`)}
                 className="w-full"
               >
-                <Card className="mb-5 mr-5 hover:bg-zinc-100 flex" key={index}>
+                <Card
+                  className="mb-5 mr-5 hover:bg-zinc-100 flex shadow-md"
+                  key={index}
+                >
                   <div className="flex">
-                    {sdlcColors.map((color, index) => {
+                    {sdlcData.map((color, index) => {
                       if (color.sdlc === proj.workspace.sdlc) {
-                        return <>{color.block}</>;
+                        return (
+                          <>
+                            <SdlcBlock color={color.color} />
+                          </>
+                        );
                       }
                       return null;
                     })}
                     <div>
                       <CardHeader>
-                        <CardTitle className="flex justify-between items-center text-lg">
+                        <p className="flex font-semibold text-lg">
                           {proj.workspace.name}
-                        </CardTitle>
+                        </p>
+                        <p className="flex">
+                          {" "}
+                          {proj.dueDate
+                            ? proj.dueDate.toDateString()
+                            : "On-Going"}
+                        </p>
                       </CardHeader>
                     </div>
                   </div>
@@ -134,103 +242,85 @@ const PlaceholderContent = ({ project }: ProjectByTasks) => {
             ))}
           </CardContent>
         </Card>
-        <Card>
+        <Card className="col-span-2">
           <CardHeader>
-            <div className="flex justify-between">
-              <div>
-                <CardTitle>Messages</CardTitle>
-                <CardDescription>Latest updates in iTaskDev</CardDescription>
-              </div>
-              <div className="flex items-center text-sm">View all</div>
-            </div>
+            <CardTitle>Completed Tasks</CardTitle>
+            <CardDescription>Your recent tasks marked as done</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="flex justify-between">
-              <div className="text-sm mr-8">
-                Implementation of DevIntel AI an SDLC Recommendation feature to
-                find the best Methodology for your project powered by NLP.
-              </div>
-              <div className="flex text-sm text-gray-500">September 23</div>
-            </div>
+          <CardContent className="space-y-3 overflow-y-scroll">
+            {doneTasks.slice(0, 3).map((task) => (
+              <Card className="shadow-md">
+                <CardHeader>
+                  <CardTitle className="text-base mb-2">
+                    <div className="flex items-center gap-3">
+                      <Badge className="bg-emerald-500">Done</Badge>
+                      <p>{task.taskContent}</p>
+                    </div>
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    {`Completed:  ${task.taskDateCompleted?.toDateString()}`}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex gap-3">
+                  {sdlcData.map((color, index) => {
+                    if (color.sdlc === task.projectSDLC) {
+                      return <SdlcBlock color={color.color} />;
+                    }
+                    return null;
+                  })}
+                  <p className="text-xs">{task.projectName}</p>
+                </CardContent>
+              </Card>
+            ))}
           </CardContent>
         </Card>
-        <Card>
+        <Card className="col-span-3">
           <CardHeader>
-            <div className="flex justify-between">
-              <div>
-                <CardTitle>Tasks</CardTitle>
-                <CardDescription>
-                  Manage subscriptions and billing
-                </CardDescription>
-              </div>
-              <div className="flex items-center text-sm">Manage</div>
-            </div>
+            <CardTitle>Tasks done per month</CardTitle>
+            <CardDescription>
+              Showing tasks done per month for the whole year
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col items-start text-sm space-y-10">
-              <button className="mt-5">Manage subscriptions</button>
-              <button>Payment accounts</button>
-              <button>Get more services</button>
-            </div>
+            <ChartContainer config={chartConfig}>
+              <AreaChart
+                accessibilityLayer
+                data={chartData}
+                margin={{
+                  left: 12,
+                  right: 12,
+                }}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="dot" hideLabel />}
+                />
+                <Area
+                  dataKey="tasks"
+                  type="linear"
+                  fill="var(--color-tasks)"
+                  fillOpacity={0.4}
+                  stroke="var(--color-tasks)"
+                />
+              </AreaChart>
+            </ChartContainer>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="col-span-3">
           <CardHeader>
-            <div className="flex justify-between">
-              <div>
-                <CardTitle>Discover</CardTitle>
-                <CardDescription>Get the most out of iTaskDev</CardDescription>
-              </div>
-            </div>
+            <CardTitle>Project Progress</CardTitle>
+            <CardDescription>Projects that are almost done</CardDescription>
           </CardHeader>
           <CardContent>
-            <Image
-              src="/transhumans/experiments.png"
-              alt="expe"
-              width={500}
-              height={500}
-              className="w-56 h-full mx-auto"
-            />
-            <p className="text-sm my-5">Get the most out of iTaskDev</p>
-            <p className="text-sm my-5 text-gray-500">
-              Learn more about the best features of iTaskDev and make sure
-              everything is set up just right.
-            </p>
-            <button>DISCOVER ITASKDEV</button>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <div className="flex justify-between">
-              <div>
-                <CardTitle>Github</CardTitle>
-                <CardDescription>Manage your domains</CardDescription>
-              </div>
-              <div className="flex items-center text-sm">Overview</div>
-            </div>
-          </CardHeader>
-          <CardContent></CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <div className="flex justify-between">
-              <div className="mr-5">
-                <CardTitle>Security</CardTitle>
-                <CardDescription>
-                  View notifications about potential issues
-                </CardDescription>
-              </div>
-              <div className="flex items-center text-sm">View all</div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="flex justify-between">
-              <div className="flex items-center gap-3">
-                <PiArrowsLeftRightThin /> Primary admin changed
-              </div>
-              <div className="text-gray-500 text-sm">September 23</div>
-            </div>
+            <p>Card Content</p>
           </CardContent>
         </Card>
       </div>

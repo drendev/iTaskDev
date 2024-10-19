@@ -14,7 +14,11 @@ export async function POST(
 
     const status = response.status;
 
-    console.log("Response", response);
+    let dateCompleted: Date | null = new Date();
+
+    if (status.status === "Pending") {
+      dateCompleted = null;
+    }
 
     const setStatus = await db.task.update({
       where: {
@@ -22,6 +26,7 @@ export async function POST(
       },
       data: {
         Status: status.status,
+        DateCompleted: dateCompleted,
       },
     });
 

@@ -93,6 +93,8 @@ export async function POST(req: Request) {
       (member) => member.match(uuidRegex) || []
     );
 
+    console.log("Members UUIDS: ", memberUUIDs);
+
     const CreatedTasksAssigned = CreatedTask.map((task: any, index: number) => {
       return {
         task: task.id,

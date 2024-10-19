@@ -107,12 +107,6 @@ export const ProjectTasksCard = ({ projectId }: RecentCommitsCardProps) => {
     totalTasks: data.tasks.length,
   };
 
-  console.log(chartTasksStats);
-
-  console.log("Total Tasks", data.tasks.length);
-
-  console.log("Filtered users", userTasks);
-
   return (
     <>
       <Card className="row-span-2">

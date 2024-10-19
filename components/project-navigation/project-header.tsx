@@ -32,7 +32,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, Clipboard, MessageCircle } from "lucide-react";
+import { ChevronDown, Clipboard, MessageCircle, Users } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -53,8 +53,12 @@ export const ProjectHeader = ({
 
   const isAdmin = role === MemberRole.ADMIN;
 
-  const onSubmit = async () => {
+  const redirTasks = async () => {
     router.push(`/projects/${project.id}/tasks`);
+  };
+
+  const redirMembers = async () => {
+    router.push(`/projects/${project.id}/members`);
   };
 
   return (
@@ -167,7 +171,7 @@ export const ProjectHeader = ({
             </DropdownMenuContent>
           </DropdownMenu>
           <Button
-            onClick={() => onSubmit()}
+            onClick={() => redirTasks()}
             variant={"ghost"}
             className="flex items-center gap-3"
           >

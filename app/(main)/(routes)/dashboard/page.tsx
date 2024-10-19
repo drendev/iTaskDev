@@ -15,6 +15,7 @@ export default async function DashboardPage() {
     redirect("/auth/login");
   }
 
+  // Project with nearest deadlines
   const project = await db.projectInformation.findMany({
     where: {
       workspace: {
@@ -29,6 +30,7 @@ export default async function DashboardPage() {
       dueDate: "asc",
     },
     select: {
+      dueDate: true,
       workspace: {
         select: {
           id: true,
@@ -37,10 +39,73 @@ export default async function DashboardPage() {
         },
       },
     },
-    take: 3
+    take: 3,
   });
 
-  setTimeout(() => console.log(project), 3000);
+  // Recently completed tasks of the user
+  const recentlyCompletedTasks = await db.task.findMany({
+    where: {
+      members: {
+        some: {
+          member: {
+            userId: user.id,
+          },
+        },
+      },
+    },
+    include: {
+      workspace: {
+        include: {
+          info: true,
+        },
+      },
+    },
+  });
 
-  return <PlaceholderContent project={project} />;
+  const recentCompTasks = recentlyCompletedTasks.map((task) => {
+    return {
+      taskContent: task.content,
+      taskDateCompleted: task.DateCompleted,
+      taskStatus: task.Status,
+      projectName: task.workspace.name,
+      projectSDLC: task.workspace.sdlc,
+    };
+  });
+
+  console.log(recentCompTasks);
+
+  // Projects with highest progress
+
+  const projectMostProgress = await db.workspace.findMany({
+    where: {
+      members: {
+        some: {
+          userId: user.id,
+        },
+      },
+    },
+    include: {
+      tasks: true,
+    },
+  });
+
+  const ProjMostProgInfo = projectMostProgress.map((project) => {
+    return {
+      projectName: project.name,
+      projectSDLC: project.sdlc,
+      taskStatus: project.tasks.map((task) => {
+        return {
+          status: task.Status,
+        };
+      }),
+    };
+  });
+
+  return (
+    <PlaceholderContent
+      project={project}
+      tasks={recentCompTasks}
+      progress={ProjMostProgInfo}
+    />
+  );
 }
