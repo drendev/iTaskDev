@@ -269,8 +269,8 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
           <CardContent>
             <ScrollArea className="h-96">
               {doneTasks.length > 0 ? (
-                doneTasks.slice(0, 5).map((task) => (
-                  <Card className="shadow-md mb-3">
+                doneTasks.slice(0, 5).map((task, index) => (
+                  <Card key={index} className="shadow-md mb-3">
                     <CardHeader>
                       <CardTitle className="text-base mb-2">
                         <div className="flex items-center gap-3">
