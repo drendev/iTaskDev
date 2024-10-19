@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 interface SDLCProps {
   changeSlide: (activeSlide: string) => void;
@@ -70,209 +72,145 @@ const Iterative: React.FC<SDLCProps> = ({ changeSlide }) => {
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
-          <div className="flex flex-col md:flex items-center justify-center w-full">
+          <div className="flex flex-col md:flex w-full">
             <motion.div
               initial={{ scale: 0 }}
               animate={{
                 scale: 1,
               }}
-              className="text-6xl"
+              className="text-6xl flex items-center justify-center"
             >
               Iterative
             </motion.div>
-            {!sdlcLoaded && (
-              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-40 md:h-72 xl:h-72 rounded-xl" />
-            )}
+
             <Image
               src="/sdlc/iterative.png"
               alt="iterative"
               width={1000}
               height={1000}
-              className={`w-96 mt-10 object-cover ${
-                loaded1 ? "block" : "opacity-0 absolute"
-              }`}
-              onLoad={() => setSdlcLoaded(true)}
+              className="w-[600px] mt-10 object-cover mx-auto"
             />
-            <div className="mt-10">
-              The Waterfall Model was the first Process Model to be introduced.
-              It is also referred to as a linear-sequential life cycle model. It
-              is very simple to understand and use. In a waterfall model, each
-              phase must be completed before the next phase can begin and there
-              is no overlapping in the phases. The Waterfall model is the
-              earliest SDLC approach that was used for software development. The
-              waterfall Model illustrates the software development process in a
-              linear sequential flow. This means that any phase in the
-              development process begins only if the previous phase is complete.
-              In this waterfall model, the phases do not overlap.
-            </div>
+
+            <p className="mt-10 text-justify">
+              The iterative model is a software development life cycle (SDLC)
+              approach in which initial development work is carried out based on
+              well-stated basic requirements, and successive enhancements are
+              added to this base piece of software through iterations until the
+              final system is built. We get a working piece of software very
+              early in the lifecycle because the iterative model begins with a
+              simple execution of a small collection of software requirements,
+              which iteratively improves the evolving variants until the entire
+              system is executed and ready to be redistributed. Every Iterative
+              model release is created over a certain and predetermined time
+              period known as iteration. Bugs and errors from the previous
+              iteration do not propagate to the next iteration, and this model
+              is flexible enough to incorporate customer feedback in every
+              iteration.
+            </p>
+
+            <h1 className="mt-10 text-2xl font-semibold">
+              Phases of Iterative Model
+            </h1>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              {" "}
+              Requirement Gathering & Analysis
+            </h1>
+
+            <p className="mt-10 text-justify">
+              The business requirements are gathered during this phase of the
+              iterative model. Then, an analyst determines whether they can be
+              met within the financial constraints. This phase details the
+              business needs, and system information (hardware or software) is
+              acquired and assessed for viability.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Design</h1>
+
+            <p className="mt-10 text-justify">
+              During this phase of the iterative model, the project team
+              receives the complete list of criteria for starting work in a
+              specific direction. Then, they use various diagrams, like a data
+              flow diagram, class diagram, activity diagram, state transition
+              diagram, and so on, to gain explicit knowledge of the program
+              design and to help them progress with development. Based on their
+              investigation, developers provide viable solutions. Furthermore,
+              the project's scale and criticality are crucial factors in
+              deciding the complexity of the design for the project.s
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Implementation</h1>
+
+            <p className="mt-10 text-justify">
+              At this point in the project, according to the iterative model,
+              the actual coding of the system begins. This stage will be
+              influenced by the Design Stage's analysis and design. All needs,
+              planning, and design plans have been carried out. The chosen
+              design will be implemented by the developer using predefined
+              coding and metrics standards. They must implement a unit test at
+              each stage of code development and should strive to produce a
+              fully functional, testable system for that iteration. The
+              complexity of work and time spent on this iteration will vary
+              depending on the project.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Testing</h1>
+
+            <p className="mt-10 text-justify">
+              This stage entails comparing the current build iteration to a set
+              of rules and norms to determine whether or not it fits them. This
+              sort of testing includes performance testing, stress testing,
+              security testing, requirements testing, usability testing,
+              multi-site testing, disaster recovery testing, and so on. The
+              tester can create new test cases or reuse those from previous
+              releases, but testing is a key priority because any failures would
+              affect the software's specification, affecting the business. We
+              can also check in with the project stakeholders to perform some
+              tests and get their input. A developer or tester must guarantee
+              that correcting one bug does not result in the appearance of new
+              bugs in the system.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Deployment</h1>
+
+            <p className="mt-10 text-justify">
+              After completing all the phases, the software is deployed to its
+              work environment.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Review</h1>
+
+            <p className="mt-10 text-justify">
+              In this phase, after the product deployment, we check the behavior
+              and validity of the deployed product. And if any errors are found,
+              the process starts again from requirement gathering.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Maintenance</h1>
+
+            <p className="mt-10 text-justify">
+              In the maintenance phase, after software deployment in the working
+              environment, there may be some bug fixes or new updates required.
+            </p>
+
+            <Separator className="mt-10" />
+
+            <h1 className="text-lg text-gray-800 mt-5">References</h1>
+            <Link
+              href="https://www.scaler.com/topics/software-engineering/iterative-model-in-software-engineering/"
+              className="text-gray-500 text-sm mb-5"
+            >
+              SDLC - Iterative Model
+            </Link>
+
+            <Separator />
           </div>
         </div>
-
-        {isSmallScreen && (
-          <div className="flex flex-col items-center justify-center">
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded1 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[0]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded2 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[1]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded3 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[2]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div
-            className="md:flex py-10 px-8 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-          >
-            {active === 0 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[0]}
-              </div>
-            )}
-            {active === 1 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[1]}
-              </div>
-            )}
-            {active === 2 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[2]}
-              </div>
-            )}
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div className="flex space-x-5 mx-auto">
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(0)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 0 ? "border-lime-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(1)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 1 ? "border-lime-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(2)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 2 ? "border-lime-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-          </div>
-        )}
         <div
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
           <div className="flex flex-col md:flex items-center justify-center w-full">
-            <div className="mt-10">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
             <div className="flex justify-between my-10 w-full">
               <Button
                 onClick={() => handleLinkClick("devops")}

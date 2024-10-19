@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 interface SDLCProps {
   changeSlide: (activeSlide: string) => void;
@@ -70,210 +72,150 @@ const Kanban: React.FC<SDLCProps> = ({ changeSlide }) => {
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
-          <div className="flex flex-col md:flex items-center justify-center w-full">
+          <div className="flex flex-col md:flex w-full">
             <motion.div
               initial={{ scale: 0 }}
               animate={{
                 scale: 1,
               }}
-              className="text-6xl"
+              className="text-6xl flex items-center justify-center"
             >
               Kanban
             </motion.div>
-            {!sdlcLoaded && (
-              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-40 md:h-72 xl:h-72 rounded-xl" />
-            )}
+
             <Image
               src="/sdlc/kanban.png"
               alt="kanban"
               width={1000}
               height={1000}
-              className={`w-[550px] mt-10 object-cover ${
-                loaded1 ? "block" : "opacity-0 absolute"
-              }`}
-              onLoad={() => setSdlcLoaded(true)}
+              className="w-[600px] mt-10 object-cover mx-auto"
             />
-            <div className="mt-10">
-              The Waterfall Model was the first Process Model to be introduced.
-              It is also referred to as a linear-sequential life cycle model. It
-              is very simple to understand and use. In a waterfall model, each
-              phase must be completed before the next phase can begin and there
-              is no overlapping in the phases. The Waterfall model is the
-              earliest SDLC approach that was used for software development. The
-              waterfall Model illustrates the software development process in a
-              linear sequential flow. This means that any phase in the
-              development process begins only if the previous phase is complete.
-              In this waterfall model, the phases do not overlap.
-            </div>
+
+            <p className="mt-10 text-justify">
+              Kanban is a popular Agile Software Development Methodology. It is
+              a signaling device that instructs the moving of parts in a ‘pull’
+              production system, developed as part of the TPS (Toyota Production
+              System). Kanban is about envisioning the existing workflow in
+              terms of steps. These steps can be created on the whiteboard.
+            </p>
+
+            <h1 className="mt-10 text-2xl font-semibold">
+              Steps of Kanban Approach
+            </h1>
+
+            <p className="mt-10 text-justify">
+              The Kanban approach involves three steps:
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 1. Visualize:{" "}
+              <span className="font-normal">
+                This step involves defining and visualizing the workflow.
+              </span>
+            </h1>
+            <ul className="max-w-md space-y-1  list-disc list-inside mt-10">
+              <li>Understand the need for improvement.</li>
+              <li>Define the process.</li>
+              <li>Value stream entire process flow.</li>
+              <li>Visualize process flow.</li>
+            </ul>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 2. Quantify:{" "}
+              <span className="font-normal">
+                This step involves three activities:
+              </span>
+            </h1>
+
+            <ul className="space-y-4 list-decimal list-inside mt-10">
+              <li>
+                Startup:
+                <ol className="ps-5 mt-2 space-y-1 list-disc list-inside">
+                  <li>Understand and/ or estimate WIP.</li>
+                  <li>Create initial WIP limits.</li>
+                </ol>
+              </li>
+              <li>
+                Adjust:
+                <ul className="ps-5 mt-2 space-y-1 list-disc list-inside">
+                  <li>Study the feasibility of WIP limits.</li>
+                  <li>Adjust the limits if required.</li>
+                  <li>Develop statements on the limits and policies.</li>
+                  <li>Train the team on a pilot basis.</li>
+                </ul>
+              </li>
+              <li>
+                Measure:
+                <ul className="ps-5 mt-2 space-y-1 list-disc list-inside">
+                  <li>Define current problems.</li>
+                  <li>Convert them to measurements.</li>
+                  <li>Derive metrics.</li>
+                  <li>Establish a metrics collection system.</li>
+                  <li>Define the tools used to analyze metrics and data.</li>
+                </ul>
+              </li>
+            </ul>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 3. Optimize:
+              <span className="font-normal">
+                This step involves the following three activities:
+              </span>
+            </h1>
+
+            <ul className="space-y-4 list-decimal list-inside mt-10">
+              <li>
+                Identify and Improve:
+                <ol className="ps-5 mt-2 space-y-1 list-disc list-inside">
+                  <li>Analyze data.</li>
+                  <li>Establish future value stream.</li>
+                  <li>Identify improvement opportunities.</li>
+                  <li>Prioritize.</li>
+                  <li>Develop action plans.</li>
+                  <li>Implement action plans.</li>
+                  <li>Ensure improvement.</li>
+                </ol>
+              </li>
+              <li>
+                Establish standards:
+                <ul className="ps-5 mt-2 space-y-1 list-disc list-inside">
+                  <li>Revisit limits and policies.</li>
+                  <li>Train the team.</li>
+                  <li>Implement a new process.</li>
+                </ul>
+              </li>
+              <li>
+                Envision for continuous improvement:
+                <ul className="ps-5 mt-2 space-y-1 list-disc list-inside">
+                  <li>
+                    Set up the system to continuously monitor and improve
+                    processes.
+                  </li>
+                  <li>
+                    Make the process, process-driven rather people-driven.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <Separator className="mt-10" />
+
+            <h1 className="text-lg text-gray-800 mt-5">References</h1>
+            <Link
+              href="https://www.geeksforgeeks.org/kanban-agile-methodology/"
+              className="text-gray-500 text-sm mb-5"
+            >
+              Kanban – Agile Methodology
+            </Link>
+
+            <Separator />
           </div>
         </div>
-
-        {isSmallScreen && (
-          <div className="flex flex-col items-center justify-center">
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded1 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[0]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded2 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[1]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded3 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[2]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div
-            className="md:flex py-10 px-8 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-          >
-            {active === 0 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[0]}
-              </div>
-            )}
-            {active === 1 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[1]}
-              </div>
-            )}
-            {active === 2 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[2]}
-              </div>
-            )}
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div className="flex space-x-5 mx-auto">
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(0)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 0 ? "border-cyan-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(1)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 1 ? "border-cyan-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(2)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 2 ? "border-cyan-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-          </div>
-        )}
         <div
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
           <div className="flex flex-col md:flex items-center justify-center w-full">
-            <div className="mt-10">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-
             <div className="flex justify-between my-10 w-full">
               <Button
                 onClick={() => handleLinkClick("scrum")}

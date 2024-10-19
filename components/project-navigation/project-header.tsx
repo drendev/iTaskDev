@@ -32,7 +32,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, Clipboard, MessageCircle, Users } from "lucide-react";
+import {
+  Calendar,
+  ChevronDown,
+  Clipboard,
+  MessageCircle,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -57,8 +63,8 @@ export const ProjectHeader = ({
     router.push(`/projects/${project.id}/tasks`);
   };
 
-  const redirMembers = async () => {
-    router.push(`/projects/${project.id}/members`);
+  const redirCalendar = async () => {
+    router.push(`/projects/${project.id}/calendar/view`);
   };
 
   return (
@@ -177,6 +183,14 @@ export const ProjectHeader = ({
           >
             <Clipboard size={20} />
             Tasks
+          </Button>
+          <Button
+            onClick={() => redirCalendar()}
+            variant={"ghost"}
+            className="flex items-center gap-3"
+          >
+            <Calendar size={20} />
+            Calendar
           </Button>
         </div>
         <Link

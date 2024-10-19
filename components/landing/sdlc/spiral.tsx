@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 interface SDLCProps {
   changeSlide: (activeSlide: string) => void;
@@ -70,210 +72,114 @@ const Spiral: React.FC<SDLCProps> = ({ changeSlide }) => {
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
-          <div className="flex flex-col md:flex items-center justify-center w-full">
+          <div className="flex flex-col md:flex w-full">
             <motion.div
               initial={{ scale: 0 }}
               animate={{
                 scale: 1,
               }}
-              className="text-6xl"
+              className="text-6xl flex items-center justify-center"
             >
               Spiral
             </motion.div>
-            {!sdlcLoaded && (
-              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-40 md:h-72 xl:h-72 rounded-xl" />
-            )}
+
             <Image
               src="/sdlc/spiral.png"
               alt="spiral"
               width={1000}
               height={1000}
-              className={`w-96 mt-10 object-cover ${
-                loaded1 ? "block" : "opacity-0 absolute"
-              }`}
-              onLoad={() => setSdlcLoaded(true)}
+              className="w-[600px] mt-10 object-cover mx-auto"
             />
-            <div className="mt-10">
-              The Waterfall Model was the first Process Model to be introduced.
-              It is also referred to as a linear-sequential life cycle model. It
-              is very simple to understand and use. In a waterfall model, each
-              phase must be completed before the next phase can begin and there
-              is no overlapping in the phases. The Waterfall model is the
-              earliest SDLC approach that was used for software development. The
-              waterfall Model illustrates the software development process in a
-              linear sequential flow. This means that any phase in the
-              development process begins only if the previous phase is complete.
-              In this waterfall model, the phases do not overlap.
-            </div>
+
+            <p className="mt-10 text-justify">
+              The Spiral Model is one of the most important Software Development
+              Life Cycle models. The Spiral Model is a combination of the
+              waterfall model and the iterative model. It provides support for
+              Risk Handling. The Spiral Model was first proposed by Barry Boehm.
+              This article focuses on discussing the Spiral Model in detail.
+            </p>
+
+            <p className="mt-10 text-justify">
+              The Spiral Model is a Software Development Life Cycle (SDLC) model
+              that provides a systematic and iterative approach to software
+              development. In its diagrammatic representation, looks like a
+              spiral with many loops. The exact number of loops of the spiral is
+              unknown and can vary from project to project. Each loop of the
+              spiral is called a phase of the software development process.
+            </p>
+
+            <h1 className="mt-10 text-2xl font-semibold">
+              What Are the Phases of the Spiral Model?
+            </h1>
+
+            <p className="mt-10 text-justify">
+              The Spiral Model is a risk-driven model, meaning that the focus is
+              on managing risk through multiple iterations of the software
+              development process. It consists of the following phases:
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 1 - Objectives Defined:
+            </h1>
+
+            <p className="mt-10 text-justify">
+              In first phase of the spiral model we clarify what the project
+              aims to achieve, including functional and non-functional
+              requirements.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 2 - Risk Analysis:
+            </h1>
+
+            <p className="mt-10 text-justify">
+              In the risk analysis phase, the risks associated with the project
+              are identified and evaluated.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 3 - Engineering:
+            </h1>
+
+            <p className="mt-10 text-justify">
+              In the engineering phase, the software is developed based on the
+              requirements gathered in the previous iteration.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 4 - Evaluation:
+            </h1>
+
+            <p className="mt-10 text-justify">
+              In the evaluation phase, the software is evaluated to determine if
+              it meets the customer’s requirements and if it is of high quality.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Step 5 - Planning:</h1>
+
+            <p className="mt-10 text-justify">
+              The next iteration of the spiral begins with a new planning phase,
+              based on the results of the evaluation.
+            </p>
+
+            <Separator className="mt-10" />
+
+            <h1 className="text-lg text-gray-800 mt-5">References</h1>
+            <Link
+              href="https://www.geeksforgeeks.org/software-engineering-spiral-model/"
+              className="text-gray-500 text-sm mb-5"
+            >
+              What is Spiral Model in Software Engineering?
+            </Link>
+
+            <Separator />
           </div>
         </div>
-
-        {isSmallScreen && (
-          <div className="flex flex-col items-center justify-center">
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded1 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[0]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded2 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[1]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded3 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[2]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div
-            className="md:flex py-10 px-8 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-          >
-            {active === 0 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[0]}
-              </div>
-            )}
-            {active === 1 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[1]}
-              </div>
-            )}
-            {active === 2 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[2]}
-              </div>
-            )}
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div className="flex space-x-5 mx-auto">
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(0)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 0 ? "border-rose-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(1)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 1 ? "border-rose-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(2)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 2 ? "border-rose-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-          </div>
-        )}
         <div
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
           <div className="flex flex-col md:flex items-center justify-center w-full">
-            <div className="mt-10">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-
             <div className="flex justify-between my-10 w-full">
               <Button
                 onClick={() => handleLinkClick("kanban")}

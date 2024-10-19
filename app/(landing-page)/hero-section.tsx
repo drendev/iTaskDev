@@ -32,7 +32,7 @@ const tabs = [
         Learn more <PiArrowRight className="text-sm ml-1" />
       </Link>
     ),
-    image: "/transhumans/astro.png",
+    image: "/samples/landingPics/AISwitch.png",
   },
   {
     icon: (
@@ -48,7 +48,7 @@ const tabs = [
         Learn more <PiArrowRight className="text-sm ml-1" />
       </Link>
     ),
-    image: "/transhumans/bueno.png",
+    image: "/samples/landingPics/ProjectsSwitch.png",
   },
   {
     icon: (
@@ -64,7 +64,7 @@ const tabs = [
         Learn more <PiArrowRight className="text-sm ml-1" />
       </Link>
     ),
-    image: "/transhumans/chaotic-good.png",
+    image: "/samples/landingPics/Communication.png",
   },
   {
     icon: (
@@ -80,7 +80,7 @@ const tabs = [
         Learn more <PiArrowRight className="text-sm ml-1" />
       </Link>
     ),
-    image: "/transhumans/coffee.png",
+    image: "/samples/landingPics/CalendarSwitch.png",
   },
 ];
 
@@ -88,7 +88,6 @@ const HeroSection = () => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-
 
   return (
     <>
@@ -222,20 +221,15 @@ const HeroSection = () => {
           </div>
         )}
         {/* display content based on the active tab on medium size screens and bigger */}
-        <div
-          className="hidden md:flex py-10 px-8 md:px-0 lg:w-3/4
-        2xl:w-[55%]"
-        >
+        <div>
           {activeTab && (
-            <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-              <Image
-                src={activeTab.image}
-                alt="Hero"
-                width={500}
-                height={500}
-                className="w-full border p-20 md:p-8 xl:p-40 rounded-xl shadow-md bg-[#f6f5f4]"
-              />
-            </div>
+            <Image
+              src={activeTab.image}
+              alt="Hero"
+              width={1000}
+              height={1000}
+              className="w-full border p-5 rounded-xl shadow-md bg-[#f6f5f4]"
+            />
           )}
         </div>
       </div>

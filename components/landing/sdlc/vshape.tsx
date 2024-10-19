@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 interface SDLCProps {
   changeSlide: (activeSlide: string) => void;
@@ -70,210 +72,107 @@ const VShape: React.FC<SDLCProps> = ({ changeSlide }) => {
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
-          <div className="flex flex-col md:flex items-center justify-center w-full">
+          <div className="flex flex-col md:flex w-full">
             <motion.div
               initial={{ scale: 0 }}
               animate={{
                 scale: 1,
               }}
-              className="text-6xl"
+              className="text-6xl flex items-center justify-center"
             >
               V-Shape
             </motion.div>
-            {!sdlcLoaded && (
-              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-40 md:h-72 xl:h-72 rounded-xl" />
-            )}
+
             <Image
               src="/sdlc/vshape.png"
               alt="vshape"
               width={1000}
               height={1000}
-              className={`w-[500px] mt-10 object-cover ${
-                loaded1 ? "block" : "opacity-0 absolute"
-              }`}
-              onLoad={() => setSdlcLoaded(true)}
+              className="w-[600px] mt-10 object-cover mx-auto"
             />
-            <div className="mt-10">
-              The Waterfall Model was the first Process Model to be introduced.
-              It is also referred to as a linear-sequential life cycle model. It
-              is very simple to understand and use. In a waterfall model, each
-              phase must be completed before the next phase can begin and there
-              is no overlapping in the phases. The Waterfall model is the
-              earliest SDLC approach that was used for software development. The
-              waterfall Model illustrates the software development process in a
-              linear sequential flow. This means that any phase in the
-              development process begins only if the previous phase is complete.
-              In this waterfall model, the phases do not overlap.
-            </div>
+
+            <p className="mt-10 text-justify">
+              The V-model is a type of SDLC model where the process executes
+              sequentially in a V-shape. It is also known as the Verification
+              and Validation model. It is based on the association of a testing
+              phase for each corresponding development stage. The development of
+              each step is directly associated with the testing phase. The next
+              phase starts only after completion of the previous phase i.e., for
+              each development activity, there is a testing activity
+              corresponding to it.
+            </p>
+
+            <h1 className="mt-10 text-2xl font-semibold">V-Model Design</h1>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 1 - Requirements Gathering and Analysis:
+            </h1>
+
+            <p className="mt-10 text-justify">
+              The first phase of the V-Model is the requirements gathering and
+              analysis phase, where the customer’s requirements for the software
+              are gathered and analyzed to determine the scope of the project.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Step 2 - Design:</h1>
+
+            <p className="mt-10 text-justify">
+              In the design phase, the software architecture and design are
+              developed, including the high-level design and detailed design.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 3 - Implementation:
+            </h1>
+
+            <p className="mt-10 text-justify">
+              In the implementation phase, the software is built based on the
+              design.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Step 4 - Testing:</h1>
+
+            <p className="mt-10 text-justify">
+              In the testing phase, the software is tested to ensure that it
+              meets the customer’s requirements and is of high quality.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 5 - Deployment:
+            </h1>
+
+            <p className="mt-10 text-justify">
+              In the deployment phase, the software is deployed and put into
+              use.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">
+              Step 6 - Maintenance:
+            </h1>
+
+            <p className="mt-10 text-justify">
+              In the maintenance phase, the software is maintained to ensure
+              that it continues to meet the customer’s needs and expectations.
+            </p>
+
+            <Separator className="mt-10" />
+
+            <h1 className="text-lg text-gray-800 mt-5">References</h1>
+            <Link
+              href="https://www.geeksforgeeks.org/software-engineering-sdlc-v-model/"
+              className="text-gray-500 text-sm mb-5"
+            >
+              SDLC V-Model – Software Engineering
+            </Link>
+
+            <Separator />
           </div>
         </div>
-
-        {isSmallScreen && (
-          <div className="flex flex-col items-center justify-center">
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded1 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[0]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded2 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[1]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded3 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[2]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div
-            className="md:flex py-10 px-8 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-          >
-            {active === 0 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[0]}
-              </div>
-            )}
-            {active === 1 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[1]}
-              </div>
-            )}
-            {active === 2 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[2]}
-              </div>
-            )}
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div className="flex space-x-5 mx-auto">
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(0)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 0 ? "border-pink-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(1)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 1 ? "border-pink-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(2)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 2 ? "border-pink-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-          </div>
-        )}
         <div
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
           <div className="flex flex-col md:flex items-center justify-center w-full">
-            <div className="mt-10">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-
             <div className="flex justify-between my-10 w-full">
               <Button
                 onClick={() => handleLinkClick("spiral")}

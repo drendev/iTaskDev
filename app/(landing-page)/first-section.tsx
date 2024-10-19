@@ -27,7 +27,7 @@ const sections = [
     ),
     description:
       "Create ideas, gather feedback from teammates, and set-up your project to success",
-    image: "/samples/iso1.png",
+    image: "/samples/landingPics/Projects.png",
     fig1img: (
       <Image
         src="/samples/idea.gif"
@@ -97,14 +97,10 @@ const sections = [
         Communication
       </div>
     ),
-    header: (
-      <div className="text-6xl">
-       Achieve Teamwork.
-      </div>
-    ),
+    header: <div className="text-6xl">Achieve Teamwork.</div>,
     description:
       "Brainstorm, strategize, and enhance team productivity for successful project outcomes ",
-    image: "/samples/iso1.png",
+    image: "/samples/landingPics/Communication.png",
     fig1img: (
       <Image
         src="/samples/smartphone.gif"
@@ -144,7 +140,8 @@ const sections = [
       />
     ),
     fig2title: "Online Meetings",
-    fig2desc: "Present your ideas virtually with your team with real-time online conferences",
+    fig2desc:
+      "Present your ideas virtually with your team with real-time online conferences",
     fig3img: (
       <Image
         src="/samples/customer-service.gif"
@@ -174,14 +171,10 @@ const sections = [
         Calendar
       </div>
     ),
-    header: (
-      <div className="text-6xl">
-        Optimize your timeframe.
-      </div>
-    ),
+    header: <div className="text-6xl">Optimize your timeframe.</div>,
     description:
       "Make sure time is not wasted with iTaskDev's interactive calendar",
-    image: "/samples/iso1.png",
+    image: "/samples/landingPics/Calendar.png",
     fig1img: (
       <Image
         src="/samples/calendar.gif"
@@ -241,7 +234,8 @@ const sections = [
       />
     ),
     fig3title: "Strategize",
-    fig3desc: "Set-up your team to success with a iTaskDev's visual presentation of dates",
+    fig3desc:
+      "Set-up your team to success with a iTaskDev's visual presentation of dates",
     id: "calendar",
   },
   {
@@ -251,14 +245,10 @@ const sections = [
         AI
       </div>
     ),
-    header: (
-      <div className="text-6xl">
-        Get a magical boost.
-      </div>
-    ),
+    header: <div className="text-6xl">Get a magical boost.</div>,
     description:
       "Make your work easier with the power of Artifical Intelligence",
-    image: "/samples/iso1.png",
+    image: "/samples/landingPics/AI.png",
     fig1img: (
       <Image
         src="/samples/magic-wand.gif"
@@ -318,7 +308,8 @@ const sections = [
       />
     ),
     fig3title: "Power-up your progress",
-    fig3desc: "iTaskDev AI can help you weigh task intensities to optimize project planning",
+    fig3desc:
+      "iTaskDev AI can help you weigh task intensities to optimize project planning",
     id: "ai",
   },
 ];
@@ -397,7 +388,7 @@ const FirstSection = () => {
         >
           <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
             <Image
-              src="/samples/iso1.png"
+              src={section.image}
               alt="bueno"
               width={1000}
               height={1000}
@@ -478,7 +469,7 @@ const FirstSection = () => {
         >
           <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
             <Image
-              src="/samples/iso1.png"
+              src={section.image}
               alt="bueno"
               width={1000}
               height={1000}
@@ -489,7 +480,6 @@ const FirstSection = () => {
       </div>
     ));
   }
-
 };
 
 export default FirstSection;

@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/chart";
 
 import { Progress } from "../ui/progress";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface Workspace {
   dueDate: Date | null;
@@ -264,46 +265,48 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
             <CardTitle>Completed Tasks</CardTitle>
             <CardDescription>Your recent tasks marked as done</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-3 overflow-y-scroll">
-            {doneTasks.length > 0 ? (
-              doneTasks.slice(0, 3).map((task) => (
-                <Card className="shadow-md">
-                  <CardHeader>
-                    <CardTitle className="text-base mb-2">
-                      <div className="flex items-center gap-3">
-                        <Badge className="bg-emerald-500">Done</Badge>
-                        <p>{task.taskContent}</p>
-                      </div>
-                    </CardTitle>
-                    <CardDescription className="text-xs">
-                      {`Completed:  ${task.taskDateCompleted?.toDateString()}`}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex gap-3">
-                    {sdlcData.map((color, index) => {
-                      if (color.sdlc === task.projectSDLC) {
-                        return <SdlcBlock color={color.color} />;
-                      }
-                      return null;
-                    })}
-                    <p className="text-xs">{task.projectName}</p>
-                  </CardContent>
-                </Card>
-              ))
-            ) : (
-              <div className="flex flex-col items-center justify-center mx-auto">
-                <Image
-                  src="/transhumans/puppy.png"
-                  alt="No projects"
-                  height={200}
-                  width={200}
-                />
-                <div className="text-center">
-                  Create your first project or Join a project with an invitation
-                  link
+          <CardContent>
+            <ScrollArea className="h-96">
+              {doneTasks.length > 0 ? (
+                doneTasks.slice(0, 5).map((task) => (
+                  <Card className="shadow-md mb-3">
+                    <CardHeader>
+                      <CardTitle className="text-base mb-2">
+                        <div className="flex items-center gap-3">
+                          <Badge className="bg-emerald-500">Done</Badge>
+                          <p>{task.taskContent}</p>
+                        </div>
+                      </CardTitle>
+                      <CardDescription className="text-xs">
+                        {`Completed:  ${task.taskDateCompleted?.toDateString()}`}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex gap-3">
+                      {sdlcData.map((color, index) => {
+                        if (color.sdlc === task.projectSDLC) {
+                          return <SdlcBlock color={color.color} />;
+                        }
+                        return null;
+                      })}
+                      <p className="text-xs">{task.projectName}</p>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className="flex flex-col items-center justify-center mx-auto">
+                  <Image
+                    src="/transhumans/puppy.png"
+                    alt="No projects"
+                    height={200}
+                    width={200}
+                  />
+                  <div className="text-center">
+                    Create your first project or Join a project with an
+                    invitation link
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </ScrollArea>
           </CardContent>
         </Card>
         <Card className="col-span-3">

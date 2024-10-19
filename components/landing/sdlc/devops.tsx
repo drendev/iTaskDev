@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 interface SDLCProps {
   changeSlide: (activeSlide: string) => void;
@@ -70,209 +72,138 @@ const DevOps: React.FC<SDLCProps> = ({ changeSlide }) => {
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
-          <div className="flex flex-col md:flex items-center justify-center w-full">
+          <div className="flex flex-col md:flex w-full">
             <motion.div
               initial={{ scale: 0 }}
               animate={{
                 scale: 1,
               }}
-              className="text-6xl"
+              className="text-6xl flex items-center justify-center"
             >
               DevOps
             </motion.div>
-            {!sdlcLoaded && (
-              <Skeleton className="w-full px-5 lg:w-96 mt-10 h-40 md:h-72 xl:h-72 rounded-xl" />
-            )}
+
             <Image
               src="/sdlc/devops.png"
               alt="devops"
               width={1000}
               height={1000}
-              className={`w-96 mt-10 object-cover ${
-                loaded1 ? "block" : "opacity-0 absolute"
-              }`}
-              onLoad={() => setSdlcLoaded(true)}
+              className="w-[600px] mt-10 object-cover mx-auto"
             />
-            <div className="mt-10">
-              The Waterfall Model was the first Process Model to be introduced.
-              It is also referred to as a linear-sequential life cycle model. It
-              is very simple to understand and use. In a waterfall model, each
-              phase must be completed before the next phase can begin and there
-              is no overlapping in the phases. The Waterfall model is the
-              earliest SDLC approach that was used for software development. The
-              waterfall Model illustrates the software development process in a
-              linear sequential flow. This means that any phase in the
-              development process begins only if the previous phase is complete.
-              In this waterfall model, the phases do not overlap.
-            </div>
+
+            <p className="mt-10 text-justify">
+              DevOps is a software development process that emphasises developer
+              and operations team communication. It promotes timely feedback,
+              which expedites the identification of any flaws or problems during
+              the development process. This makes it an ideal strategy for
+              large-scale endeavours.
+            </p>
+
+            <h1 className="mt-10 text-2xl font-semibold">
+              What are the Different Phases of the DevOps lifecycle
+            </h1>
+
+            <h1 className="mt-10 text-xl font-semibold">Plan</h1>
+
+            <p className="mt-10 text-justify">
+              The planning phase is exactly what it sounds like: planning the
+              project’s lifecycle. In contrast to conventional methods to the
+              development lifecycle, this model assumes that each stage will be
+              repeated as necessary. In this manner, the DevOps workflow is
+              planned with the likelihood of future iterations and likely prior
+              versions in mind.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Code</h1>
+
+            <p className="mt-10 text-justify">
+              The developers will write the code and prepare it for the next
+              phase during the coding stage. Developers will write code in
+              accordance with the specifications outlined in the planning phase
+              and will ensure that the code is created with the project’s
+              operations in mind.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Build</h1>
+
+            <p className="mt-10 text-justify">
+              Code will be introduced to the project during the construction
+              phase, and if necessary, the project will be rebuilt to
+              accommodate the new code. This can be accomplished in a variety of
+              ways, although GitHub or a comparable version control site is
+              frequently used.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Test</h1>
+
+            <p className="mt-10 text-justify">
+              Throughout the testing phase, teams will do any necessary testing
+              to ensure the project performs as planned. Teams will also test
+              for edge and corner case issues at this stage. An “edge case” is a
+              bug or issue that only manifests during an extreme operating
+              event, whereas a “corner case” occurs when many circumstances are
+              met.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Release</h1>
+
+            <p className="mt-10 text-justify">
+              The release phase occurs when the code has been verified as ready
+              for deployment and a last check for production readiness has been
+              performed. The project will subsequently enter the deployment
+              phase if it satisfies all requirements and has been thoroughly
+              inspected for bugs and other problems.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Deploy</h1>
+
+            <p className="mt-10 text-justify">
+              In the deploy phase, the project is prepared for the production
+              environment and is operating as planned in that environment. This
+              would be the responsibility of the operations team; in DevOps, it
+              is a shared responsibility. This shared duty pushes team members
+              to collaborate to guarantee a successful deployment.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Operate</h1>
+
+            <p className="mt-10 text-justify">
+              In the operating phase, teams test the project in a production
+              environment, and end users utilise the product. This crucial stage
+              is by no means the final step. Rather, it informs future
+              development cycles and manages the configuration of the production
+              environment and the implementation of any runtime requirements.
+            </p>
+
+            <h1 className="mt-10 text-xl font-semibold">Monitor </h1>
+
+            <p className="mt-10 text-justify">
+              During the monitoring phase, product usage, as well as any
+              feedback, issues, or possibilities for improvement, are recognized
+              and documented. This information is then conveyed to the
+              subsequent iteration to aid in the development process. This phase
+              is essential for planning the next iteration and streamlines the
+              pipeline’s development process.
+            </p>
+
+            <Separator className="mt-10" />
+
+            <h1 className="text-lg text-gray-800 mt-5">References</h1>
+            <Link
+              href="https://www.browserstack.com/guide/devops-lifecycle"
+              className="text-gray-500 text-sm mb-5"
+            >
+              DevOps Lifecycle : Different Phases in DevOps
+            </Link>
+
+            <Separator />
           </div>
         </div>
-
-        {isSmallScreen && (
-          <div className="flex flex-col items-center justify-center">
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded1 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[0]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded2 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[1]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-
-            <div
-              className="md:flex py-10 px-10 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-            >
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {!loaded3 && (
-                  <Skeleton className="w-full h-32 md:h-96 xl:h-[490px] rounded-xl" />
-                )}
-                {demoImages[2]}
-              </div>
-            </div>
-
-            <div className="flex flex-col w-52 text-center">
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div
-            className="md:flex py-10 px-8 md:w-[90%] md:px-0 lg:w-3/4
-2xl:w-[55%]"
-          >
-            {active === 0 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[0]}
-              </div>
-            )}
-            {active === 1 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[1]}
-              </div>
-            )}
-            {active === 2 && (
-              <div className="md:flex items-center justify-center space-x-6 hover:cursor-pointer w-full">
-                {demoImages[2]}
-              </div>
-            )}
-          </div>
-        )}
-
-        {!isSmallScreen && (
-          <div className="flex space-x-5 mx-auto">
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(0)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 0 ? "border-fuchsia-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(1)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 1 ? "border-fuchsia-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                boxShadow: "1px 0px 21px 11px rgba(0, 0, 0, 0.17)",
-              }}
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={() => changeActive(2)}
-              className={`border-2 p-5 rounded-lg md:w-56 lg:w-60 xl:w-72
-        
-        
-        ${active === 2 ? "border-fuchsia-500 " : "border-gray-300"}`}
-            >
-              <p className="text-sm">Building blocks</p>
-              <div className="text-xs text-gray-400 mt-2">
-                100+ content types to communicate any idea.
-              </div>
-            </motion.div>
-          </div>
-        )}
         <div
           className="md:flex px-10 md:w-[90%] md:px-0 lg:w-3/4
   2xl:w-[55%]"
         >
           <div className="flex flex-col md:flex items-center justify-center w-full">
-            <div className="mt-10">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
             <div className="flex justify-between my-10 w-full">
               <Button
                 onClick={() => handleLinkClick("lean")}
