@@ -30,6 +30,10 @@ import { ProjectOverviewCard } from "./project-overview";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { TasksIntensity } from "../tasks/(createtask)/taskintensity/_components/render-tasks-intensity";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 
 export const ProjectTasksCard = ({ projectId }: RecentCommitsCardProps) => {
   const { data, status } = useTasksQuery({
@@ -122,68 +126,110 @@ export const ProjectTasksCard = ({ projectId }: RecentCommitsCardProps) => {
 
             {/* Upcoming Tasks */}
             <TabsContent value="projecttasks" className="space-y-5">
-              {pendingTasks.slice(0, 5).map((task: any, index: number) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <CardTitle className="text-lg flex items-center gap-3">
-                        {task.taskMembers.map((member: any) => (
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <Avatar>
-                                  <AvatarImage
-                                    src={member.memberImage}
-                                  ></AvatarImage>
-                                </Avatar>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                {member.memberUsername}
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        ))}
+              {pendingTasks.length > 0 ? (
+                pendingTasks.slice(0, 5).map((task: any, index: number) => (
+                  <Card key={index}>
+                    <CardHeader>
+                      <div className="flex justify-between items-center">
+                        <CardTitle className="text-lg flex items-center gap-3">
+                          {task.taskMembers.map((member: any) => (
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <Avatar>
+                                    <AvatarImage
+                                      src={member.memberImage}
+                                    ></AvatarImage>
+                                  </Avatar>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  {member.memberUsername}
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          ))}
 
-                        <Badge>{task.taskIntensity}</Badge>
-                      </CardTitle>
+                          <Badge>{task.taskIntensity}</Badge>
+                        </CardTitle>
+                      </div>
+                      <CardDescription>{task.taskContent}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-2"></CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div>
+                  <div>
+                    <Image
+                      src={"/transhumans/waiting.png"}
+                      alt="No tasks"
+                      width={300}
+                      height={300}
+                    />
+                    <p className="flex justify-center">No tasks right now</p>
+                    <div className="flex justify-center mt-3">
+                      <Link href={`/projects/${projectId}/tasks/taskcontent`}>
+                        <Button className="flex items-center gap-3">
+                          Add Tasks <Plus size={20} />
+                        </Button>
+                      </Link>
                     </div>
-                    <CardDescription>{task.taskContent}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-2"></CardContent>
-                </Card>
-              ))}
+                  </div>
+                </div>
+              )}
             </TabsContent>
             <TabsContent value="mytasks" className="space-y-5">
-              {userTasks.slice(0, 5).map((task: any, index: number) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <CardTitle className="text-lg flex items-center gap-3">
-                        {task.taskMembers.map((member: any) => (
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <Avatar>
-                                  <AvatarImage
-                                    src={member.memberImage}
-                                  ></AvatarImage>
-                                </Avatar>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                {member.memberUsername}
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        ))}
+              {userTasks.length > 0 ? (
+                userTasks.slice(0, 5).map((task: any, index: number) => (
+                  <Card key={index}>
+                    <CardHeader>
+                      <div className="flex justify-between items-center">
+                        <CardTitle className="text-lg flex items-center gap-3">
+                          {task.taskMembers.map((member: any) => (
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <Avatar>
+                                    <AvatarImage
+                                      src={member.memberImage}
+                                    ></AvatarImage>
+                                  </Avatar>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  {member.memberUsername}
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          ))}
 
-                        <Badge>{task.taskIntensity}</Badge>
-                      </CardTitle>
+                          <Badge>{task.taskIntensity}</Badge>
+                        </CardTitle>
+                      </div>
+                      <CardDescription>{task.taskContent}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-2"></CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div>
+                  <div>
+                    <Image
+                      src={"/transhumans/waiting.png"}
+                      alt="No tasks"
+                      width={300}
+                      height={300}
+                    />
+                    <p className="flex justify-center">No tasks right now</p>
+                    <div className="flex justify-center mt-3">
+                      <Link href={`/projects/${projectId}/tasks/taskcontent`}>
+                        <Button className="flex items-center gap-3">
+                          Add Tasks <Plus size={20} />
+                        </Button>
+                      </Link>
                     </div>
-                    <CardDescription>{task.taskContent}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-2"></CardContent>
-                </Card>
-              ))}
+                  </div>
+                </div>
+              )}
             </TabsContent>
           </Tabs>
         </CardContent>

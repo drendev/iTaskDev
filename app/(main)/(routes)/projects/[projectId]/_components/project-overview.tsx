@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/chart";
 
 import { Label, Pie, PieChart } from "recharts";
+import Image from "next/image";
 
 interface ChartStatistics {
   pendingTotal: number;
@@ -103,58 +104,73 @@ export const ProjectOverviewCard = ({
           <CardTitle>Tasks Overview</CardTitle>
         </CardHeader>
         <CardContent>
-          <ChartContainer
-            config={chartConfig}
-            className="mx-auto aspect-square max-h-[250px]"
-          >
-            <PieChart>
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
-              <Pie
-                data={chartData}
-                dataKey="tasks"
-                nameKey="status"
-                innerRadius={60}
-                strokeWidth={5}
-              >
-                <Label
-                  content={({ viewBox }) => {
-                    if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                      return (
-                        <text
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          textAnchor="middle"
-                          dominantBaseline="middle"
-                        >
-                          <tspan
+          {tasks.pendingTotal === 0 && tasks.doneTotal === 0 ? (
+            <div className="flex flex-col justify-center items-center mx-auto">
+              <div>
+                <Image
+                  src="/transhumans/growth.png"
+                  alt="No tasks yet"
+                  height={200}
+                  width={200}
+                  className="flex justify-center"
+                />
+              </div>
+              <div>Add tasks and start your project</div>
+            </div>
+          ) : (
+            <ChartContainer
+              config={chartConfig}
+              className="mx-auto aspect-square max-h-[250px]"
+            >
+              <PieChart>
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Pie
+                  data={chartData}
+                  dataKey="tasks"
+                  nameKey="status"
+                  innerRadius={60}
+                  strokeWidth={5}
+                >
+                  <Label
+                    content={({ viewBox }) => {
+                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                        return (
+                          <text
                             x={viewBox.cx}
                             y={viewBox.cy}
-                            className="fill-foreground text-3xl font-bold"
+                            textAnchor="middle"
+                            dominantBaseline="middle"
                           >
-                            {tasks.totalTasks}
-                          </tspan>
-                          <tspan
-                            x={viewBox.cx}
-                            y={(viewBox.cy || 0) + 24}
-                            className="fill-muted-foreground"
-                          >
-                            Tasks
-                          </tspan>
-                        </text>
-                      );
-                    }
-                  }}
+                            <tspan
+                              x={viewBox.cx}
+                              y={viewBox.cy}
+                              className="fill-foreground text-3xl font-bold"
+                            >
+                              {tasks.totalTasks}
+                            </tspan>
+                            <tspan
+                              x={viewBox.cx}
+                              y={(viewBox.cy || 0) + 24}
+                              className="fill-muted-foreground"
+                            >
+                              Tasks
+                            </tspan>
+                          </text>
+                        );
+                      }
+                    }}
+                  />
+                </Pie>
+                <ChartLegend
+                  content={<ChartLegendContent nameKey="status" />}
+                  className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
                 />
-              </Pie>
-              <ChartLegend
-                content={<ChartLegendContent nameKey="status" />}
-                className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
-              />
-            </PieChart>
-          </ChartContainer>
+              </PieChart>
+            </ChartContainer>
+          )}
         </CardContent>
         <CardFooter className="flex justify-between"></CardFooter>
       </Card>
@@ -205,7 +221,7 @@ export const ProjectOverviewCard = ({
                             y={viewBox.cy}
                             className="fill-foreground text-4xl font-bold"
                           >
-                            {progressPercentage}%
+                            {progressPercentage ? progressPercentage : "0"}%
                           </tspan>
                           <tspan
                             x={viewBox.cx}

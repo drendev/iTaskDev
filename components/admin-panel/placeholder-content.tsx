@@ -32,6 +32,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
+import { Progress } from "../ui/progress";
+
 interface Workspace {
   dueDate: Date | null;
   workspace: {
@@ -203,43 +205,58 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
             </div>
           </CardHeader>
           <CardContent>
-            {project.map((proj, index) => (
-              <button
-                onClick={() => router.push(`/projects/${proj.workspace.id}`)}
-                className="w-full"
-              >
-                <Card
-                  className="mb-5 mr-5 hover:bg-zinc-100 flex shadow-md"
-                  key={index}
+            {project.length > 0 ? (
+              project.map((proj, index) => (
+                <button
+                  onClick={() => router.push(`/projects/${proj.workspace.id}`)}
+                  className="w-full"
                 >
-                  <div className="flex">
-                    {sdlcData.map((color, index) => {
-                      if (color.sdlc === proj.workspace.sdlc) {
-                        return (
-                          <>
-                            <SdlcBlock color={color.color} />
-                          </>
-                        );
-                      }
-                      return null;
-                    })}
-                    <div>
-                      <CardHeader>
-                        <p className="flex font-semibold text-lg">
-                          {proj.workspace.name}
-                        </p>
-                        <p className="flex">
-                          {" "}
-                          {proj.dueDate
-                            ? proj.dueDate.toDateString()
-                            : "On-Going"}
-                        </p>
-                      </CardHeader>
+                  <Card
+                    className="mb-5 mr-5 hover:bg-zinc-100 flex shadow-md"
+                    key={index}
+                  >
+                    <div className="flex">
+                      {sdlcData.map((color, index) => {
+                        if (color.sdlc === proj.workspace.sdlc) {
+                          return (
+                            <>
+                              <SdlcBlock color={color.color} />
+                            </>
+                          );
+                        }
+                        return null;
+                      })}
+                      <div>
+                        <CardHeader>
+                          <p className="flex font-semibold text-lg">
+                            {proj.workspace.name}
+                          </p>
+                          <p className="flex">
+                            {" "}
+                            {proj.dueDate
+                              ? proj.dueDate.toDateString()
+                              : "On-Going"}
+                          </p>
+                        </CardHeader>
+                      </div>
                     </div>
-                  </div>
-                </Card>
-              </button>
-            ))}
+                  </Card>
+                </button>
+              ))
+            ) : (
+              <div className="flex flex-col items-center justify-center mx-auto">
+                <Image
+                  src="/transhumans/roboto.png"
+                  alt="No projects"
+                  height={300}
+                  width={300}
+                />
+                <div>
+                  Create your first project or Join a project with an invitation
+                  link
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
         <Card className="col-span-2">
@@ -248,30 +265,45 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
             <CardDescription>Your recent tasks marked as done</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 overflow-y-scroll">
-            {doneTasks.slice(0, 3).map((task) => (
-              <Card className="shadow-md">
-                <CardHeader>
-                  <CardTitle className="text-base mb-2">
-                    <div className="flex items-center gap-3">
-                      <Badge className="bg-emerald-500">Done</Badge>
-                      <p>{task.taskContent}</p>
-                    </div>
-                  </CardTitle>
-                  <CardDescription className="text-xs">
-                    {`Completed:  ${task.taskDateCompleted?.toDateString()}`}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex gap-3">
-                  {sdlcData.map((color, index) => {
-                    if (color.sdlc === task.projectSDLC) {
-                      return <SdlcBlock color={color.color} />;
-                    }
-                    return null;
-                  })}
-                  <p className="text-xs">{task.projectName}</p>
-                </CardContent>
-              </Card>
-            ))}
+            {doneTasks.length > 0 ? (
+              doneTasks.slice(0, 3).map((task) => (
+                <Card className="shadow-md">
+                  <CardHeader>
+                    <CardTitle className="text-base mb-2">
+                      <div className="flex items-center gap-3">
+                        <Badge className="bg-emerald-500">Done</Badge>
+                        <p>{task.taskContent}</p>
+                      </div>
+                    </CardTitle>
+                    <CardDescription className="text-xs">
+                      {`Completed:  ${task.taskDateCompleted?.toDateString()}`}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex gap-3">
+                    {sdlcData.map((color, index) => {
+                      if (color.sdlc === task.projectSDLC) {
+                        return <SdlcBlock color={color.color} />;
+                      }
+                      return null;
+                    })}
+                    <p className="text-xs">{task.projectName}</p>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <div className="flex flex-col items-center justify-center mx-auto">
+                <Image
+                  src="/transhumans/puppy.png"
+                  alt="No projects"
+                  height={200}
+                  width={200}
+                />
+                <div className="text-center">
+                  Create your first project or Join a project with an invitation
+                  link
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
         <Card className="col-span-3">
@@ -319,8 +351,34 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
             <CardTitle>Project Progress</CardTitle>
             <CardDescription>Projects that are almost done</CardDescription>
           </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
+          <CardContent className="space-y-4">
+            {progressCalculate.length > 0 ? (
+              progressCalculate.slice(0, 5).map((project) => (
+                <div>
+                  <div className="flex items-center gap-3">
+                    <p className="w-56">{project.projectName}</p>
+                    <Progress value={project.progress} />
+                    <p className="w-20">
+                      {project.progress ? project.progress : "0"}%
+                    </p>
+                  </div>
+                  <Separator className="mt-5" />
+                </div>
+              ))
+            ) : (
+              <div className="flex flex-col items-center justify-center mx-auto">
+                <Image
+                  src="/transhumans/new-beginnings.png"
+                  alt="No projects"
+                  height={300}
+                  width={300}
+                />
+                <div className="text-center">
+                  Create your first project or Join a project with an invitation
+                  link
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

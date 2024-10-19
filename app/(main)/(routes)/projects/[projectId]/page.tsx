@@ -106,17 +106,12 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
       <div className="grid grid-cols-4 mt-6 gap-5">
         <ProjectTasksCard projectId={params.projectId} />
 
-        {/*  */}
-
-        {/* Recent Commit Card */}
-
         <RecentCommitsCard
           repo={repo}
           owner={owner}
           projectId={params.projectId}
         />
 
-        {/*  */}
         <TaskPerMonthCard projectId={params.projectId} />
       </div>
     </>

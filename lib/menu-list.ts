@@ -60,9 +60,9 @@ export function getMenuList(pathname: string): Group[] {
           submenus: [],
         },
         {
-          href: "/tasks",
+          href: "/tasksPage",
           label: "Tasks",
-          active: pathname.includes("/tasks"),
+          active: pathname.includes("/tasksPage"),
           icon: ClipboardCheck,
           submenus: [],
         },
