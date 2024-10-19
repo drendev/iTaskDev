@@ -129,7 +129,7 @@ export const RenderInformation = ({ info }: RenderInformationProps) => {
               </CardHeader>
               <CardContent className="text-sm">
                 {info.reqs.map((req, index) => (
-                  <div>{req}</div>
+                  <div key={index}>{req}</div>
                 ))}
               </CardContent>
               <CardFooter className="flex justify-between"></CardFooter>

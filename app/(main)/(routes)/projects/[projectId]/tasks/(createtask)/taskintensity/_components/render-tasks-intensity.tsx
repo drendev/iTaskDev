@@ -223,7 +223,7 @@ export const TasksIntensity = () => {
                               </TooltipTrigger>
                               <TooltipContent>
                                 <p className="text-sm font-normal">
-                                  Can't identify task intensity
+                                  Can&apos;t identify task intensity
                                 </p>
                               </TooltipContent>
                             </Tooltip>

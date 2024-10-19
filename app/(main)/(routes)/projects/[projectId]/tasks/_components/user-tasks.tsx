@@ -158,7 +158,7 @@ const UserTasks = ({ tasks, projectId }: UserTasksProps) => {
                   </TableHeader>
                   <TableBody>
                     {pendingTasks.map((task, index) => (
-                      <TableRow>
+                      <TableRow key={index}>
                         <TableCell>{task.taskContent}</TableCell>
                         <TableCell>{task.taskIntensity}</TableCell>
                         <TableCell>
@@ -166,7 +166,7 @@ const UserTasks = ({ tasks, projectId }: UserTasksProps) => {
                         </TableCell>
                         <TableCell className="flex gap-3">
                           {task.taskMembers.map((member) => (
-                            <Avatar>
+                            <Avatar key={member.memberId}>
                               <AvatarImage src={member.memberAvatar} />
                               <AvatarFallback>
                                 {member.memberUsername}
@@ -253,7 +253,7 @@ const UserTasks = ({ tasks, projectId }: UserTasksProps) => {
                         </TableHeader>
                         <TableBody>
                           {doneTasks.map((task, index) => (
-                            <TableRow>
+                            <TableRow key={index}>
                               <TableCell>{task.taskContent}</TableCell>
                               <TableCell>{task.taskIntensity}</TableCell>
                               <TableCell>
@@ -261,7 +261,7 @@ const UserTasks = ({ tasks, projectId }: UserTasksProps) => {
                               </TableCell>
                               <TableCell className="flex gap-3">
                                 {task.taskMembers.map((member) => (
-                                  <Avatar>
+                                  <Avatar key={member.memberId}>
                                     <AvatarImage src={member.memberAvatar} />
                                     <AvatarFallback>
                                       {member.memberUsername}

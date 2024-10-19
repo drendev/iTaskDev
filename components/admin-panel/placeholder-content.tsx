@@ -208,6 +208,7 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
             {project.length > 0 ? (
               project.map((proj, index) => (
                 <button
+                  key={index}
                   onClick={() => router.push(`/projects/${proj.workspace.id}`)}
                   className="w-full"
                 >
@@ -266,8 +267,8 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
           </CardHeader>
           <CardContent className="space-y-3 overflow-y-scroll">
             {doneTasks.length > 0 ? (
-              doneTasks.slice(0, 3).map((task) => (
-                <Card className="shadow-md">
+              doneTasks.slice(0, 3).map((task, index) => (
+                <Card key={index} className="shadow-md">
                   <CardHeader>
                     <CardTitle className="text-base mb-2">
                       <div className="flex items-center gap-3">
@@ -282,7 +283,7 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
                   <CardContent className="flex gap-3">
                     {sdlcData.map((color, index) => {
                       if (color.sdlc === task.projectSDLC) {
-                        return <SdlcBlock color={color.color} />;
+                        return <SdlcBlock key={index} color={color.color} />;
                       }
                       return null;
                     })}
@@ -353,8 +354,8 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
           </CardHeader>
           <CardContent className="space-y-4">
             {progressCalculate.length > 0 ? (
-              progressCalculate.slice(0, 5).map((project) => (
-                <div>
+              progressCalculate.slice(0, 5).map((project, index) => (
+                <div key={index}>
                   <div className="flex items-center gap-3">
                     <p className="w-56">{project.projectName}</p>
                     <Progress value={project.progress} />
