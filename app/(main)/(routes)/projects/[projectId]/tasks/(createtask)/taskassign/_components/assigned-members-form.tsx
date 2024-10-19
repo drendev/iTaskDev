@@ -216,7 +216,7 @@ const AssignedMembersForm = () => {
                                     </TableHeader>
                                     <TableBody>
                                       {task.members.map((member, index) => (
-                                        <TableRow className="w-20">
+                                        <TableRow key={index} className="w-20">
                                           <TableCell className="flex text-start justify-between">
                                             <div className="flex items-center gap-3">
                                               <Avatar>

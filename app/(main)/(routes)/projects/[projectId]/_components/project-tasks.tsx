@@ -133,7 +133,7 @@ export const ProjectTasksCard = ({ projectId }: RecentCommitsCardProps) => {
                       <div className="flex justify-between items-center">
                         <CardTitle className="text-lg flex items-center gap-3">
                           {task.taskMembers.map((member: any) => (
-                            <TooltipProvider>
+                            <TooltipProvider key={member.id}>
                               <Tooltip>
                                 <TooltipTrigger>
                                   <Avatar>
@@ -186,7 +186,7 @@ export const ProjectTasksCard = ({ projectId }: RecentCommitsCardProps) => {
                       <div className="flex justify-between items-center">
                         <CardTitle className="text-lg flex items-center gap-3">
                           {task.taskMembers.map((member: any) => (
-                            <TooltipProvider>
+                            <TooltipProvider key={member.id}>
                               <Tooltip>
                                 <TooltipTrigger>
                                   <Avatar>

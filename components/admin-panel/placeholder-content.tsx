@@ -209,6 +209,7 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
             {project.length > 0 ? (
               project.map((proj, index) => (
                 <button
+                  key={index}
                   onClick={() => router.push(`/projects/${proj.workspace.id}`)}
                   className="w-full"
                 >
@@ -356,8 +357,8 @@ const PlaceholderContent = ({ project, tasks, progress }: ProjectByTasks) => {
           </CardHeader>
           <CardContent className="space-y-4">
             {progressCalculate.length > 0 ? (
-              progressCalculate.slice(0, 5).map((project) => (
-                <div>
+              progressCalculate.slice(0, 5).map((project, index) => (
+                <div key={index}>
                   <div className="flex items-center gap-3">
                     <p className="w-56">{project.projectName}</p>
                     <Progress value={project.progress} />
