@@ -1,10 +1,6 @@
 import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-
-import AllTasksCard from "@/components/task-list/alltaskscard";
-import AssignedToYouCard from "@/components/task-list/assignedtoyoucard";
-import TasksListHeader from "@/components/task-list/taskslistheader";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import UserTasks from "./_components/user-tasks";
